@@ -8,15 +8,14 @@ var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
 var egg_positions:Array[Vector2] = []
-var num_chickens:int = 1
+var num_chickens:int = 10
 var chicken_sprite_size:int = 24
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
 	for i in range(num_chickens):
-		chicken_positions.append(Vector2(randf_range(0,0),randf_range(0,0)))
-		chicken_scales.append(2.0)
-		egg_positions.append(Vector2(randf_range(0,500),randf_range(0,500)))
+		chicken_positions.append(Vector2(randf_range(0,1000),randf_range(0,1000)))
+		chicken_scales.append(1.0)
 		pass
 	show_eggs()
 	show_chickens()

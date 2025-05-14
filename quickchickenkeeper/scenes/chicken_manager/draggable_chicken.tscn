@@ -3,18 +3,9 @@
 [ext_resource type="Script" uid="uid://c3f21obiwbs8o" path="res://scripts/chicken_manager/draggable_chicken.gd" id="1_fd66t"]
 [ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="2_fd66t"]
 
-[node name="DraggableChicken" type="Control" node_paths=PackedStringArray("image")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_fd66t")
-image = NodePath("TextureRect")
-
-[node name="TextureRect" type="Sprite2D" parent="."]
+[node name="DraggableChicken" type="Sprite2D"]
 texture = ExtResource("2_fd66t")
 region_enabled = true
 region_rect = Rect2(0, 0, 24, 24)
 region_filter_clip_enabled = true
+script = ExtResource("1_fd66t")

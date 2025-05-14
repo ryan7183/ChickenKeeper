@@ -22,13 +22,8 @@ size_flags_vertical = 3
 
 [node name="MenuButton" type="Button" parent="VBoxContainer/TopBar"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 text = "Menu"
-
-[node name="InventoryButton" type="Button" parent="VBoxContainer/TopBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Inventory"
 
 [node name="PopupUI" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -56,22 +51,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.25098, 0.25098, 0.25098, 1)
+color = Color(0.25098, 0.25098, 0.67451, 0.137255)
 
-[node name="Inventory" type="Control" parent="VBoxContainer/PopupUI"]
-visible = false
-custom_minimum_size = Vector2(200, 0)
+[node name="ButtomButtons" type="Control" parent="VBoxContainer/PopupUI"]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 200.0
-grow_vertical = 2
+offset_top = -43.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PopupUI/Inventory"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PopupUI/ButtomButtons"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.160784)
+alignment = 1
+
+[node name="FenceButton" type="Button" parent="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Fences"
+
+[node name="DirtButton" type="Button" parent="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Dirt
+"
+
+[node name="WaterButton" type="Button" parent="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Water"
