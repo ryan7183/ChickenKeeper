@@ -5,18 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="2_u4uib"]
 [ext_resource type="Texture2D" uid="uid://culqlm5ccbba" path="res://assets/sprites/egg/egg.png" id="3_mjmo4"]
 
+[sub_resource type="QuadMesh" id="QuadMesh_mjmo4"]
+size = Vector2(32, -32)
+
+[sub_resource type="MultiMesh" id="MultiMesh_mjmo4"]
+mesh = SubResource("QuadMesh_mjmo4")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h20h7"]
 shader = ExtResource("2_5hx5s")
 shader_parameter/atlas_grid_size = Vector2(384, 144)
 shader_parameter/tile_texture_size = Vector2(24, 24)
 
-[sub_resource type="QuadMesh" id="QuadMesh_mjmo4"]
-size = Vector2(32, -32)
-
 [sub_resource type="MultiMesh" id="MultiMesh_5hx5s"]
-mesh = SubResource("QuadMesh_mjmo4")
-
-[sub_resource type="MultiMesh" id="MultiMesh_mjmo4"]
 mesh = SubResource("QuadMesh_mjmo4")
 
 [node name="ChickenManager" type="Node2D" node_paths=PackedStringArray("chicken_multi_mesh", "egg_multi_mesh")]
@@ -24,11 +24,11 @@ script = ExtResource("1_jwdd3")
 chicken_multi_mesh = NodePath("ChickenMultiMeshInstance2D")
 egg_multi_mesh = NodePath("EggMultiMeshInstance2D")
 
+[node name="EggMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_mjmo4")
+texture = ExtResource("3_mjmo4")
+
 [node name="ChickenMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
 material = SubResource("ShaderMaterial_h20h7")
 multimesh = SubResource("MultiMesh_5hx5s")
 texture = ExtResource("2_u4uib")
-
-[node name="EggMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
-multimesh = SubResource("MultiMesh_mjmo4")
-texture = ExtResource("3_mjmo4")

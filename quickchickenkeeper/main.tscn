@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6p5rtj82urcp"]
+[gd_scene load_steps=11 format=3 uid="uid://c6p5rtj82urcp"]
 
 [ext_resource type="Script" uid="uid://cfdt26cljr6o6" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://xuuctnpdotge" path="res://assets/sprites/terrain/overworld_tileset_grass_with_dirt.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bjcogltpwheam" path="res://assets/sprites/terrain/Adventure Awaits Asset Pack 1.0.png" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://n5gtido1mdxt" path="res://scenes/UI.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_7mycd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 texture = ExtResource("1_ig7tw")
@@ -256,6 +257,7 @@ texture = ExtResource("2_0xm2m")
 sources/0 = SubResource("TileSetAtlasSource_lquwl")
 
 [node name="Main" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_h2yge")
 
 [node name="TerrainTileMapLayer" type="TileMapLayer" parent="."]
@@ -265,6 +267,9 @@ tile_set = SubResource("TileSet_1bvp3")
 tile_set = SubResource("TileSet_7mycd")
 
 [node name="ChickenManager" parent="." instance=ExtResource("4_lquwl")]
+
+[node name="Camera" parent="." instance=ExtResource("5_7mycd")]
+position = Vector2(963, 540)
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
