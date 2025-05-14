@@ -37,7 +37,6 @@ func get_save_data()->Dictionary:
 
 func apply_save_data(data:Dictionary)->void:
 	for i:int in data["chicken_positions"].size():
-		print(data["chicken_positions"][i])
 		var vector:Vector2 = str_to_var("Vector2" + (data["chicken_positions"][i]))
 		var chicken_scale:float = data["chicken_scales"][i]
 		
