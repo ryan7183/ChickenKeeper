@@ -4,17 +4,19 @@ extends Node2D
 @export var chicken_manager:ChickenManager
 @export var camera:Camera
 
-var world_size:Vector2 = Vector2(2000,2000)
+var world_size:Vector2 = Vector2(200,200)
 
 func _ready() -> void:
 	_load_game()
 	terrain_manager.world_size = world_size
 	chicken_manager.world_size = world_size
 	camera.world_size = world_size
+	terrain_manager.setup_terrain()
 	pass
 
 func _load_game()->void:
 	if not FileAccess.file_exists("user://savegame.save"):
+		_generate_new_game()
 		return # Error! We don't have a save to load.
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
@@ -64,9 +66,21 @@ func get_save_data()->Dictionary:
 	}
 
 func _generate_new_game()->void:
+	terrain_manager.world_size = world_size
+	terrain_manager.generate_initial_island()
 	pass
 
 
 func _on_ui_menu_button_pressed() -> void:
 	_save_game()
+	pass # Replace with function body.
+
+
+func _on_chicken_manager_item_being_dragged() -> void:
+	terrain_manager.disable_tile_placement = true
+	pass # Replace with function body.
+
+
+func _on_chicken_manager_item_being_dropped() -> void:
+	terrain_manager.disable_tile_placement = false
 	pass # Replace with function body.

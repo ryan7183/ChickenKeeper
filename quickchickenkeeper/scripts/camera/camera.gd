@@ -41,7 +41,7 @@ func get_save_data()->Dictionary:
 	}
 
 func apply_save_data(data:Dictionary)->void:
-	position = str_to_var("Vector2" +data["position"])
+	position = str_to_var("Vector2" +data["position"] as String)
 	pass
 
 func _input(event: InputEvent) -> void:

@@ -1,5 +1,8 @@
 class_name ChickenManager extends Node2D
 
+signal item_being_dragged
+signal item_being_dropped
+
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
@@ -37,14 +40,14 @@ func get_save_data()->Dictionary:
 
 func apply_save_data(data:Dictionary)->void:
 	for i:int in data["chicken_positions"].size():
-		var vector:Vector2 = str_to_var("Vector2" + (data["chicken_positions"][i]))
+		var vector:Vector2 = str_to_var("Vector2" + (data["chicken_positions"][i]) as String)
 		var chicken_scale:float = data["chicken_scales"][i]
 		
 		chicken_scales.append(chicken_scale)
 		chicken_positions.append(vector)
 		pass
 	
-	egg_positions.assign(data["egg_positions"])
+	egg_positions.assign(data["egg_positions"] as Array)
 	pass
 
 func show_chickens()->void:
@@ -73,6 +76,7 @@ func _input(event: InputEvent) -> void:
 			draggable_instance.scale = Vector2(2.0,2.0)
 			draggable_instance.dropped.connect(_on_draggable_chicken_drop.bind(chicken_data))
 			add_child(draggable_instance)
+			item_being_dragged.emit()
 			pass
 	
 	
@@ -82,6 +86,7 @@ func _input(event: InputEvent) -> void:
 func _on_draggable_chicken_drop(pos:Vector2,data:Dictionary)->void:
 	data["chicken_position"] = pos
 	_add_chicken(data)
+	item_being_dropped.emit()
 	pass
 
 func _remove_chicken_if_mouse_over(pos:Vector2)->Dictionary:
