@@ -1,4 +1,4 @@
-class_name Chicken extends Node2D
+class_name ChickenManager extends Node2D
 
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
@@ -10,6 +10,8 @@ var chicken_scales:Array[float] = []
 var egg_positions:Array[Vector2] = []
 var num_chickens:int = 10
 var chicken_sprite_size:int = 24
+
+var world_size:Vector2 = Vector2(2000,2000)
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)

@@ -1,12 +1,14 @@
 extends Node2D
 
-@export var terrain_manager:Node2D
-@export var chicken_manager:Node2D
-@export var camera:Camera2D
+@export var terrain_manager:TerrainManager
+@export var chicken_manager:ChickenManager
+@export var camera:Camera
 
 var world_size:Vector2 = Vector2(2000,2000)
 
 func _ready() -> void:
+	terrain_manager.world_size = world_size
+	chicken_manager.world_size = world_size
 	_load_game()
 	pass
 

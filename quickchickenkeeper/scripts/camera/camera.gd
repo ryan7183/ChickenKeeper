@@ -1,4 +1,4 @@
-extends Camera2D
+class_name Camera extends Camera2D
 
 
 enum PanState {MOUSE_PAN, KEY_PAN, NOTHING}
