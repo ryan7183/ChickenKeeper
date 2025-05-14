@@ -8,7 +8,6 @@ var world_size:Vector2 = Vector2(2000,2000)
 
 func _process(_delta: float) -> void:
 	var new_pos:Vector2 = get_global_mouse_position()
-	var viewport_size:Vector2 = get_viewport().get_visible_rect().size
 	var max_x:float = world_size.x-(chicken_sprite_size*scale.x)
 	var max_y:float = world_size.y-(chicken_sprite_size*scale.y)
 	new_pos.x = min(max(0,new_pos.x),max_x)

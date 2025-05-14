@@ -17,6 +17,8 @@ var camera_key_press_pan_velocity:Vector2 = Vector2(0,0)
 
 var scroll_disabled: bool = false
 
+var world_size:Vector2 = Vector2(2000, 2000)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -34,9 +36,12 @@ func _process(_delta: float) -> void:
 	pass
 
 func get_save_data()->Dictionary:
-	return {}
+	return {
+		"position":position
+	}
 
 func apply_save_data(data:Dictionary)->void:
+	position = str_to_var("Vector2" +data["position"])
 	pass
 
 func _input(event: InputEvent) -> void:

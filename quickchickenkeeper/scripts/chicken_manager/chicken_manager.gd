@@ -8,8 +8,8 @@ var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
 var egg_positions:Array[Vector2] = []
-var num_chickens:int = 10
-var chicken_sprite_size:int = 24
+const num_chickens:int = 10
+const chicken_sprite_size:int = 24
 
 var world_size:Vector2 = Vector2(2000,2000)
 
@@ -29,9 +29,23 @@ func _process(_delta: float) -> void:
 	pass
 
 func get_save_data()->Dictionary:
-	return {}
+	return {
+		"chicken_positions": chicken_positions,
+		"chicken_scales": chicken_scales,
+		"egg_positions":egg_positions,
+	}
 
 func apply_save_data(data:Dictionary)->void:
+	for i:int in data["chicken_positions"].size():
+		print(data["chicken_positions"][i])
+		var vector:Vector2 = str_to_var("Vector2" + (data["chicken_positions"][i]))
+		var chicken_scale:float = data["chicken_scales"][i]
+		
+		chicken_scales.append(chicken_scale)
+		chicken_positions.append(vector)
+		pass
+	
+	egg_positions.assign(data["egg_positions"])
 	pass
 
 func show_chickens()->void:

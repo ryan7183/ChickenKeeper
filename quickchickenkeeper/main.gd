@@ -7,9 +7,10 @@ extends Node2D
 var world_size:Vector2 = Vector2(2000,2000)
 
 func _ready() -> void:
+	_load_game()
 	terrain_manager.world_size = world_size
 	chicken_manager.world_size = world_size
-	_load_game()
+	camera.world_size = world_size
 	pass
 
 func _load_game()->void:
@@ -34,17 +35,20 @@ func _load_game()->void:
 		var save_data:Dictionary = json.data
 		for key:String in save_data:
 			match key:
+				"main":
+					pass
 				"terrain_manager":
-					terrain_manager.apply_save_data(save_data[key])
-				"chicken_keeper":
-					chicken_manager.apply_save_data(save_data[key])
+					terrain_manager.apply_save_data(save_data[key] as Dictionary)
+				"chicken_manager":
+					chicken_manager.apply_save_data(save_data[key] as Dictionary)
 				"camera":
-					camera.apply_save_data(save_data[key])
+					camera.apply_save_data(save_data[key] as Dictionary)
 	pass
 
 func _save_game()->void:
 	var save_file:FileAccess = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	var data:Dictionary = {
+		"main": get_save_data(),
 		"terrain_manager":terrain_manager.get_save_data(),
 		"chicken_manager":chicken_manager.get_save_data(),
 		"camera":camera.get_save_data(),
@@ -53,6 +57,11 @@ func _save_game()->void:
 	save_file.store_line(json_string)
 	save_file.close()
 	pass
+
+func get_save_data()->Dictionary:
+	return {
+		
+	}
 
 func _generate_new_game()->void:
 	pass
