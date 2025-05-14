@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://n5gtido1mdxt"]
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MenuButton" type="Button" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Menu"
+
+[node name="InventoryButton" type="Button" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inventory"
+
+[node name="PopupUI" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 18.0
+
+[node name="SellItemDropBox" type="Control" parent="VBoxContainer/PopupUI"]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PopupUI/SellItemDropBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="Inventory" type="Control" parent="VBoxContainer/PopupUI"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 200.0
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PopupUI/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.160784)
