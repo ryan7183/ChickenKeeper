@@ -58,7 +58,22 @@ func generate_initial_island()->void:
 	pass
 
 func get_save_data()->Dictionary:
-	return {}
+	return {
+		"terrain_map" : terrain_map,
+		"fence_map":fence_map,
+	}
 
-func apply_save_data(_data:Dictionary)->void:
+func apply_save_data(data:Dictionary)->void:
+	terrain_map = []#data["terrain_map"] as Array[Array]
+	for array:Array in data["terrain_map"]:
+		var col:Array[int] = []
+		for value:int in array:
+			col.append(value)
+		terrain_map.append(col)
+		
+	fence_map = []#data["fence_map"] as  Array
+	fence_map.resize(data["fence_map"].size())
+	for array:Array in data["fence_map"]:
+		fence_map.append(array)
+		pass
 	pass
