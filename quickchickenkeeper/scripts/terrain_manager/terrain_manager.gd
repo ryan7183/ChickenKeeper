@@ -24,7 +24,7 @@ func setup_terrain()->void:
 	var dirt_list:Array[Vector2i] = []
 	for x:int in world_size.x:
 		for y: int in world_size.y:
-			terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,5))
+			terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
 			match terrain_map[x][y]:
 				TerrainType.GRASS:
 					grass_list.append(Vector2i(x,y))
@@ -33,8 +33,8 @@ func setup_terrain()->void:
 				TerrainType.WATER:
 					water_list.append(Vector2i(x,y))
 			pass
-	terrain_tile_map.set_cells_terrain_connect(water_list,0,1)
-	terrain_tile_map.set_cells_terrain_connect(grass_list,0,2)
+	terrain_tile_map.set_cells_terrain_connect(water_list,0,2)
+	terrain_tile_map.set_cells_terrain_connect(grass_list,0,1)
 	terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
 	pass
 
