@@ -26,6 +26,12 @@ func _process(_delta: float) -> void:
 	show_eggs()
 	pass
 
+func get_save_data()->Dictionary:
+	return {}
+
+func apply_save_data(data:Dictionary)->void:
+	pass
+
 func show_chickens()->void:
 	chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
 	for i:int in range(chicken_positions.size()):

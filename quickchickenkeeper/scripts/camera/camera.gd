@@ -33,6 +33,12 @@ func _process(_delta: float) -> void:
 		pass
 	pass
 
+func get_save_data()->Dictionary:
+	return {}
+
+func apply_save_data(data:Dictionary)->void:
+	pass
+
 func _input(event: InputEvent) -> void:
 	
 	_handle_key_camera_pan()
