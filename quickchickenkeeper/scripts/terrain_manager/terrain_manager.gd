@@ -41,7 +41,7 @@ func update_tile_map(changed:Array[Array])->void:
 	for x:int in world_size.x:
 		for y: int in world_size.y:
 			if changed[x][y] as bool:
-				terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
+				#terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
 				match terrain_map[x][y]:
 					TerrainType.GRASS:
 						grass_list.append(Vector2i(x,y))
@@ -50,9 +50,12 @@ func update_tile_map(changed:Array[Array])->void:
 					TerrainType.WATER:
 						water_list.append(Vector2i(x,y))
 				pass
-	terrain_tile_map.set_cells_terrain_connect(water_list,0,2)
-	terrain_tile_map.set_cells_terrain_connect(grass_list,0,1)
-	terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
+	if water_list.size()>0:
+		terrain_tile_map.set_cells_terrain_connect(water_list,0,2)
+	if grass_list.size()>0:
+		terrain_tile_map.set_cells_terrain_connect(grass_list,0,1)
+	if dirt_list.size()>0:
+		terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
 	pass
 
 func _input(event: InputEvent) -> void:

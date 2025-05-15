@@ -27,14 +27,22 @@ func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:
 func grow_grass(delta:float)->Dictionary:
 	if !shader.is_valid():
 		_build_shader()
-	
 	_run_shader(delta)
 	_retrieve_shader_data()
 	
-	return {
+	var result:Dictionary = {
 		"terrain":terrain_output,
 		"changed":changed_output,
 	}
+	
+	return result
+
+func clear_changed_output()->void:
+	for arr:Array in changed_output:
+		for i in arr.size():
+			arr[i] = false;
+		pass
+	pass
 
 func _retrieve_shader_data()->void:
 	if terrain_out_buffer.is_valid():

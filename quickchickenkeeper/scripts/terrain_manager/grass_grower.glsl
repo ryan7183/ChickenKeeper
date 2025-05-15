@@ -35,6 +35,8 @@ void main(){
     uint invocation = gl_GlobalInvocationID.x;
     int width = param.terrain_width;
     if(terrain_in.data[invocation] == 1 ){
+        terrain_out.data[invocation] =1;
+        changed_out.data[invocation] = false;
         uint neighbor_count = 0;
         if (invocation-width >=0 && terrain_in.data[invocation-width]==0){
             neighbor_count +=1;
