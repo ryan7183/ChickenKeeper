@@ -8,7 +8,6 @@ var packed_chicken_fatigue:PackedFloat32Array= []
 var packed_chicken_target:PackedVector2Array = []
 var packed_terrain: PackedInt32Array = []
 var terrain_width:int
-var packed_terrain_array:PackedInt32Array
 
 var shader:RID
 var rendering_device :RenderingDevice = RenderingServer.create_local_rendering_device()
@@ -27,7 +26,7 @@ func update_data(positions:Array[Vector2], hunger_satiation:Array[float], chicke
 	packed_chicken_fatigue = PackedFloat32Array(chicken_fatigue)
 	packed_chicken_target = PackedVector2Array(targets)
 	terrain_width = terrain.size()
-	packed_terrain_array = _terrain_to_packed(terrain)
+	packed_terrain = _terrain_to_packed(terrain)
 	pass
 
 func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:

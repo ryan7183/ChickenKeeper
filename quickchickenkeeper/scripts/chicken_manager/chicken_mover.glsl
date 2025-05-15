@@ -40,7 +40,7 @@ void main(){
     vec2 chicken_pos = pos_in.data[invocation];
     vec2 target = target_in.data[invocation];
     vec2 direction = normalize(target.xy-chicken_pos.xy);
-    chicken_pos = chicken_pos.xy + (direction.xy * 10 *  param.delta_time);
+    chicken_pos = chicken_pos.xy + (direction.xy * 100 *  param.delta_time);
 
     int num = pos_in.data.length();
     for(int i= 0; i<num; i++){
@@ -49,7 +49,7 @@ void main(){
             float dist = distance(chicken_pos,neighbor);
             if(dist<24){
                 vec2 direction = normalize(chicken_pos.xy-neighbor.xy);
-                chicken_pos.xy = chicken_pos.xy + (direction.xy * 10 *  param.delta_time);
+                chicken_pos.xy = chicken_pos.xy + (direction.xy * 100 *  param.delta_time);
             }
         }
     }

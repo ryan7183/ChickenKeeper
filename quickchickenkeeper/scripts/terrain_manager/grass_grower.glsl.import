@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://d18ldkdcvvh1g"
+path="res://.godot/imported/grass_grower.glsl-21d7494266ee3f49068543e7ee063bcd.res"
+
+[deps]
+
+source_file="res://scripts/terrain_manager/grass_grower.glsl"
+dest_files=["res://.godot/imported/grass_grower.glsl-21d7494266ee3f49068543e7ee063bcd.res"]
+
+[params]
+

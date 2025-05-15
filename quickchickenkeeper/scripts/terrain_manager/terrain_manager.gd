@@ -14,10 +14,45 @@ var placement_mode:TerrainType = TerrainType.NOTHING
 
 var world_size:Vector2 = Vector2(2000,2000)
 var terrain_map:Array[Array] = []
+var changed_tile_map:Array[Array] = []
 var fence_map:Array[Array] = []
 var tile_size:int = 16
 
+var grass_grower:GrassGrower
+
+func _ready() -> void:
+	grass_grower = GrassGrower.new()
+	pass
+
 func _process(delta: float) -> void:
+	var results:Dictionary = grass_grower.grow_grass(delta)
+	terrain_map = results["terrain"]
+	changed_tile_map = results["changed"]
+	update_tile_map(results["changed"])
+	pass
+
+func update_tile_map(changed:Array[Array])->void:
+	# Find list of water tiles
+	var water_list:Array[Vector2i] = []
+	# Find list of grass tiles
+	var grass_list:Array[Vector2i] = []
+	# Find list of dirt tiles
+	var dirt_list:Array[Vector2i] = []
+	for x:int in world_size.x:
+		for y: int in world_size.y:
+			if changed[x][y] as bool:
+				terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
+				match terrain_map[x][y]:
+					TerrainType.GRASS:
+						grass_list.append(Vector2i(x,y))
+					TerrainType.DIRT:
+						dirt_list.append(Vector2i(x,y))
+					TerrainType.WATER:
+						water_list.append(Vector2i(x,y))
+				pass
+	terrain_tile_map.set_cells_terrain_connect(water_list,0,2)
+	terrain_tile_map.set_cells_terrain_connect(grass_list,0,1)
+	terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -25,24 +60,28 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("PlaceTile") and !disable_tile_placement:
 			_place_tile()
 			tile_placed.emit()
+			grass_grower.update_data(terrain_map)
 			pass
 		pass
 	pass
 
 func _place_tile()->void:
 	var tile_pos:Vector2i = terrain_tile_map.local_to_map(to_local(get_global_mouse_position()))
-	terrain_map[tile_pos.x][tile_pos.y] = placement_mode
-	match placement_mode:
-		TerrainType.GRASS:
-			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
-		TerrainType.DIRT:
-			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
-		TerrainType.WATER:
-			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+	if tile_pos.x>=0 and tile_pos.y>=0 and tile_pos.x<world_size.x and tile_pos.y<world_size.y:
+		terrain_map[tile_pos.x][tile_pos.y] = placement_mode
+		match placement_mode:
+			TerrainType.GRASS:
+				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
+			TerrainType.DIRT:
+				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
+			TerrainType.WATER:
+				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
 	pass
 
+
+
 func setup_terrain()->void:
-	
+	grass_grower.update_data(terrain_map)
 	# Find list of water tiles
 	var water_list:Array[Vector2i] = []
 	# Find list of grass tiles
