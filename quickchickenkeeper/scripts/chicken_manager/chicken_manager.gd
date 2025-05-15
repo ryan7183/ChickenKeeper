@@ -17,8 +17,9 @@ var chicken_direction:Array[int] = []
 var chicken_animation_frame:Array[int] = []
 var chicken_current_action:Array[Action] = []
 var chicken_target:Array[Vector2] = []
+var chicken_fatigue:Array[float]= []
 var egg_positions:Array[Vector2] = []
-const initial_num_chickens:int = 11
+const initial_num_chickens:int = 2
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
 var tile_size:int = 16
@@ -44,6 +45,7 @@ func spawn_initial_chickens()->void:
 		chicken_animation_frame.append(0)
 		chicken_current_action.append(Action.WANDER)
 		chicken_target.append(center)
+		chicken_fatigue.append(50)
 		pass
 	pass
 
@@ -65,17 +67,6 @@ func _move_chickens(delta:float)->void:
 	chicken_mover.update_data(chicken_positions,chicken_target, terrain)
 	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
 	chicken_positions = results
-	"""for i:int in range(chicken_positions.size()):
-		var action:Action = chicken_current_action[i]
-		match action:
-			Action.WANDER:
-				var walk_distance:float = 20 *delta
-				var angle:float = randf_range(0, 2*PI)
-				var direction:Vector2 = Vector2.from_angle(angle)
-				chicken_positions[i] += direction * walk_distance
-				pass
-		pass
-	pass"""
 
 func _perform_actions()->void:
 	pass
@@ -157,6 +148,7 @@ func _add_chicken(data:Dictionary)->void:
 	chicken_animation_frame.append(data["chicken_animation_frame"])
 	chicken_current_action.append(data["chicken_current_action"] as Action)
 	chicken_target.append(data["chicken_target"])
+	chicken_fatigue.append(data["chicken_fatigue"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
@@ -168,6 +160,7 @@ func _remove_chicken(i:int)->Dictionary:
 		"chicken_animation_frame":chicken_animation_frame[i],
 		"chicken_current_action":chicken_current_action[i],
 		"chicken_target":chicken_target[i],
+		"chicken_fatigue":chicken_fatigue[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
@@ -176,4 +169,5 @@ func _remove_chicken(i:int)->Dictionary:
 	chicken_animation_frame.remove_at(i)
 	chicken_current_action.remove_at(i)
 	chicken_target.remove_at(i)
+	chicken_fatigue.remove_at(i)
 	return data
