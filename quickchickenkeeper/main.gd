@@ -84,3 +84,23 @@ func _on_chicken_manager_item_being_dragged() -> void:
 func _on_chicken_manager_item_being_dropped() -> void:
 	terrain_manager.disable_tile_placement = false
 	pass # Replace with function body.
+
+
+func _on_ui_terrain_button_toggled(terrain: TerrainManager.TerrainType) -> void:
+	terrain_manager.placement_mode = terrain
+	pass # Replace with function body.
+
+
+func _on_ui_clear_terrain() -> void:
+	terrain_manager.placement_mode = TerrainManager.TerrainType.NOTHING
+	pass # Replace with function body.
+
+
+func _on_ui_disable_terrain_placement() -> void:
+	terrain_manager.disable_tile_placement = true
+	pass # Replace with function body.
+
+
+func _on_ui_enable_terrain_placement() -> void:
+	terrain_manager.disable_tile_placement = false
+	pass # Replace with function body.

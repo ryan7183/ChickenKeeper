@@ -28,4 +28,8 @@ offset_right = -1.0
 
 [connection signal="item_being_dragged" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dragged"]
 [connection signal="item_being_dropped" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dropped"]
+[connection signal="clear_terrain" from="UICanvasLayer/Ui" to="." method="_on_ui_clear_terrain"]
+[connection signal="disable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_disable_terrain_placement"]
+[connection signal="enable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_enable_terrain_placement"]
 [connection signal="menu_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_menu_button_pressed"]
+[connection signal="terrain_button_toggled" from="UICanvasLayer/Ui" to="." method="_on_ui_terrain_button_toggled"]

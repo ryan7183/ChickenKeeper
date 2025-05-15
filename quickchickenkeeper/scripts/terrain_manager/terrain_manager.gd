@@ -19,14 +19,14 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if placement_mode != TerrainType.NOTHING:
-		if event.is_action_pressed("PlaceTile"):
+		if event.is_action_pressed("PlaceTile") and !disable_tile_placement:
 			_place_tile()
 			pass
 		pass
 	pass
 
 func _place_tile()->void:
-	var tile_pos:Vector2i = to_local(get_global_mouse_position())
+	var tile_pos:Vector2i = terrain_tile_map.local_to_map(to_local(get_global_mouse_position()))
 	terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 	match placement_mode:
 		TerrainType.GRASS:
