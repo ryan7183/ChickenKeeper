@@ -14,6 +14,29 @@ var world_size:Vector2 = Vector2(2000,2000)
 var terrain_map:Array[Array] = []
 var fence_map:Array[Array] = []
 
+func _process(delta: float) -> void:
+	pass
+
+func _input(event: InputEvent) -> void:
+	if placement_mode != TerrainType.NOTHING:
+		if event.is_action_pressed("PlaceTile"):
+			_place_tile()
+			pass
+		pass
+	pass
+
+func _place_tile()->void:
+	var tile_pos:Vector2i = to_local(get_global_mouse_position())
+	terrain_map[tile_pos.x][tile_pos.y] = placement_mode
+	match placement_mode:
+		TerrainType.GRASS:
+			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
+		TerrainType.DIRT:
+			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
+		TerrainType.WATER:
+			terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+	pass
+
 func setup_terrain()->void:
 	
 	# Find list of water tiles
