@@ -18,7 +18,7 @@ func _ready() -> void:
 	chicken_manager.tile_size= 16
 	_load_game()
 	terrain_manager.setup_terrain()
-	
+	chicken_manager.terrain = terrain_manager.terrain_map
 	pass
 
 func _load_game()->void:
@@ -111,4 +111,9 @@ func _on_ui_disable_terrain_placement() -> void:
 
 func _on_ui_enable_terrain_placement() -> void:
 	terrain_manager.disable_tile_placement = false
+	pass # Replace with function body.
+
+
+func _on_terrain_manager_tile_placed() -> void:
+	chicken_manager.terrain = terrain_manager.terrain_map
 	pass # Replace with function body.

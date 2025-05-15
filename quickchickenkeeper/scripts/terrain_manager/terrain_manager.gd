@@ -3,6 +3,8 @@ class_name TerrainManager extends Node2D
 @export var terrain_tile_map: TileMapLayer
 @export var fence_tile_map: TileMapLayer
 
+signal tile_placed
+
 enum TerrainType {GRASS, DIRT, WATER, FENCE, NOTHING}
 
 const initial_island_size:int = 10
@@ -22,6 +24,7 @@ func _input(event: InputEvent) -> void:
 	if placement_mode != TerrainType.NOTHING:
 		if event.is_action_pressed("PlaceTile") and !disable_tile_placement:
 			_place_tile()
+			tile_placed.emit()
 			pass
 		pass
 	pass

@@ -26,7 +26,6 @@ position = Vector2(963, 540)
 offset_left = -1.0
 offset_right = -1.0
 
-[connection signal="tile_placed" from="TerrainManager" to="." method="_on_terrain_manager_tile_placed"]
 [connection signal="item_being_dragged" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dragged"]
 [connection signal="item_being_dropped" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dropped"]
 [connection signal="clear_terrain" from="UICanvasLayer/Ui" to="." method="_on_ui_clear_terrain"]

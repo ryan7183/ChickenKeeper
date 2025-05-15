@@ -19,9 +19,14 @@ layout(set = 0, binding = 2, std430) restrict buffer TargetInBuffer {
 }
 target_in;
 
+layout(set = 0, binding = 3, std430) restrict buffer TerrainInBuffer {
+    int data[];
+}
+terrain_in;
+
 layout(push_constant) uniform Parameters {
     float delta_time;
-    int work_groups;
+    int terrain_width;
 }
 param;
 
@@ -48,6 +53,14 @@ void main(){
             }
         }
     }
-    pos_out.data[invocation].xy = chicken_pos.xy;
+    vec2 tile_pos = chicken_pos/16.0;
+    int terrain_index = (int(tile_pos.x) * param.terrain_width) + int(tile_pos.y);
+    int terrain_type = terrain_in.data[terrain_index]; 
+    if(terrain_type!=2){
+        pos_out.data[invocation].xy = chicken_pos.xy;
+    }
+    //pos_out.data[invocation].xy = chicken_pos.xy;
+    //pos_out.data[invocation].xy = tile_pos;//vec2(terrain_type*100,0);
+    //pos_out.data[invocation].xy = vec2(terrain_index*100,terrain_index*100);
 }
 

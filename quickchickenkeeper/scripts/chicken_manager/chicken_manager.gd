@@ -25,6 +25,8 @@ var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
 var chicken_mover:ChickenMover
 
+var terrain:Array[Array] = []
+
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
 	chicken_mover = ChickenMover.new()
@@ -60,7 +62,7 @@ func _determine_actions()->void:
 	pass
 
 func _move_chickens(delta:float)->void:
-	chicken_mover.update_data(chicken_positions,chicken_target)
+	chicken_mover.update_data(chicken_positions,chicken_target, terrain)
 	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
 	chicken_positions = results
 	"""for i:int in range(chicken_positions.size()):
