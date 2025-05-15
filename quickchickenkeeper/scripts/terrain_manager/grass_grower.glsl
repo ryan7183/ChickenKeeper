@@ -33,9 +33,26 @@ float random (vec2 uv) {
 
 void main(){
     uint invocation = gl_GlobalInvocationID.x;
-    if(terrain_in.data[invocation] == 1 && random(vec2(invocation+param.time,invocation)) > 0.96){
-        terrain_out.data[invocation] = 0;
-        changed_out.data[invocation] = true;
+    int width = param.terrain_width;
+    if(terrain_in.data[invocation] == 1 && random(vec2(invocation+param.time,invocation)) < 0.001){
+        uint neighbor_count = 0;
+        if (invocation-width >=0 && terrain_in.data[invocation-width]==0){
+            neighbor_count +=1;
+        }
+        if(invocation+width <terrain_in.data.length() && terrain_in.data[invocation+width]==0){
+            neighbor_count +=1;
+        }
+        if(invocation+1 <terrain_in.data.length() && terrain_in.data[invocation+1]==0){
+            neighbor_count +=1;
+        }
+        if(invocation-1 >=0 && terrain_in.data[invocation-1]==0){
+            neighbor_count +=1;
+        }
+        if (neighbor_count>0){
+            terrain_out.data[invocation] = 0;
+            changed_out.data[invocation] = true;
+        }
+            
     }else{
         terrain_out.data[invocation] = terrain_in.data[invocation];
         changed_out.data[invocation] = false;
