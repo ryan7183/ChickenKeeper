@@ -32,6 +32,10 @@ window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Ryan/OneDrive/Programs/Godot/Projects/QuickChickenKeeper/quickchickenkeeper/recordings/recording.avi"
+
 [input]
 
 CameraWest={

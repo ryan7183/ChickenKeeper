@@ -13,7 +13,7 @@ func _ready() -> void:
 	terrain_manager.world_size = world_size
 	chicken_manager.world_size = world_size
 	camera.world_size = world_size
-	chicken_manager.initial_island_size
+	chicken_manager.initial_island_size = initial_island_size
 	terrain_manager.tile_size= 16
 	chicken_manager.tile_size= 16
 	_load_game()

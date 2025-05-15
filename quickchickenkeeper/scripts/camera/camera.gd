@@ -21,6 +21,7 @@ var world_size:Vector2 = Vector2(2000, 2000)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position = world_size
 	pass # Replace with function body.
 
 

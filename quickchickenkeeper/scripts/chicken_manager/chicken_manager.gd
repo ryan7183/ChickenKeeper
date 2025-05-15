@@ -6,7 +6,8 @@ signal item_being_dropped
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
-enum Action {EAT, WANDER, WALK_TO_TARGET, SIT}
+enum Action {EAT, DRINK, WANDER, SIT}
+
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
 
 var chicken_positions:Array[Vector2] = []
@@ -14,17 +15,19 @@ var chicken_scales:Array[float] = []
 var chicken_hunger_satiation:Array[float] = []
 var chicken_direction:Array[int] = []
 var chicken_animation_frame:Array[int] = []
-var chicken_type:Array[int] = []
 var chicken_current_action:Array[Action] = []
+var chicken_target:Array[Vector2] = []
 var egg_positions:Array[Vector2] = []
-const initial_num_chickens:int = 2
+const initial_num_chickens:int = 11
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
 var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
+var chicken_mover:ChickenMover
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
+	chicken_mover = ChickenMover.new()
 	pass
 
 func spawn_initial_chickens()->void:
@@ -37,14 +40,42 @@ func spawn_initial_chickens()->void:
 		chicken_hunger_satiation.append(50)
 		chicken_direction.append(0)
 		chicken_animation_frame.append(0)
-		chicken_type.append(0)
 		chicken_current_action.append(Action.WANDER)
+		chicken_target.append(center)
 		pass
 	pass
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_determine_actions()
+	_move_chickens(delta)
+	_perform_actions()
 	show_chickens()
 	show_eggs()
+	pass
+
+func _determine_actions()->void:
+	for i:int in range(chicken_current_action.size()):
+		chicken_current_action[i] = Action.WANDER
+		pass
+	pass
+
+func _move_chickens(delta:float)->void:
+	chicken_mover.update_data(chicken_positions,chicken_target)
+	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
+	chicken_positions = results
+	"""for i:int in range(chicken_positions.size()):
+		var action:Action = chicken_current_action[i]
+		match action:
+			Action.WANDER:
+				var walk_distance:float = 20 *delta
+				var angle:float = randf_range(0, 2*PI)
+				var direction:Vector2 = Vector2.from_angle(angle)
+				chicken_positions[i] += direction * walk_distance
+				pass
+		pass
+	pass"""
+
+func _perform_actions()->void:
 	pass
 
 func get_save_data()->Dictionary:
@@ -90,6 +121,8 @@ func _input(event: InputEvent) -> void:
 		if chicken_data.has("chicken_position"):
 			var draggable_instance:DraggableChicken = draggable_chicken_scene.instantiate()
 			draggable_instance.scale = Vector2(2.0,2.0)
+			draggable_instance.tile_size = tile_size
+			draggable_instance.world_size = world_size
 			draggable_instance.dropped.connect(_on_draggable_chicken_drop.bind(chicken_data))
 			add_child(draggable_instance)
 			item_being_dragged.emit()
@@ -117,18 +150,28 @@ func _remove_chicken_if_mouse_over(pos:Vector2)->Dictionary:
 func _add_chicken(data:Dictionary)->void:
 	chicken_positions.append(data["chicken_position"])
 	chicken_scales.append(data["chicken_scale"])
+	chicken_hunger_satiation.append(data["chicken_hunger_satiation"])
+	chicken_direction.append(data["chicken_direction"])
+	chicken_animation_frame.append(data["chicken_animation_frame"])
+	chicken_current_action.append(data["chicken_current_action"] as Action)
+	chicken_target.append(data["chicken_target"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
 	var data:Dictionary = {
 		"chicken_position":chicken_positions[i],
-		"chicken_scale":chicken_scales[i]
+		"chicken_scale":chicken_scales[i],
+		"chicken_hunger_satiation":chicken_hunger_satiation[i],
+		"chicken_direction":chicken_direction[i],
+		"chicken_animation_frame":chicken_animation_frame[i],
+		"chicken_current_action":chicken_current_action[i],
+		"chicken_target":chicken_target[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
 	chicken_hunger_satiation.remove_at(i)
 	chicken_direction.remove_at(i)
 	chicken_animation_frame.remove_at(i)
-	chicken_type.remove_at(i)
 	chicken_current_action.remove_at(i)
+	chicken_target.remove_at(i)
 	return data

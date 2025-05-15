@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bwoyku8qj7jjs"
+path="res://.godot/imported/chicken_mover.glsl-15db101b54c70065e7579d4fba9df8af.res"
+
+[deps]
+
+source_file="res://scripts/chicken_manager/chicken_mover.glsl"
+dest_files=["res://.godot/imported/chicken_mover.glsl-15db101b54c70065e7579d4fba9df8af.res"]
+
+[params]
+
