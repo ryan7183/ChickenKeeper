@@ -6,24 +6,35 @@ signal item_being_dropped
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
+enum Action {EAT, WANDER, WALK_TO_TARGET}
+
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
 
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
+var chicken_hunger_satiation:Array[float] = []
+var chicken_Direction:Array[int] = []
+var chicken_animation_frame:Array[int] = []
+var chicken_type:Array[int] = []
 var egg_positions:Array[Vector2] = []
-const num_chickens:int = 10
+const initial_num_chickens:int = 2
+var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
-
+var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
-	for i in range(num_chickens):
-		chicken_positions.append(Vector2(randf_range(0,1000),randf_range(0,1000)))
+	pass
+
+func spawn_initial_chickens()->void:
+	for i in range(initial_num_chickens):
+		var center:Vector2 = (world_size*tile_size)/2.0
+		var half_island_size:float = (initial_island_size*tile_size)/2.0
+		chicken_positions.append(Vector2(randf_range(center.x-half_island_size,center.x+half_island_size),\
+		randf_range(center.y-half_island_size,center.y+half_island_size)))
 		chicken_scales.append(1.0)
 		pass
-	show_eggs()
-	show_chickens()
 	pass
 
 func _process(_delta: float) -> void:
@@ -60,7 +71,7 @@ func show_chickens()->void:
 	pass
 
 func show_eggs()->void:
-	egg_multi_mesh.multimesh.instance_count=num_chickens
+	egg_multi_mesh.multimesh.instance_count=initial_island_size
 	for i:int in range(egg_positions.size()):
 		var pos:Transform2D = Transform2D(0.0,Vector2(0.5,0.5),0.0,egg_positions[i])
 		egg_multi_mesh.multimesh.set_instance_transform_2d(i, pos)

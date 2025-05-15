@@ -13,6 +13,7 @@ var placement_mode:TerrainType = TerrainType.NOTHING
 var world_size:Vector2 = Vector2(2000,2000)
 var terrain_map:Array[Array] = []
 var fence_map:Array[Array] = []
+var tile_size:int = 16
 
 func _process(delta: float) -> void:
 	pass

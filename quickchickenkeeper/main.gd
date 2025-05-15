@@ -5,13 +5,20 @@ extends Node2D
 @export var camera:Camera
 
 var world_size:Vector2 = Vector2(200,200)
+var tile_size:int = 16
+var initial_island_size:int = 10
 
 func _ready() -> void:
-	_load_game()
+	
 	terrain_manager.world_size = world_size
 	chicken_manager.world_size = world_size
 	camera.world_size = world_size
+	chicken_manager.initial_island_size
+	terrain_manager.tile_size= 16
+	chicken_manager.tile_size= 16
+	_load_game()
 	terrain_manager.setup_terrain()
+	
 	pass
 
 func _load_game()->void:
@@ -68,6 +75,7 @@ func get_save_data()->Dictionary:
 func _generate_new_game()->void:
 	terrain_manager.world_size = world_size
 	terrain_manager.generate_initial_island()
+	chicken_manager.spawn_initial_chickens()
 	pass
 
 
