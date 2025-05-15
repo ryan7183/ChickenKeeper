@@ -6,16 +6,16 @@ signal item_being_dropped
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
-enum Action {EAT, WANDER, WALK_TO_TARGET}
-
+enum Action {EAT, WANDER, WALK_TO_TARGET, SIT}
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
 
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
 var chicken_hunger_satiation:Array[float] = []
-var chicken_Direction:Array[int] = []
+var chicken_direction:Array[int] = []
 var chicken_animation_frame:Array[int] = []
 var chicken_type:Array[int] = []
+var chicken_current_action:Array[Action] = []
 var egg_positions:Array[Vector2] = []
 const initial_num_chickens:int = 2
 var initial_island_size:int = 10
@@ -34,6 +34,11 @@ func spawn_initial_chickens()->void:
 		chicken_positions.append(Vector2(randf_range(center.x-half_island_size,center.x+half_island_size),\
 		randf_range(center.y-half_island_size,center.y+half_island_size)))
 		chicken_scales.append(1.0)
+		chicken_hunger_satiation.append(50)
+		chicken_direction.append(0)
+		chicken_animation_frame.append(0)
+		chicken_type.append(0)
+		chicken_current_action.append(Action.WANDER)
 		pass
 	pass
 
@@ -121,4 +126,9 @@ func _remove_chicken(i:int)->Dictionary:
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
+	chicken_hunger_satiation.remove_at(i)
+	chicken_direction.remove_at(i)
+	chicken_animation_frame.remove_at(i)
+	chicken_type.remove_at(i)
+	chicken_current_action.remove_at(i)
 	return data
