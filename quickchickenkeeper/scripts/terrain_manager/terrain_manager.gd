@@ -19,6 +19,7 @@ var fence_map:Array[Array] = []
 var tile_size:int = 16
 
 var grass_grower:GrassGrower
+var keep_placing_tiles:bool = false
 
 func _ready() -> void:
 	grass_grower = GrassGrower.new()
@@ -29,6 +30,8 @@ func _process(delta: float) -> void:
 	terrain_map = results["terrain"]
 	changed_tile_map = results["changed"]
 	update_tile_map(results["changed"])
+	if keep_placing_tiles:
+		_place_tile()
 	pass
 
 func update_tile_map(changed:Array[Array])->void:
@@ -61,11 +64,10 @@ func update_tile_map(changed:Array[Array])->void:
 func _input(event: InputEvent) -> void:
 	if placement_mode != TerrainType.NOTHING:
 		if event.is_action_pressed("PlaceTile") and !disable_tile_placement:
-			_place_tile()
-			tile_placed.emit()
-			grass_grower.update_data(terrain_map)
+			keep_placing_tiles = true
 			pass
-		pass
+		elif event.is_action_released("PlaceTile") or disable_tile_placement:
+			keep_placing_tiles = false
 	pass
 
 func _place_tile()->void:
@@ -79,6 +81,8 @@ func _place_tile()->void:
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
 			TerrainType.WATER:
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+		tile_placed.emit()
+		grass_grower.update_data(terrain_map)
 	pass
 
 
