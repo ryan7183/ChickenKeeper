@@ -59,8 +59,5 @@ void main(){
     if(terrain_type!=2){
         pos_out.data[invocation].xy = chicken_pos.xy;
     }
-    //pos_out.data[invocation].xy = chicken_pos.xy;
-    //pos_out.data[invocation].xy = tile_pos;//vec2(terrain_type*100,0);
-    //pos_out.data[invocation].xy = vec2(terrain_index*100,terrain_index*100);
 }
 

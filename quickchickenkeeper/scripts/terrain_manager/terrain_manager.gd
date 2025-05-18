@@ -14,6 +14,7 @@ var placement_mode:TerrainType = TerrainType.NOTHING
 
 var world_size:Vector2 = Vector2(2000,2000)
 var terrain_map:Array[Array] = []
+var food_amount:Array[Array] = []
 var changed_tile_map:Array[Array] = []
 var fence_map:Array[Array] = []
 var tile_size:int = 16
@@ -28,8 +29,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var results:Dictionary = grass_grower.grow_grass(delta)
 	terrain_map = results["terrain"]
-	changed_tile_map = results["changed"]
-	update_tile_map(results["changed"])
+	changed_tile_map = results["changed"] as Array[Array]
+	update_tile_map(results["changed"] as Array[Array])
 	if keep_placing_tiles:
 		_place_tile()
 	pass
@@ -82,13 +83,13 @@ func _place_tile()->void:
 			TerrainType.WATER:
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
 		tile_placed.emit()
-		grass_grower.update_data(terrain_map)
+		grass_grower.update_data(terrain_map, food_amount)
 	pass
 
 
 
 func setup_terrain()->void:
-	grass_grower.update_data(terrain_map)
+	grass_grower.update_data(terrain_map,food_amount)
 	# Find list of water tiles
 	var water_list:Array[Vector2i] = []
 	# Find list of grass tiles
@@ -112,12 +113,16 @@ func setup_terrain()->void:
 	pass
 
 func generate_initial_island()->void:
+	food_amount = []
 	for x:int in world_size.x:
 		var col:Array[TerrainType] = []
+		var food_Col: Array[float] = []
 		for y:int in world_size.y:
 			col.append(TerrainType.WATER)
+			food_Col.append(0)
 			pass
 		terrain_map.append(col)
+		food_amount.append(food_Col)
 	
 	@warning_ignore("integer_division")
 	var center:Vector2i = Vector2i(world_size/2.0)
@@ -126,6 +131,7 @@ func generate_initial_island()->void:
 		@warning_ignore("integer_division")
 		for y:int in range(-initial_island_size/2,initial_island_size/2):
 			terrain_map[center.x+x][center.y+y] = TerrainType.GRASS
+			food_amount[center.x+x][center.y+y] = 50
 			pass
 	
 	pass
@@ -145,7 +151,7 @@ func apply_save_data(data:Dictionary)->void:
 		terrain_map.append(col)
 		
 	fence_map = []#data["fence_map"] as  Array
-	fence_map.resize(data["fence_map"].size())
+	fence_map.resize(data["fence_map"].size() as int)
 	for array:Array in data["fence_map"]:
 		fence_map.append(array)
 		pass

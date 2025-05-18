@@ -25,12 +25,14 @@ const chicken_sprite_size:int = 24
 var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
 var chicken_mover:ChickenMover
+var chicken_action_chooser: ChickenActionChooser
 
 var terrain:Array[Array] = []
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
 	chicken_mover = ChickenMover.new()
+	chicken_action_chooser = ChickenActionChooser.new()
 	pass
 
 func spawn_initial_chickens()->void:
@@ -50,17 +52,19 @@ func spawn_initial_chickens()->void:
 	pass
 
 func _process(delta: float) -> void:
-	_determine_actions()
+	_determine_actions(delta)
 	_move_chickens(delta)
 	_perform_actions()
 	show_chickens()
 	show_eggs()
 	pass
 
-func _determine_actions()->void:
-	for i:int in range(chicken_current_action.size()):
-		chicken_current_action[i] = Action.WANDER
-		pass
+func _determine_actions(delta:float)->void:
+	chicken_action_chooser.update_data(chicken_positions ,chicken_hunger_satiation,\
+	chicken_fatigue,chicken_target,terrain)
+	var result:Dictionary = chicken_action_chooser.decide_chicken_action(delta)
+	chicken_target = result["target"]
+	chicken_current_action = result["action"]
 	pass
 
 func _move_chickens(delta:float)->void:

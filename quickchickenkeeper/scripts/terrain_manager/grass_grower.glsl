@@ -19,6 +19,16 @@ layout(set = 0, binding = 2, std430) restrict buffer ChangedOutBuffer {
 }
 changed_out;
 
+layout(set = 0, binding = 3, std430) restrict buffer FoodInBuffer {
+    float data[];
+}
+food_in;
+
+layout(set = 0, binding = 4, std430) restrict buffer FoodOutBuffer {
+    float data[];
+}
+food_out;
+
 layout(push_constant) uniform Parameters {
     float delta_time;
     float time;
@@ -34,6 +44,7 @@ float random (vec2 uv) {
 void main(){
     uint invocation = gl_GlobalInvocationID.x;
     int width = param.terrain_width;
+    //If dirt
     if(terrain_in.data[invocation] == 1 ){
         terrain_out.data[invocation] =1;
         changed_out.data[invocation] = false;
@@ -53,10 +64,16 @@ void main(){
         if (random(vec2(invocation+param.time,invocation))*(2.0/neighbor_count) < 0.001){
             terrain_out.data[invocation] = 0;
             changed_out.data[invocation] = true;
+            food_out.data[invocation] = 50;
         }
-            
+    //If grass with no food
+    }else if(terrain_in.data[invocation] == 0 && abs(food_in.data[invocation]-100)<0.001){
+        terrain_out.data[invocation] == 1;
+        changed_out.data[invocation] = true;
+        food_out.data[invocation] = 0;    
     }else{
         terrain_out.data[invocation] = terrain_in.data[invocation];
         changed_out.data[invocation] = false;
+        food_out.data[invocation] = min(food_in.data[invocation] * 1.01, 100);
     }
 }
