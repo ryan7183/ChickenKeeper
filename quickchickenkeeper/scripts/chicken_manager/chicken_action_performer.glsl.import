@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cvv2jflh6qs6c"
+path="res://.godot/imported/chicken_action_performer.glsl-ea709050cc849da06acc97b99db2051d.res"
+
+[deps]
+
+source_file="res://scripts/chicken_manager/chicken_action_performer.glsl"
+dest_files=["res://.godot/imported/chicken_action_performer.glsl-ea709050cc849da06acc97b99db2051d.res"]
+
+[params]
+

@@ -29,7 +29,7 @@ func update_data(positions:Array[Vector2], hunger_satiation:Array[float], chicke
 	packed_chicken_hunger_satiation = PackedFloat32Array(hunger_satiation)
 	packed_chicken_fatigue = PackedFloat32Array(chicken_fatigue)
 	packed_chicken_target = PackedVector2Array(targets)
-	terrain_width = terrain.size()
+	terrain_width = positions.size()
 	packed_terrain = _terrain_to_packed(terrain)
 	pass
 

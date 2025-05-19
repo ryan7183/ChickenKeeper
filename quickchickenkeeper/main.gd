@@ -117,3 +117,13 @@ func _on_ui_enable_terrain_placement() -> void:
 func _on_terrain_manager_tile_placed() -> void:
 	chicken_manager.terrain = terrain_manager.terrain_map
 	pass # Replace with function body.
+
+
+func _on_chicken_manager_request_food_amount() -> void:
+	chicken_manager.perform_chicken_actions(terrain_manager.food_amount)
+	pass # Replace with function body.
+
+
+func _on_chicken_manager_food_amount_updated(food: Array[Array]) -> void:
+	terrain_manager.food_amount = food
+	pass # Replace with function body.

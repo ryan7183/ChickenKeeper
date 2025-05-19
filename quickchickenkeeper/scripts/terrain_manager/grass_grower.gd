@@ -74,12 +74,14 @@ func _retrieve_shader_data()->void:
 
 func one_d_to_two_d_square_array(arr:Array, width:int)->Array[Array]:
 	var new_arr:Array[Array] = []
+	new_arr.resize(width)
 	for x:int in range(width):
 		var col:Array = []
+		col.resize(width)
 		for y:int in range(width):
-			col.append(arr[(x*width)+y])
+			col[y]= arr[(x*width)+y]
 			pass
-		new_arr.append(col)
+		new_arr[x] =col
 	return new_arr
 
 func _run_shader(delta:float)->void:

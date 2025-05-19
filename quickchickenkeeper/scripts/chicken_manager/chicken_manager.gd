@@ -2,11 +2,13 @@ class_name ChickenManager extends Node2D
 
 signal item_being_dragged
 signal item_being_dropped
+signal request_food_amount
+signal food_amount_updated(food:Array[Array])
 
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
-enum Action {EAT, DRINK, WANDER, SIT}
+enum Action {EAT, DRINK, WANDER, SIT, FIND_FOOD, FIND_WATER}
 
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
 
@@ -26,6 +28,7 @@ var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
 var chicken_mover:ChickenMover
 var chicken_action_chooser: ChickenActionChooser
+var chicken_action_performer:ChickenActionPerformer
 
 var terrain:Array[Array] = []
 
@@ -33,6 +36,7 @@ func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
 	chicken_mover = ChickenMover.new()
 	chicken_action_chooser = ChickenActionChooser.new()
+	chicken_action_performer = ChickenActionPerformer.new()
 	pass
 
 func spawn_initial_chickens()->void:
@@ -54,9 +58,19 @@ func spawn_initial_chickens()->void:
 func _process(delta: float) -> void:
 	_determine_actions(delta)
 	_move_chickens(delta)
-	_perform_actions()
+	_request_data_to_perform_chicken_actions()
 	show_chickens()
 	show_eggs()
+	pass
+
+func _request_data_to_perform_chicken_actions()->void:
+	request_food_amount.emit()
+	pass
+
+
+
+func _physics_process(delta: float) -> void:
+	
 	pass
 
 func _determine_actions(delta:float)->void:
@@ -72,7 +86,13 @@ func _move_chickens(delta:float)->void:
 	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
 	chicken_positions = results
 
-func _perform_actions()->void:
+func perform_chicken_actions(food_amount:Array[Array])->void:
+	chicken_action_performer.update_data(chicken_positions,food_amount,chicken_hunger_satiation,chicken_fatigue, chicken_current_action)
+	var result:Dictionary = chicken_action_performer.perform_chicken_actions()
+	food_amount = result["food"]
+	chicken_hunger_satiation = result["hunger"]
+	chicken_fatigue = result["fatigue"]
+	food_amount_updated.emit(food_amount)
 	pass
 
 func get_save_data()->Dictionary:

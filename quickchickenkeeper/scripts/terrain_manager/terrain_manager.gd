@@ -116,9 +116,10 @@ func generate_initial_island()->void:
 	food_amount = []
 	for x:int in world_size.x:
 		var col:Array[TerrainType] = []
+		col.resize(world_size.y)
 		var food_Col: Array[float] = []
 		for y:int in world_size.y:
-			col.append(TerrainType.WATER)
+			col[y] = TerrainType.WATER
 			food_Col.append(0)
 			pass
 		terrain_map.append(col)
