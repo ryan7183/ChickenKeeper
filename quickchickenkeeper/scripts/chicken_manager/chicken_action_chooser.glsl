@@ -60,11 +60,11 @@ void main(){
     vec2 position = pos_in.data[invocation];
     if (fatigue< 50 || hunger<50){
         //Hungry or tired
-        if(fatigue<hunger){
+        if(fatigue<hunger && fatigue<50){
             action_out.data[invocation] = 3;
             target_out.data[invocation] = position;
         }else{
-            action_out.data[invocation] = 0;
+            action_out.data[invocation] = 4;
             vec2 nearest =  get_nearest_grass(position);
             target_out.data[invocation] =nearest;
             if (nearest.x<0 || nearest.y<0){
@@ -78,5 +78,4 @@ void main(){
         action_out.data[invocation] = 2;
         target_out.data[invocation] =get_wander_target(position);
     }
-
 }

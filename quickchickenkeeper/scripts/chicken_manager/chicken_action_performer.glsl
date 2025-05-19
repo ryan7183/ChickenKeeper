@@ -62,7 +62,7 @@ void main(){
     vec2 position = pos_in.data[invocation];
     int tile_index = two_d_to_one_d_index(position);
     float food = food_in.data[tile_index];
-    hunger_out.data[invocation] = max(hunger-(hunger*0.1),0);
+    hunger_out.data[invocation] = max(hunger-2,0);
     fatigue_out.data[invocation] = max(fatigue-1.0,0);
     switch(action_in.data[invocation]){
         case 0://Eat
