@@ -4,7 +4,7 @@ extends Node2D
 @export var chicken_manager:ChickenManager
 @export var camera:Camera
 
-var world_size:Vector2 = Vector2(200,200)
+var world_size:Vector2 = Vector2(100,100)
 var tile_size:int = 16
 var initial_island_size:int = 10
 
