@@ -50,7 +50,7 @@ func spawn_initial_chickens()->void:
 		chicken_direction.append(0)
 		chicken_animation_frame.append(0)
 		chicken_current_action.append(Action.WANDER)
-		chicken_target.append(center)
+		chicken_target.append(chicken_positions[i])
 		chicken_fatigue.append(50)
 		pass
 	pass
@@ -117,9 +117,10 @@ func apply_save_data(data:Dictionary)->void:
 func show_chickens()->void:
 	chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
 	for i:int in range(chicken_positions.size()):
-		var pos:Transform2D = Transform2D(0.0,Vector2(chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
-		chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
-		chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( 0, 0,0,0))
+		if chicken_current_action[i] != ChickenManager.Action.SIT:
+			var pos:Transform2D = Transform2D(0.0,Vector2(chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
+			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
+			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( 0, 0,0,0))
 		pass
 	pass
 

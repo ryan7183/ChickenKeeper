@@ -68,6 +68,7 @@ void main(){
         case 0://Eat
             food_in.data[tile_index] = 0;
             hunger_out.data[invocation] = min(hunger_out.data[invocation]+food,100);
+            
             break;
         case 1://Drink
             break;

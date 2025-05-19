@@ -45,12 +45,22 @@ layout(push_constant) uniform Parameters {
 }
 param;
 
-vec2 get_wander_target(vec2 pos){
-    return vec2(0,0);
+float random (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+vec2 get_wander_target(vec2 pos, float seed){
+    float delta = param.delta_time;
+    float posx = (random(vec2(delta + seed,0))-0.5);
+    float posy = (random(vec2(0,delta+seed))-0.5);
+    vec2 move =  vec2(posx, posy);
+    vec2 tar = max(pos + move, vec2(0,0));
+    return move;
 }
 
 vec2 get_nearest_grass(vec2 pos){
-    return vec2(0,0);
+    return vec2(1600,1600);
 }
 
 void main(){
@@ -58,6 +68,7 @@ void main(){
     float fatigue = fatigue_in.data[invocation];
     float hunger = hunger_in.data[invocation];
     vec2 position = pos_in.data[invocation];
+    vec2 cur_tar = target_in.data[invocation];
     if (fatigue< 50 || hunger<50){
         //Hungry or tired
         if(fatigue<hunger && fatigue<50){
@@ -76,6 +87,10 @@ void main(){
     }else{
         //Satified
         action_out.data[invocation] = 2;
-        target_out.data[invocation] =get_wander_target(position);
+        float dist = distance(position, cur_tar);
+        if (dist<0.0001){
+            target_out.data[invocation] =get_wander_target(position, float(invocation));
+        }
+       
     }
 }
