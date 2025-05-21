@@ -49,31 +49,36 @@ void main(){
         terrain_out.data[invocation] =1;
         changed_out.data[invocation] = false;
         uint neighbor_count = 0;
+        float food_count = 0;
         if (invocation-width >=0 && terrain_in.data[invocation-width]==0){
             neighbor_count +=1;
+            food_count+=food_in.data[invocation-width];
         }
         if(invocation+width <terrain_in.data.length() && terrain_in.data[invocation+width]==0){
             neighbor_count +=1;
+            food_count+=food_in.data[invocation+width];
         }
         if(invocation+1 <terrain_in.data.length() && terrain_in.data[invocation+1]==0){
             neighbor_count +=1;
+            food_count+=food_in.data[invocation+1];
         }
         if(invocation-1 >=0 && terrain_in.data[invocation-1]==0){
             neighbor_count +=1;
+            food_count+=food_in.data[invocation-1];
         }
-        if (random(vec2(invocation+param.time,invocation))*(2.0/neighbor_count) < 0.001){
+        if (food_count>99.0 && random(vec2(invocation+param.time,0))*10 < 0.1 && neighbor_count>0){
             terrain_out.data[invocation] = 0;
             changed_out.data[invocation] = true;
-            food_out.data[invocation] = 50;
+            food_out.data[invocation] = 10.0;
         }
     //If grass with no food
-    }else if(terrain_in.data[invocation] == 0 && abs(food_in.data[invocation]-100)<0.001){
-        terrain_out.data[invocation] == 1;
+    }else if(terrain_in.data[invocation] == 0 && food_in.data[invocation]<0.001){
+        terrain_out.data[invocation] = 1;
         changed_out.data[invocation] = true;
         food_out.data[invocation] = 0;    
     }else{
         terrain_out.data[invocation] = terrain_in.data[invocation];
         changed_out.data[invocation] = false;
-        food_out.data[invocation] = min(food_in.data[invocation] * 1.01, 100);
+        food_out.data[invocation] = min(food_in.data[invocation] * 1.001, 100);
     }
 }

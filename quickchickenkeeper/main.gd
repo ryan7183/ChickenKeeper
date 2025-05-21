@@ -125,5 +125,5 @@ func _on_chicken_manager_request_food_amount() -> void:
 
 
 func _on_chicken_manager_food_amount_updated(food: Array[Array]) -> void:
-	terrain_manager.food_amount = food
+	terrain_manager.update_food_amount(food)
 	pass # Replace with function body.

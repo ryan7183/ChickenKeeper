@@ -28,6 +28,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var results:Dictionary = grass_grower.grow_grass(delta)
+	update_food_amount(results["food"])
 	terrain_map = results["terrain"]
 	changed_tile_map = results["changed"] as Array[Array]
 	update_tile_map(results["changed"] as Array[Array])
@@ -35,7 +36,13 @@ func _process(delta: float) -> void:
 		_place_tile()
 	pass
 
+func update_food_amount(food:Array[Array])->void:
+	food_amount = food
+	grass_grower.update_data(terrain_map,food_amount)
+	pass
+
 func update_tile_map(changed:Array[Array])->void:
+	var tile_changed:bool = false
 	# Find list of water tiles
 	var water_list:Array[Vector2i] = []
 	# Find list of grass tiles
@@ -45,6 +52,7 @@ func update_tile_map(changed:Array[Array])->void:
 	for x:int in world_size.x:
 		for y: int in world_size.y:
 			if changed[x][y] as bool:
+				tile_changed = true
 				#terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
 				match terrain_map[x][y]:
 					TerrainType.GRASS:
@@ -60,6 +68,8 @@ func update_tile_map(changed:Array[Array])->void:
 		terrain_tile_map.set_cells_terrain_connect(grass_list,0,1)
 	if dirt_list.size()>0:
 		terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
+	if tile_changed:
+		tile_placed.emit()
 	pass
 
 func _input(event: InputEvent) -> void:

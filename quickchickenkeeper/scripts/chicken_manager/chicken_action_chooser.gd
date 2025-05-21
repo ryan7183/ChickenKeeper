@@ -19,6 +19,7 @@ var terrain_in_buffer:RID
 var hunger_satiation_in_buffer:RID
 var chicken_fatigue_in_buffer:RID
 var chicken_current_action_out_buffer:RID
+#var index_out_buffer:RID
 var tile_size:int
 
 var target_output:Array[Vector2]= []
@@ -29,7 +30,7 @@ func update_data(positions:Array[Vector2], hunger_satiation:Array[float], chicke
 	packed_chicken_hunger_satiation = PackedFloat32Array(hunger_satiation)
 	packed_chicken_fatigue = PackedFloat32Array(chicken_fatigue)
 	packed_chicken_target = PackedVector2Array(targets)
-	terrain_width = positions.size()
+	terrain_width = terrain.size()
 	packed_terrain = _terrain_to_packed(terrain)
 	pass
 
@@ -51,6 +52,7 @@ func decide_chicken_action(delta:float)->Dictionary:
 		"action":action_output,
 	}
 
+
 func _retrieve_shader_data()->void:
 	if target_out_buffer.is_valid():
 		var tar_output :PackedByteArray=  rendering_device.buffer_get_data(target_out_buffer)
@@ -61,6 +63,11 @@ func _retrieve_shader_data()->void:
 		var action_out :PackedByteArray=  rendering_device.buffer_get_data(chicken_current_action_out_buffer)
 		var arr :Array[ChickenManager.Action]= Array(Array(action_out.to_int32_array()),TYPE_INT,"",null)# There must be a better way than doing it twice
 		action_output = arr 
+	
+	#if index_out_buffer.is_valid():
+	#	var index_out :PackedByteArray=  rendering_device.buffer_get_data(index_out_buffer)
+	#	var arr :Array[float]= Array(Array(index_out.to_float32_array()),TYPE_FLOAT,"",null)# There must be a better way than doing it twice
+	#	pass
 	pass
 
 func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
@@ -143,6 +150,18 @@ func _run_shader(delta:float)->void:
 	action_out_uniform.binding = 6
 	action_out_uniform.add_id(chicken_current_action_out_buffer)
 	
+	"""var temp:PackedFloat32Array = []
+	temp.resize(packed_chicken_positions.size())
+	var index_byte_array:PackedByteArray = temp.to_byte_array()
+	if index_out_buffer.is_valid():
+		rendering_device.free_rid(index_out_buffer)
+	index_out_buffer = rendering_device.storage_buffer_create(index_byte_array.size(), index_byte_array)
+	var index_out_uniform :RDUniform = RDUniform.new()
+	index_out_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	index_out_uniform.binding = 7
+	index_out_uniform.add_id(index_out_buffer)"""
+	
+	
 	var action_uniform_set :RID= rendering_device.uniform_set_create([
 		pos_in_uniform,
 		target_in_uniform,
@@ -151,6 +170,7 @@ func _run_shader(delta:float)->void:
 		hunger_satiation_uniform,
 		chicken_fatigue_uniform,
 		action_out_uniform,
+		#index_out_uniform,
 		], shader, 0)
 	
 	# Create a compute pipeline
