@@ -56,9 +56,10 @@ func spawn_initial_chickens()->void:
 	pass
 
 func _process(delta: float) -> void:
-	_determine_actions(delta)
-	_move_chickens(delta)
-	_request_data_to_perform_chicken_actions()
+	if (Engine.get_process_frames()+1) % 2 == 0:
+		_determine_actions(delta)
+		_move_chickens(delta)
+		_request_data_to_perform_chicken_actions()
 	show_chickens()
 	show_eggs()
 	pass

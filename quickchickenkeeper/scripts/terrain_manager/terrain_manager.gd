@@ -27,11 +27,12 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	var results:Dictionary = grass_grower.grow_grass(delta)
-	update_food_amount(results["food"])
-	terrain_map = results["terrain"]
-	changed_tile_map = results["changed"] as Array[Array]
-	update_tile_map(results["changed"] as Array[Array])
+	if Engine.get_process_frames() % 2 == 0:
+		var results:Dictionary = grass_grower.grow_grass(delta)
+		update_food_amount(results["food"])
+		terrain_map = results["terrain"]
+		changed_tile_map = results["changed"] as Array[Array]
+		update_tile_map(results["changed"] as Array[Array])
 	if keep_placing_tiles:
 		_place_tile()
 	pass
