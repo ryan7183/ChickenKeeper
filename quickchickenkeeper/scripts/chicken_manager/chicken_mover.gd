@@ -49,9 +49,12 @@ func _retrieve_shader_data()->void:
 func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
 	var decoded :Array = bytes.to_float32_array()
 	var arr: Array[Vector2] = []
-	
+	arr.resize(positions_array.size())
+	var index:int = 0
 	for i:int in range(1,decoded.size(),2):
-		arr.append(Vector2(decoded[i-1],decoded[i]))
+		#arr.append(Vector2(decoded[i-1],decoded[i]))
+		arr[index] = Vector2(decoded[i-1],decoded[i])
+		index+=1
 		pass
 	
 	return arr
