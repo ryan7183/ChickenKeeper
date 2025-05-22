@@ -21,7 +21,7 @@ var world_size:Vector2 = Vector2(1600, 1600)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position = world_size
+	position = world_size/2
 	pass # Replace with function body.
 
 
@@ -34,6 +34,12 @@ func _process(_delta: float) -> void:
 	elif pan_state == PanState.KEY_PAN:
 		position += camera_key_press_pan_velocity
 		pass
+		
+	bound_camera_to_area()
+	pass
+
+func bound_camera_to_area()->void:
+	position = position.clamp(Vector2(0,0),Vector2(world_size.x*16,world_size.y*16))
 	pass
 
 func get_save_data()->Dictionary:
