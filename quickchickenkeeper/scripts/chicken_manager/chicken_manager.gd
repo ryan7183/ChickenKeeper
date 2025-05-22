@@ -11,6 +11,7 @@ signal food_amount_updated(food:Array[Array])
 enum Action {EAT, DRINK, WANDER, SIT, FIND_FOOD, FIND_WATER}
 
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
+var draggable_egg_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_egg.tscn")
 
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
@@ -29,6 +30,7 @@ var egg_time_till_hatch:Array[float] = []
 const initial_num_chickens:int = 2
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
+const egg_sprite_size:int = 32
 var tile_size:int = 16
 var world_size:Vector2 = Vector2(2000,2000)
 var chicken_mover:ChickenMover
@@ -37,6 +39,7 @@ var chicken_action_performer:ChickenActionPerformer
 var egg_updater:EggUpdater
 
 var terrain:Array[Array] = []
+var dragging_item:bool =false
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
@@ -192,7 +195,7 @@ func show_eggs()->void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("PickUpChicken"): 
+	if event.is_action_pressed("PickUpChicken") and !dragging_item: 
 		var mouse_pos:Vector2 = get_global_mouse_position()
 		var chicken_data:Dictionary = _remove_chicken_if_mouse_over(mouse_pos)
 		if chicken_data.has("chicken_position"):
@@ -205,13 +208,33 @@ func _input(event: InputEvent) -> void:
 			item_being_dragged.emit()
 			pass
 	
+	if event.is_action_pressed("PickUpEgg") and !dragging_item: 
+		var mouse_pos:Vector2 = get_global_mouse_position()
+		var egg_data:Dictionary = _remove_egg_if_mouse_over(mouse_pos)
+		if egg_data.has("egg_position"):
+			var draggable_instance:DraggableEgg = draggable_egg_scene.instantiate()
+			draggable_instance.scale = Vector2(2.0,2.0)
+			draggable_instance.tile_size = tile_size
+			draggable_instance.world_size = world_size
+			draggable_instance.dropped.connect(_on_draggable_egg_drop.bind(egg_data))
+			add_child(draggable_instance)
+			item_being_dragged.emit()
+			pass
 	
 		pass
 	pass
 
 func _on_draggable_chicken_drop(pos:Vector2,data:Dictionary)->void:
+	dragging_item = false
 	data["chicken_position"] = pos
 	_add_chicken(data)
+	item_being_dropped.emit()
+	pass
+
+func _on_draggable_egg_drop(pos:Vector2,data:Dictionary)->void:
+	dragging_item = false
+	data["egg_position"] = pos
+	_add_egg_with_stats(data)
 	item_being_dropped.emit()
 	pass
 
@@ -221,8 +244,34 @@ func _remove_chicken_if_mouse_over(pos:Vector2)->Dictionary:
 		var chicken_size:float = chicken_scales[i]*chicken_sprite_size
 		chicken_pos += Vector2(chicken_size/2.0, chicken_size/2.0)
 		if chicken_pos.distance_to(pos)<chicken_size:#/2.0:
+			dragging_item = true
 			return _remove_chicken(i)
 	return {}
+
+func _remove_egg_if_mouse_over(pos:Vector2)->Dictionary:
+	for i:int in range(egg_positions.size()):
+		var egg_pos:Vector2 = egg_positions[i]
+		egg_pos += Vector2(egg_sprite_size/2.0, egg_sprite_size/2.0)
+		if egg_pos.distance_to(pos)<egg_sprite_size:#/2.0:
+			dragging_item = true
+			return _remove_egg(i)
+	return {}
+
+func _remove_egg(i:int)->Dictionary:
+	var data:Dictionary = {
+		"egg_position":egg_positions[i],
+		"egg_time_till_hatch":egg_time_till_hatch[i],
+	}
+	
+	egg_positions.remove_at(i)
+	egg_time_till_hatch.remove_at(i)
+	
+	return data
+
+func _add_egg_with_stats(data:Dictionary)->void:
+	egg_positions.append(data["egg_position"])
+	egg_time_till_hatch.append(data["egg_time_till_hatch"])
+	pass
 
 func _add_chicken(data:Dictionary)->void:
 	chicken_positions.append(data["chicken_position"])

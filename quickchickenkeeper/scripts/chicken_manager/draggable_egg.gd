@@ -1,4 +1,4 @@
-class_name DraggableChicken extends Sprite2D
+class_name DraggableEgg extends Sprite2D
 
 @export var image:Sprite2D
 
@@ -16,6 +16,6 @@ func _process(_delta: float) -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("PickUpChicken"):
+	if event.is_action_released("PickUpEgg"):
 		dropped.emit(position)
 		queue_free()
