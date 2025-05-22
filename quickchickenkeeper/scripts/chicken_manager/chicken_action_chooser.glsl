@@ -122,7 +122,7 @@ void main(){
         //Satified
         action_out.data[invocation] = 2;
         float dist = distance(position, cur_tar);
-        if (dist<0.01){
+        if (dist<0.01 || cur_tar.x <=0 || cur_tar.x >=1600|| cur_tar.y<=0|| cur_tar.y >=1600){
             vec2 tar = get_wander_target(position, float(invocation));
             target_out.data[invocation] = tar;
             if (tar.x<0 || tar.y<0 || tar.y>param.terrain_width*16 || tar.x>param.terrain_width*16){
