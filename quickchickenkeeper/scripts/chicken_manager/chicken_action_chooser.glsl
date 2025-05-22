@@ -98,6 +98,7 @@ void main(){
     float hunger = hunger_in.data[invocation];
     vec2 position = pos_in.data[invocation];
     vec2 cur_tar = target_in.data[invocation];
+
     if (fatigue< 90 || hunger<90){
         //Hungry or tired
         if(fatigue<hunger && fatigue<90){
@@ -130,4 +131,5 @@ void main(){
         }
        
     }
+
 }

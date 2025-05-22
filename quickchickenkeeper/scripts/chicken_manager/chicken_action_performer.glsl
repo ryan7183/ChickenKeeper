@@ -54,6 +54,16 @@ layout(set = 0, binding = 9, std430) restrict buffer SatisfactionOutBuffer {
 }
 satisfaction_out;
 
+layout(set = 0, binding = 10, std430) restrict buffer HealthInBuffer {
+    float data[];
+}
+health_in;
+
+layout(set = 0, binding = 11, std430) restrict buffer HealthOutBuffer {
+    float data[];
+}
+health_out;
+
 layout(push_constant) uniform Parameters {
     int terrain_width;
 }
@@ -78,6 +88,10 @@ void main(){
         satifaction = min(satifaction+0.5,100);
     }else{
         satifaction = max(satifaction-0.25,0);
+        
+    }
+    if(hunger<50 || fatigue<50){
+        health_out.data[invocation] = health_in.data[invocation] - 0.02;
     }
     satisfaction_out.data[invocation] = satifaction;
     switch(action_in.data[invocation]){

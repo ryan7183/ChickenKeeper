@@ -65,13 +65,21 @@ func spawn_initial_chickens()->void:
 	pass
 
 func _process(delta: float) -> void:
-	if (Engine.get_process_frames()+1) % 2 == 0:
+	if (Engine.get_process_frames()+1) % 2 == 0 and chicken_positions.size()>0:
 		_update_eggs()
 		_determine_actions(delta)
 		_move_chickens(delta)
 		_request_data_to_perform_chicken_actions()
+		_kill_unhealthy_chickens()
 	show_chickens()
 	show_eggs()
+	pass
+
+func _kill_unhealthy_chickens()->void:
+	for i:int in range(chicken_positions.size()-1,-1,-1):
+		if chicken_health[i]<=0:
+			_remove_chicken(i)
+		pass
 	pass
 
 func _update_eggs()->void:
@@ -134,12 +142,15 @@ func _move_chickens(delta:float)->void:
 	chicken_positions = results
 
 func perform_chicken_actions(food_amount:Array[Array])->void:
-	chicken_action_performer.update_data(chicken_positions,food_amount,chicken_hunger_satiation,chicken_fatigue, chicken_current_action,chicken_satisfaction_time)
+	chicken_action_performer.update_data(chicken_positions,food_amount,\
+	chicken_hunger_satiation,chicken_fatigue, chicken_current_action,\
+	chicken_satisfaction_time, chicken_health)
 	var result:Dictionary = chicken_action_performer.perform_chicken_actions()
 	food_amount = result["food"]
 	chicken_hunger_satiation = result["hunger"]
 	chicken_fatigue = result["fatigue"]
 	chicken_satisfaction_time = result["satisfaction"]
+	chicken_health = result["health"]
 	food_amount_updated.emit(food_amount)
 	pass
 
