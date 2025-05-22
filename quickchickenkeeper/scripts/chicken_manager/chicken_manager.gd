@@ -21,8 +21,10 @@ var chicken_current_action:Array[Action] = []
 var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
 var chicken_satisfaction_time:Array[float] = []
+
 var egg_positions:Array[Vector2] = []
 var egg_time_till_hatch:Array[float] = []
+
 const initial_num_chickens:int = 2
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
@@ -31,6 +33,7 @@ var world_size:Vector2 = Vector2(2000,2000)
 var chicken_mover:ChickenMover
 var chicken_action_chooser: ChickenActionChooser
 var chicken_action_performer:ChickenActionPerformer
+var egg_updater:EggUpdater
 
 var terrain:Array[Array] = []
 
@@ -39,6 +42,7 @@ func _ready() -> void:
 	chicken_mover = ChickenMover.new()
 	chicken_action_chooser = ChickenActionChooser.new()
 	chicken_action_performer = ChickenActionPerformer.new()
+	egg_updater = EggUpdater.new()
 	pass
 
 func spawn_initial_chickens()->void:
@@ -60,11 +64,47 @@ func spawn_initial_chickens()->void:
 
 func _process(delta: float) -> void:
 	if (Engine.get_process_frames()+1) % 2 == 0:
+		_update_eggs()
 		_determine_actions(delta)
 		_move_chickens(delta)
 		_request_data_to_perform_chicken_actions()
 	show_chickens()
 	show_eggs()
+	pass
+
+func _update_eggs()->void:
+	var result:Dictionary = egg_updater.update_eggs(chicken_positions,chicken_satisfaction_time,\
+	egg_positions,egg_time_till_hatch)
+	
+	chicken_satisfaction_time = result["updated_satisfaction_time"]
+	var new_chickens:Array[Vector2] = result["new_chicken_positions"]
+	
+	for pos:Vector2 in new_chickens:
+		_add_chicken({
+		"chicken_position":pos,
+		"chicken_scale":1.0,
+		"chicken_hunger_satiation":20,
+		"chicken_direction":0,
+		"chicken_animation_frame":0,
+		"chicken_current_action":Action.WANDER,
+		"chicken_target":pos,
+		"chicken_fatigue":50,
+		"chicken_satisfaction":0,
+		})
+		pass
+	
+	egg_positions = result["updated_egg_position_list"]
+	egg_time_till_hatch = result["updated_time_tile_hatch"]
+	var laid_eggs:Array[Vector2] = result["laid_eggs"] 
+	for pos:Vector2 in laid_eggs:
+		_add_egg(pos)
+		pass
+	
+	pass
+
+func _add_egg(pos:Vector2)->void:
+	egg_positions.append(pos)
+	egg_time_till_hatch.append(300)
 	pass
 
 func _request_data_to_perform_chicken_actions()->void:
@@ -130,7 +170,7 @@ func show_chickens()->void:
 	pass
 
 func show_eggs()->void:
-	egg_multi_mesh.multimesh.instance_count=initial_island_size
+	egg_multi_mesh.multimesh.instance_count=egg_positions.size()
 	for i:int in range(egg_positions.size()):
 		var pos:Transform2D = Transform2D(0.0,Vector2(0.5,0.5),0.0,egg_positions[i])
 		egg_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
