@@ -20,7 +20,9 @@ var chicken_animation_frame:Array[int] = []
 var chicken_current_action:Array[Action] = []
 var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
+var chicken_satisfaction_time:Array[float] = []
 var egg_positions:Array[Vector2] = []
+var egg_time_till_hatch:Array[float] = []
 const initial_num_chickens:int = 2
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
@@ -52,6 +54,7 @@ func spawn_initial_chickens()->void:
 		chicken_current_action.append(Action.WANDER)
 		chicken_target.append(chicken_positions[i])
 		chicken_fatigue.append(50)
+		chicken_satisfaction_time.append(0)
 		pass
 	pass
 
@@ -88,11 +91,12 @@ func _move_chickens(delta:float)->void:
 	chicken_positions = results
 
 func perform_chicken_actions(food_amount:Array[Array])->void:
-	chicken_action_performer.update_data(chicken_positions,food_amount,chicken_hunger_satiation,chicken_fatigue, chicken_current_action)
+	chicken_action_performer.update_data(chicken_positions,food_amount,chicken_hunger_satiation,chicken_fatigue, chicken_current_action,chicken_satisfaction_time)
 	var result:Dictionary = chicken_action_performer.perform_chicken_actions()
 	food_amount = result["food"]
 	chicken_hunger_satiation = result["hunger"]
 	chicken_fatigue = result["fatigue"]
+	chicken_satisfaction_time = result["satisfaction"]
 	food_amount_updated.emit(food_amount)
 	pass
 
@@ -175,6 +179,7 @@ func _add_chicken(data:Dictionary)->void:
 	chicken_current_action.append(data["chicken_current_action"] as Action)
 	chicken_target.append(data["chicken_target"])
 	chicken_fatigue.append(data["chicken_fatigue"])
+	chicken_satisfaction_time.append(data["chicken_satisfaction"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
@@ -187,6 +192,7 @@ func _remove_chicken(i:int)->Dictionary:
 		"chicken_current_action":chicken_current_action[i],
 		"chicken_target":chicken_target[i],
 		"chicken_fatigue":chicken_fatigue[i],
+		"chicken_satisfaction":chicken_satisfaction_time[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
@@ -196,4 +202,5 @@ func _remove_chicken(i:int)->Dictionary:
 	chicken_current_action.remove_at(i)
 	chicken_target.remove_at(i)
 	chicken_fatigue.remove_at(i)
+	chicken_satisfaction_time.remove_at(i)
 	return data

@@ -98,9 +98,9 @@ void main(){
     float hunger = hunger_in.data[invocation];
     vec2 position = pos_in.data[invocation];
     vec2 cur_tar = target_in.data[invocation];
-    if (fatigue< 50 || hunger<50){
+    if (fatigue< 90 || hunger<90){
         //Hungry or tired
-        if(fatigue<hunger && fatigue<50){
+        if(fatigue<hunger && fatigue<90){
             action_out.data[invocation] = 3;
             target_out.data[invocation] = position;
         }else{

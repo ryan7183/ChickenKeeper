@@ -44,6 +44,15 @@ layout(set = 0, binding = 7, std430) restrict buffer ActionInBuffer {
 }
 action_in;
 
+layout(set = 0, binding = 8, std430) restrict buffer SatisfactionInBuffer {
+    float data[];
+}
+satisfaction_in;
+
+layout(set = 0, binding = 9, std430) restrict buffer SatisfactionOutBuffer {
+    float data[];
+}
+satisfaction_out;
 
 layout(push_constant) uniform Parameters {
     int terrain_width;
@@ -64,6 +73,13 @@ void main(){
     float food = food_in.data[tile_index];
     hunger_out.data[invocation] = max(hunger-1.0,0);
     fatigue_out.data[invocation] = max(fatigue-1.0,0);
+    float satifaction = satisfaction_in.data[invocation];
+    if(hunger>50 && fatigue>50){
+        satifaction = min(satifaction+1,100);
+    }else{
+        satifaction = max(satifaction-1,0);
+    }
+    satisfaction_out.data[invocation] = satifaction;
     switch(action_in.data[invocation]){
         case 0://Eat
             food_in.data[tile_index] = 0;

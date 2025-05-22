@@ -6,6 +6,7 @@ var packed_food_amount: PackedFloat32Array = []
 var packed_hunger_satiation:PackedFloat32Array = []
 var packed_fatigue_amount:PackedFloat32Array = []
 var packed_chicken_action:PackedInt32Array = []
+var packed_satisfaction:PackedFloat32Array = []
 
 var terrain_width:int
 var shader:RID
@@ -18,14 +19,18 @@ var hunger_out_buffer:RID
 var fatigue_in_buffer:RID
 var fatigue_out_buffer:RID
 var action_in_buffer:RID
+var satisfaction_in_buffer:RID
+var satisfaction_out_buffer:RID
+
 
 var food_output:Array[Array]
 var hunger_output:Array[float]
 var fatigue_output:Array[float]
+var satisfaction_output:Array[float]
 
 var num_chickens:int
 
-func update_data(positions:Array[Vector2], food:Array[Array], hunger:Array[float], fatigue:Array[float], action:Array[ChickenManager.Action])->void:
+func update_data(positions:Array[Vector2], food:Array[Array], hunger:Array[float], fatigue:Array[float], action:Array[ChickenManager.Action], satisfaction:Array[float])->void:
 	packed_positions_array = PackedVector2Array(positions)
 	terrain_width = food.size()
 	packed_food_amount = _food_to_packed(food)
@@ -33,6 +38,7 @@ func update_data(positions:Array[Vector2], food:Array[Array], hunger:Array[float
 	packed_hunger_satiation = PackedFloat32Array(hunger)
 	num_chickens = positions.size()
 	packed_chicken_action = PackedInt32Array(action)
+	packed_satisfaction = PackedFloat32Array(satisfaction)
 	pass
 
 func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:
@@ -58,6 +64,7 @@ func perform_chicken_actions()->Dictionary:
 		"food":food_output,
 		"hunger":hunger_output,
 		"fatigue":fatigue_output,
+		"satisfaction":satisfaction_output,
 	}
 
 func _retrieve_shader_data()->void:
@@ -73,6 +80,10 @@ func _retrieve_shader_data()->void:
 		var fatigue_out :PackedByteArray=  rendering_device.buffer_get_data(fatigue_out_buffer)
 		var arr :PackedFloat32Array= fatigue_out.to_float32_array()
 		fatigue_output = Array(Array(arr),TYPE_FLOAT,"",null)
+	if satisfaction_out_buffer.is_valid():
+		var satisfaction_out :PackedByteArray=  rendering_device.buffer_get_data(satisfaction_out_buffer)
+		var arr :PackedFloat32Array= satisfaction_out.to_float32_array()
+		satisfaction_output = Array(Array(arr),TYPE_FLOAT,"",null)
 	pass
 
 func one_d_to_two_d_square_array(arr:Array, width:int)->Array[Array]:
@@ -169,6 +180,23 @@ func _run_shader()->void:
 	action_in_uniform.binding = 7
 	action_in_uniform.add_id(action_in_buffer)
 	
+	var satisfaction_byte_array:PackedByteArray = packed_satisfaction.to_byte_array()
+	if satisfaction_in_buffer.is_valid():
+		rendering_device.free_rid(satisfaction_in_buffer)
+	satisfaction_in_buffer = rendering_device.storage_buffer_create(satisfaction_byte_array.size(), satisfaction_byte_array)
+	var satisfaction_in_uniform :RDUniform = RDUniform.new()
+	satisfaction_in_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	satisfaction_in_uniform.binding = 8
+	satisfaction_in_uniform.add_id(satisfaction_in_buffer)
+	
+	if satisfaction_out_buffer.is_valid():
+		rendering_device.free_rid(satisfaction_out_buffer)
+	satisfaction_out_buffer = rendering_device.storage_buffer_create(satisfaction_byte_array.size(), satisfaction_byte_array)
+	var satisfaction_out_uniform :RDUniform = RDUniform.new()
+	satisfaction_out_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	satisfaction_out_uniform.binding = 9
+	satisfaction_out_uniform.add_id(satisfaction_out_buffer)
+	
 	var action_uniform_set :RID= rendering_device.uniform_set_create([
 		pos_in_uniform, 
 		food_in_uniform,
@@ -178,6 +206,8 @@ func _run_shader()->void:
 		fatigue_in_uniform,
 		fatigue_out_uniform,
 		action_in_uniform,
+		satisfaction_in_uniform,
+		satisfaction_out_uniform,
 		], shader, 0)
 	
 	# Create a compute pipeline
