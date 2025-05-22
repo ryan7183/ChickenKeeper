@@ -17,7 +17,7 @@ var camera_key_press_pan_velocity:Vector2 = Vector2(0,0)
 
 var scroll_disabled: bool = false
 
-var world_size:Vector2 = Vector2(2000, 2000)
+var world_size:Vector2 = Vector2(1600, 1600)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -88,12 +88,13 @@ func _handle_mouse_camera_pan(event:InputEvent)->void:
 func _handle_camera_zoom(event:InputEvent)->void:
 	if !scroll_disabled and event.is_action_pressed("CameraScrollUp"):
 		var z:Vector2 = zoom + Vector2(camera_zoom_speed, camera_zoom_speed)
-		z = z.clamp(Vector2(0.05,0.05),Vector2(2,2))
+		z = z.clamp(Vector2(0.05,0.05),Vector2(3,3))
 		zoom = z
 		pass
 	elif !scroll_disabled and event.is_action_pressed("CameraScrollDown"):
 		var z:Vector2 = zoom - Vector2(camera_zoom_speed, camera_zoom_speed)
-		z = z.clamp(Vector2(0.05,0.05),Vector2(2,2))
+		z = z.clamp(Vector2(0.6,0.6),Vector2(3,3))
 		zoom = z
+		print(zoom)
 		pass
 	pass
