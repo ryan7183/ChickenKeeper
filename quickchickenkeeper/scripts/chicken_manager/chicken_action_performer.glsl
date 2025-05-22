@@ -75,15 +75,15 @@ void main(){
     fatigue_out.data[invocation] = max(fatigue-1.0,0);
     float satifaction = satisfaction_in.data[invocation];
     if(hunger>50 && fatigue>50){
-        satifaction = min(satifaction+1,100);
+        satifaction = min(satifaction+0.5,100);
     }else{
-        satifaction = max(satifaction-1,0);
+        satifaction = max(satifaction-0.25,0);
     }
     satisfaction_out.data[invocation] = satifaction;
     switch(action_in.data[invocation]){
         case 0://Eat
             food_in.data[tile_index] = 0;
-            hunger_out.data[invocation] = min(hunger_out.data[invocation]+food,100);
+            hunger_out.data[invocation] = min(hunger_out.data[invocation]+(food*2),100);
             //hunger_out.data[invocation]  = 100;
             break;
         case 1://Drink

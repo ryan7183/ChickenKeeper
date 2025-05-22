@@ -21,6 +21,7 @@ var chicken_current_action:Array[Action] = []
 var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
 var chicken_satisfaction_time:Array[float] = []
+var chicken_health:Array[float] = []
 
 var egg_positions:Array[Vector2] = []
 var egg_time_till_hatch:Array[float] = []
@@ -52,13 +53,14 @@ func spawn_initial_chickens()->void:
 		chicken_positions.append(Vector2(randf_range(center.x-half_island_size,center.x+half_island_size),\
 		randf_range(center.y-half_island_size,center.y+half_island_size)))
 		chicken_scales.append(1.0)
-		chicken_hunger_satiation.append(50)
+		chicken_hunger_satiation.append(100)
 		chicken_direction.append(0)
 		chicken_animation_frame.append(0)
 		chicken_current_action.append(Action.WANDER)
 		chicken_target.append(chicken_positions[i])
-		chicken_fatigue.append(50)
-		chicken_satisfaction_time.append(0)
+		chicken_fatigue.append(100)
+		chicken_satisfaction_time.append(20)
+		chicken_health.append(100)
 		pass
 	pass
 
@@ -90,6 +92,7 @@ func _update_eggs()->void:
 		"chicken_target":pos,
 		"chicken_fatigue":50,
 		"chicken_satisfaction":0,
+		"chicken_health": 100,
 		})
 		pass
 	
@@ -220,6 +223,7 @@ func _add_chicken(data:Dictionary)->void:
 	chicken_target.append(data["chicken_target"])
 	chicken_fatigue.append(data["chicken_fatigue"])
 	chicken_satisfaction_time.append(data["chicken_satisfaction"])
+	chicken_health.append(data["chicken_health"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
@@ -233,6 +237,7 @@ func _remove_chicken(i:int)->Dictionary:
 		"chicken_target":chicken_target[i],
 		"chicken_fatigue":chicken_fatigue[i],
 		"chicken_satisfaction":chicken_satisfaction_time[i],
+		"chicken_health":chicken_health[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
@@ -243,4 +248,5 @@ func _remove_chicken(i:int)->Dictionary:
 	chicken_target.remove_at(i)
 	chicken_fatigue.remove_at(i)
 	chicken_satisfaction_time.remove_at(i)
+	chicken_health.remove_at(i)
 	return data
