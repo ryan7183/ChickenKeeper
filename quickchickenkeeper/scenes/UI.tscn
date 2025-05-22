@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bks5rkbg5bmgn" path="res://scripts/ui.gd" id="1_dj8aq"]
 
-[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button")]
+[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button", "grass_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ script = ExtResource("1_dj8aq")
 fence_button = NodePath("VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/FenceButton")
 dirt_button = NodePath("VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/DirtButton")
 water_button = NodePath("VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/WaterButton")
+grass_button = NodePath("VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -94,6 +95,11 @@ layout_mode = 2
 toggle_mode = true
 text = "Water"
 
+[node name="GrassButton" type="Button" parent="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Grass"
+
 [connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_disable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_enable_tile_placement"]
 [connection signal="pressed" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
@@ -106,3 +112,6 @@ text = "Water"
 [connection signal="mouse_entered" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/WaterButton" to="." method="_on_disable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/WaterButton" to="." method="_on_enable_tile_placement"]
 [connection signal="toggled" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/WaterButton" to="." method="_on_water_button_toggled"]
+[connection signal="mouse_entered" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_disable_tile_placement"]
+[connection signal="mouse_exited" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_enable_tile_placement"]
+[connection signal="toggled" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_grass_button_toggled"]

@@ -89,6 +89,7 @@ func _place_tile()->void:
 		match placement_mode:
 			TerrainType.GRASS:
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
+				food_amount[tile_pos.x][tile_pos.y] = 50
 			TerrainType.DIRT:
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
 			TerrainType.WATER:
