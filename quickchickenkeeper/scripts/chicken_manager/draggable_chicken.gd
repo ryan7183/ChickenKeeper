@@ -9,8 +9,8 @@ var world_size:Vector2 = Vector2(2000,2000)
 
 func _process(_delta: float) -> void:
 	var new_pos:Vector2 = get_global_mouse_position()
-	var max_x:float = (world_size.x*tile_size)-(chicken_sprite_size*scale.x)
-	var max_y:float = (world_size.y*tile_size)-(chicken_sprite_size*scale.y)
+	var max_x:float = (world_size.x*tile_size)#-(chicken_sprite_size*scale.x)
+	var max_y:float = (world_size.y*tile_size)#-(chicken_sprite_size*scale.y)
 	new_pos.x = min(max(0,new_pos.x),max_x)
 	new_pos.y = min(max(0,new_pos.y),max_y)
 	set_position(new_pos)
