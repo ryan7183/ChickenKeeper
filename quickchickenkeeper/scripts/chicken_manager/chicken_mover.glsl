@@ -30,11 +30,6 @@ layout(push_constant) uniform Parameters {
 }
 param;
 
-void move_away_from_neighbors(int invocation){
-    
-}
-
-
 void main(){
     uint invocation = gl_GlobalInvocationID.x;
     vec2 chicken_pos = pos_in.data[invocation];
@@ -53,11 +48,15 @@ void main(){
             }
         }
     }
+
+
     vec2 tile_pos = chicken_pos/16.0;
     int terrain_index = (int(tile_pos.x) * param.terrain_width) + int(tile_pos.y);
     int terrain_type = terrain_in.data[terrain_index]; 
-    if(terrain_type!=2){
+    if(terrain_type!=2 && tile_pos.x >0 && tile_pos.y>0 && tile_pos.x+1 <param.terrain_width && tile_pos.y+1 <param.terrain_width){
         pos_out.data[invocation].xy = chicken_pos.xy;
     }
+
+    
 }
 
