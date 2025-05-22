@@ -101,6 +101,5 @@ func _handle_camera_zoom(event:InputEvent)->void:
 		var z:Vector2 = zoom - Vector2(camera_zoom_speed, camera_zoom_speed)
 		z = z.clamp(Vector2(0.6,0.6),Vector2(3,3))
 		zoom = z
-		print(zoom)
 		pass
 	pass

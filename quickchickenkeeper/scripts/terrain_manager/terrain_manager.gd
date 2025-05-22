@@ -37,6 +37,14 @@ func _process(delta: float) -> void:
 		_place_tile()
 	pass
 
+func make_sea()->void:
+	var excess:int = 100
+	for x:int in range(-excess,world_size.x+excess):
+		for y:int in range(-excess,world_size.y+excess):
+			terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
+			pass
+	pass
+
 func update_food_amount(food:Array[Array])->void:
 	food_amount = food
 	grass_grower.update_data(terrain_map,food_amount)
@@ -101,6 +109,7 @@ func _place_tile()->void:
 
 
 func setup_terrain()->void:
+	make_sea()
 	grass_grower.update_data(terrain_map,food_amount)
 	# Find list of water tiles
 	var water_list:Array[Vector2i] = []
