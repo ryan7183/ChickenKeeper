@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c2cudn6e7f4we" path="res://scripts/chicken_manager/draggable_egg.gd" id="2_l8vjc"]
 
 [node name="DraggableEgg" type="Sprite2D"]
+z_index = 1
 texture = ExtResource("1_l8vjc")
 region_rect = Rect2(0, 0, 24, 24)
 region_filter_clip_enabled = true

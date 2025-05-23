@@ -4,6 +4,7 @@ extends Control
 @export var dirt_button:Button
 @export var water_button:Button
 @export var grass_button:Button
+@export var remove_fence_button:Button
 
 signal menu_button_pressed
 signal terrain_button_toggled(terrain:TerrainManager.TerrainType)
@@ -20,6 +21,7 @@ func _on_fence_button_toggled(toggled_on: bool) -> void:
 		water_button.button_pressed = false
 		dirt_button.button_pressed = false
 		grass_button.button_pressed = false
+		remove_fence_button.button_pressed =false
 		terrain_button_toggled.emit(TerrainManager.TerrainType.FENCE)
 	else:
 		clear_terrain.emit()
@@ -31,6 +33,7 @@ func _on_dirt_button_toggled(toggled_on: bool) -> void:
 		water_button.button_pressed = false
 		fence_button.button_pressed = false
 		grass_button.button_pressed = false
+		remove_fence_button.button_pressed =false
 		terrain_button_toggled.emit(TerrainManager.TerrainType.DIRT)
 	else:
 		clear_terrain.emit()
@@ -42,6 +45,7 @@ func _on_water_button_toggled(toggled_on: bool) -> void:
 		fence_button.button_pressed = false
 		dirt_button.button_pressed = false
 		grass_button.button_pressed = false
+		remove_fence_button.button_pressed =false
 		terrain_button_toggled.emit(TerrainManager.TerrainType.WATER)
 	else:
 		clear_terrain.emit()
@@ -61,7 +65,20 @@ func _on_grass_button_toggled(toggled_on: bool) -> void:
 		fence_button.button_pressed = false
 		dirt_button.button_pressed = false
 		water_button.button_pressed = false
+		remove_fence_button.button_pressed =false
 		terrain_button_toggled.emit(TerrainManager.TerrainType.GRASS)
+	else:
+		clear_terrain.emit()
+	pass # Replace with function body.
+
+
+func _on_remove_fence_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		water_button.button_pressed = false
+		dirt_button.button_pressed = false
+		grass_button.button_pressed = false
+		fence_button.button_pressed = false
+		terrain_button_toggled.emit(TerrainManager.TerrainType.REMOVE_FENCE)
 	else:
 		clear_terrain.emit()
 	pass # Replace with function body.

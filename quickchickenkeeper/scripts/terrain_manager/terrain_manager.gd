@@ -5,7 +5,7 @@ class_name TerrainManager extends Node2D
 
 signal tile_placed
 
-enum TerrainType {GRASS, DIRT, WATER, FENCE, NOTHING}
+enum TerrainType {GRASS, DIRT, WATER, FENCE, REMOVE_FENCE, NOTHING}
 
 const initial_island_size:int = 10
 
@@ -15,8 +15,8 @@ var placement_mode:TerrainType = TerrainType.NOTHING
 var world_size:Vector2 = Vector2(2000,2000)
 var terrain_map:Array[Array] = []
 var food_amount:Array[Array] = []
-var changed_tile_map:Array[Array] = []
 var fence_map:Array[Array] = []
+var changed_tile_map:Array[Array] = []
 var tile_size:int = 16
 
 var grass_grower:GrassGrower
@@ -24,6 +24,7 @@ var keep_placing_tiles:bool = false
 
 func _ready() -> void:
 	grass_grower = GrassGrower.new()
+	_create_fence_map()
 	pass
 
 func _process(delta: float) -> void:
@@ -35,6 +36,19 @@ func _process(delta: float) -> void:
 		update_tile_map(results["changed"] as Array[Array])
 	if keep_placing_tiles:
 		_place_tile()
+	pass
+
+func _create_fence_map()->void:
+	fence_map= []
+	fence_map.resize(world_size.x)
+	for x:int in range(world_size.x):
+		var col:Array[bool] = []
+		col.resize(world_size.y)
+		for y:int in range(world_size.y):
+			col[y] = false
+			pass
+		fence_map[x] = col
+		pass
 	pass
 
 func make_sea()->void:
@@ -93,15 +107,25 @@ func _input(event: InputEvent) -> void:
 func _place_tile()->void:
 	var tile_pos:Vector2i = terrain_tile_map.local_to_map(to_local(get_global_mouse_position()))
 	if tile_pos.x>=0 and tile_pos.y>=0 and tile_pos.x<world_size.x and tile_pos.y<world_size.y:
-		terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 		match placement_mode:
 			TerrainType.GRASS:
+				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
 				food_amount[tile_pos.x][tile_pos.y] = 50
 			TerrainType.DIRT:
+				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
 			TerrainType.WATER:
+				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+			TerrainType.FENCE:
+				fence_map[tile_pos.x][tile_pos.y] = true
+				fence_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0,false)
+				pass
+			TerrainType.REMOVE_FENCE:
+				fence_map[tile_pos.x][tile_pos.y] = false
+				fence_tile_map.erase_cell(Vector2i(tile_pos.x,tile_pos.y))
+				pass
 		tile_placed.emit()
 		grass_grower.update_data(terrain_map, food_amount)
 	pass

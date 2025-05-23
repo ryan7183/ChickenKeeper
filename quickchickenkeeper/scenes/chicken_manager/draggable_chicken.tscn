@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="2_fd66t"]
 
 [node name="DraggableChicken" type="Sprite2D"]
+z_index = 1
 texture = ExtResource("2_fd66t")
 region_enabled = true
 region_rect = Rect2(0, 0, 24, 24)
