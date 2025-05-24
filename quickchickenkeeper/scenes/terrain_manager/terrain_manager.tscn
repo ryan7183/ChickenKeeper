@@ -1004,4 +1004,5 @@ tile_set = SubResource("TileSet_tp0vb")
 
 [node name="FenceTileMapLayer" type="TileMapLayer" parent="."]
 z_index = 1
+y_sort_enabled = true
 tile_set = SubResource("TileSet_ihgyo")

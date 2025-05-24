@@ -29,6 +29,7 @@ multimesh = SubResource("MultiMesh_mjmo4")
 texture = ExtResource("3_mjmo4")
 
 [node name="ChickenMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_h20h7")
 multimesh = SubResource("MultiMesh_5hx5s")
 texture = ExtResource("2_u4uib")

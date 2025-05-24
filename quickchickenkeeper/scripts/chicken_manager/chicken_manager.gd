@@ -9,6 +9,7 @@ signal food_amount_updated(food:Array[Array])
 @export var egg_multi_mesh:MultiMeshInstance2D
 
 enum Action {EAT, DRINK, WANDER, SIT, FIND_FOOD, FIND_WATER}
+enum ChickenType {COMB, NO_COMB}
 
 var draggable_chicken_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_chicken.tscn")
 var draggable_egg_scene:PackedScene = preload("res://scenes/chicken_manager/draggable_egg.tscn")
@@ -16,8 +17,9 @@ var draggable_egg_scene:PackedScene = preload("res://scenes/chicken_manager/drag
 var chicken_positions:Array[Vector2] = []
 var chicken_scales:Array[float] = []
 var chicken_hunger_satiation:Array[float] = []
-var chicken_direction:Array[int] = []
+var chicken_direction:Array[float] = []
 var chicken_animation_frame:Array[int] = []
+var chicken_type:Array[int] = []
 var chicken_current_action:Array[Action] = []
 var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
@@ -27,7 +29,7 @@ var chicken_health:Array[float] = []
 var egg_positions:Array[Vector2] = []
 var egg_time_till_hatch:Array[float] = []
 
-const initial_num_chickens:int = 2
+const initial_num_chickens:int = 4
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
 const egg_sprite_size:int = 32
@@ -65,6 +67,7 @@ func spawn_initial_chickens()->void:
 		chicken_fatigue.append(100)
 		chicken_satisfaction_time.append(20)
 		chicken_health.append(100)
+		chicken_type.append(randi_range(0,1))
 		pass
 	pass
 
@@ -105,6 +108,7 @@ func _update_eggs()->void:
 		"chicken_fatigue":50,
 		"chicken_satisfaction":0,
 		"chicken_health": 100,
+		"chicken_type":0,
 		})
 		pass
 	
@@ -142,8 +146,9 @@ func _determine_actions(delta:float)->void:
 
 func _move_chickens(delta:float)->void:
 	chicken_mover.update_data(chicken_positions,chicken_target, terrain,fences)
-	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
-	chicken_positions = results
+	var results:Dictionary = chicken_mover.move_chickens(delta)
+	chicken_direction = results["direction"]
+	chicken_positions = results["position"]
 
 func perform_chicken_actions(food_amount:Array[Array])->void:
 	chicken_action_performer.update_data(chicken_positions,food_amount,\
@@ -181,11 +186,44 @@ func show_chickens()->void:
 	chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
 	for i:int in range(chicken_positions.size()):
 		if chicken_current_action[i] != ChickenManager.Action.SIT:
-			var pos:Transform2D = Transform2D(0.0,Vector2(chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
+			var dir:Vector2 = _determin_chicken_direction_frame(i)
+			
+			var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
 			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
-			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( 0, 0,0,0))
+			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
+			
+			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,0,0))
+			if Engine.get_frames_drawn()%3 == 0:
+				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
 	pass
+
+func _determine_next_chicken_animation_frame(chicken_index:int)->int:
+	return 0#(chicken_animation_frame[chicken_index]+1)%8
+
+func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
+	var frame_dir:Vector2 = Vector2(0,0)
+	var angle:float = rad_to_deg(chicken_positions[chicken_index].angle_to_point(chicken_target[chicken_index]))
+	
+	if angle>=-90 and angle <=0 || angle>=0 and angle<=90:
+		frame_dir.x = -1
+	else:
+		frame_dir.x = 1
+	
+	if angle>45 and angle<135:
+		frame_dir.y = 1
+	elif angle<-45 and angle>-135:
+		frame_dir.y = 2
+		pass
+	if !(angle>=180 and angle<=360):
+		var tar:Vector2 = chicken_target[chicken_index]
+		var pos:Vector2 = chicken_positions[chicken_index]
+		var temp2:float = rad_to_deg(chicken_positions[chicken_index].angle_to_point(chicken_target[chicken_index]))
+		pass
+	return frame_dir
+
+func _get_animation_start_end(action:Action)->Vector2:
+	return Vector2(0,0)
 
 func show_eggs()->void:
 	egg_multi_mesh.multimesh.instance_count=egg_positions.size()
@@ -293,6 +331,7 @@ func _add_chicken(data:Dictionary)->void:
 	chicken_fatigue.append(data["chicken_fatigue"])
 	chicken_satisfaction_time.append(data["chicken_satisfaction"])
 	chicken_health.append(data["chicken_health"])
+	chicken_type.append(data["chicken_type"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
@@ -307,6 +346,7 @@ func _remove_chicken(i:int)->Dictionary:
 		"chicken_fatigue":chicken_fatigue[i],
 		"chicken_satisfaction":chicken_satisfaction_time[i],
 		"chicken_health":chicken_health[i],
+		"chicken_type":chicken_type[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
@@ -318,4 +358,5 @@ func _remove_chicken(i:int)->Dictionary:
 	chicken_fatigue.remove_at(i)
 	chicken_satisfaction_time.remove_at(i)
 	chicken_health.remove_at(i)
+	chicken_type.remove_at(i)
 	return data

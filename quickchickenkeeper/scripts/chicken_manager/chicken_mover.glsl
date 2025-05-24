@@ -29,6 +29,11 @@ layout(set = 0, binding = 4, std430) restrict buffer FenceInBuffer {
 }
 fence_in;
 
+layout(set = 0, binding = 5, std430) restrict buffer DirectionOutBuffer {
+    float data[];
+}
+direction_out;
+
 layout(push_constant) uniform Parameters {
     float delta_time;
     int terrain_width;
@@ -40,6 +45,7 @@ void main(){
     vec2 chicken_pos = pos_in.data[invocation];
     vec2 target = target_in.data[invocation];
     vec2 direction = normalize(target.xy-chicken_pos.xy);
+    direction_out.data[invocation] = atan(direction.y, direction.x);
     chicken_pos = chicken_pos.xy + (direction.xy * 100 *  param.delta_time);
 
     int num = pos_in.data.length();

@@ -7,6 +7,7 @@ var terrain_array:PackedInt32Array = []
 var fence_array:PackedByteArray = []
 
 var position_output:Array[Vector2] = []
+var direction_output: Array[float] = []
 
 var terrain_width:int = 1
 var shader:RID
@@ -16,6 +17,7 @@ var pos_out_buffer:RID
 var target_in_buffer:RID
 var terrain_in_buffer:RID
 var fence_in_buffer:RID
+var direction_buffer:RID
 
 var tile_size:int
 
@@ -41,21 +43,27 @@ func _fences_to_packed(fences:Array[Array])->PackedByteArray:
 	
 	return new_arr.to_byte_array()
 
-func move_chickens(delta:float)->Array[Vector2]:
+func move_chickens(delta:float)->Dictionary:
 	if !shader.is_valid():
 		_build_shader()
 	
 	_run_shader(delta)
 	_retrieve_shader_data()
-	
-	return position_output
+	var data:Dictionary = {
+		"position":position_output,
+		"direction":direction_output,
+	}
+	return data
 
 func _retrieve_shader_data()->void:
 	if pos_out_buffer.is_valid():
 		var pos_output :PackedByteArray=  rendering_device.buffer_get_data(pos_out_buffer)
 		var arr :Array[Vector2]= _byte_array_to_vec2_array(pos_output)
 		position_output = arr
-		
+	if direction_buffer.is_valid():
+		var direction_out :PackedByteArray=  rendering_device.buffer_get_data(direction_buffer)
+		var arr :Array[float]=  Array(Array(direction_out.to_float32_array()),TYPE_FLOAT,"",null)#Array(direction_out.to_float32_array()) as Array[float]
+		direction_output = arr
 		
 	pass
 
@@ -120,6 +128,16 @@ func _run_shader(delta:float)->void:
 	fence_in_uniform.binding = 4
 	fence_in_uniform.add_id(fence_in_buffer)
 	
+	var direction:PackedFloat32Array = []
+	direction.resize(positions_array.size())
+	var direction_byte: PackedByteArray = direction.to_byte_array()
+	if direction_buffer.is_valid():
+		rendering_device.free_rid(direction_buffer)
+	direction_buffer = rendering_device.storage_buffer_create(direction_byte.size(), direction_byte)
+	var direction_uniform :RDUniform = RDUniform.new()
+	direction_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	direction_uniform.binding = 5
+	direction_uniform.add_id(direction_buffer)
 	
 	var movement_uniform_set :RID= rendering_device.uniform_set_create([
 		pos_in_uniform, 
@@ -127,6 +145,7 @@ func _run_shader(delta:float)->void:
 		tar_in_uniform,
 		ter_in_uniform,
 		fence_in_uniform,
+		direction_uniform,
 		], shader, 0)
 	
 	# Create a compute pipeline
