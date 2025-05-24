@@ -69,7 +69,7 @@ func _handle_touch_input(event: InputEvent)->void:
 	elif event is InputEventMagnifyGesture:
 		var zoom_factor:float = (1 - event.factor)/2
 		var z:Vector2 = zoom - Vector2(zoom_factor,zoom_factor) 
-		z = z.clamp(Vector2(0.05,0.05),Vector2(2,2))
+		z = z.clamp(Vector2(0.6,0.6),Vector2(3.5,3.5))
 		zoom = z
 	pass
 
