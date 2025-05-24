@@ -108,7 +108,7 @@ func _place_tile()->void:
 	if tile_pos.x>=0 and tile_pos.y>=0 and tile_pos.x<world_size.x and tile_pos.y<world_size.y:
 		match placement_mode:
 			TerrainType.GRASS:
-				if Shop.buy_grass():
+				if Shop.buy_grass() if terrain_map[tile_pos.x][tile_pos.y] != TerrainType.GRASS else true:
 					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
 					food_amount[tile_pos.x][tile_pos.y] = 50
