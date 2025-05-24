@@ -25,6 +25,7 @@ var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
 var chicken_satisfaction_time:Array[float] = []
 var chicken_health:Array[float] = []
+var chicken_color:Array[int] = []
 
 var egg_positions:Array[Vector2] = []
 var egg_time_till_hatch:Array[float] = []
@@ -192,7 +193,7 @@ func show_chickens()->void:
 			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
 			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
 			
-			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,0,0))
+			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,1010100100,0))
 			if Engine.get_frames_drawn()%8 == 0:
 				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
@@ -239,11 +240,6 @@ func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
 		frame_dir.y = 1
 	elif angle<-60 and angle>-120:
 		frame_dir.y = 2
-		pass
-	if !(angle>=180 and angle<=360):
-		var tar:Vector2 = chicken_target[chicken_index]
-		var pos:Vector2 = chicken_positions[chicken_index]
-		var temp2:float = rad_to_deg(chicken_positions[chicken_index].angle_to_point(chicken_target[chicken_index]))
 		pass
 	return frame_dir
 
