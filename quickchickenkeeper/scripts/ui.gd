@@ -5,12 +5,22 @@ extends Control
 @export var water_button:Button
 @export var grass_button:Button
 @export var remove_fence_button:Button
+@export var money_label:RichTextLabel
 
 signal menu_button_pressed
 signal terrain_button_toggled(terrain:TerrainManager.TerrainType)
 signal clear_terrain
 signal disable_terrain_placement
 signal enable_terrain_placement
+
+func _ready() -> void:
+	Shop.connect("item_purchased", _update_money_label)
+
+func _update_money_label()->void:
+	money_label.clear()
+	money_label.add_text(str("Money: ", Shop.money))
+	pass
+
 func _on_menu_button_pressed() -> void:
 	menu_button_pressed.emit()
 	pass # Replace with function body.

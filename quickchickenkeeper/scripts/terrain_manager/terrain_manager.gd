@@ -108,18 +108,26 @@ func _place_tile()->void:
 	if tile_pos.x>=0 and tile_pos.y>=0 and tile_pos.x<world_size.x and tile_pos.y<world_size.y:
 		match placement_mode:
 			TerrainType.GRASS:
-				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
-				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
-				food_amount[tile_pos.x][tile_pos.y] = 50
+				if Shop.buy_grass():
+					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
+					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
+					food_amount[tile_pos.x][tile_pos.y] = 50
 			TerrainType.DIRT:
-				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
-				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
+				if Shop.buy_dirt() if\
+				 (terrain_map[tile_pos.x][tile_pos.y] != TerrainType.GRASS && terrain_map[tile_pos.x][tile_pos.y] != TerrainType.DIRT)\
+				else true :
+					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
+					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
 			TerrainType.WATER:
-				terrain_map[tile_pos.x][tile_pos.y] = placement_mode
-				terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+				if Shop.buy_water() if terrain_map[tile_pos.x][tile_pos.y] != TerrainType.WATER else true:
+					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
+					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
+					fence_map[tile_pos.x][tile_pos.y] = false
+					fence_tile_map.erase_cell(Vector2i(tile_pos.x,tile_pos.y))
 			TerrainType.FENCE:
-				fence_map[tile_pos.x][tile_pos.y] = true
-				fence_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0,false)
+				if terrain_map[tile_pos.x][tile_pos.y] != TerrainType.WATER and Shop.buy_fence() if fence_map[tile_pos.x][tile_pos.y] ==false else true:
+					fence_map[tile_pos.x][tile_pos.y] = true
+					fence_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0,false)
 				pass
 			TerrainType.REMOVE_FENCE:
 				fence_map[tile_pos.x][tile_pos.y] = false

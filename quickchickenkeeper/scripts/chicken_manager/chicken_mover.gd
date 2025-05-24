@@ -66,7 +66,7 @@ func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
 	var index:int = 0
 	for i:int in range(1,decoded.size(),2):
 		#arr.append(Vector2(decoded[i-1],decoded[i]))
-		arr[index] = Vector2(decoded[i-1],decoded[i])
+		arr[index] = Vector2(decoded[i-1] as float,decoded[i] as float)
 		index+=1
 		pass
 	
