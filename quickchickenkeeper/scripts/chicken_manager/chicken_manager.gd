@@ -69,7 +69,7 @@ func spawn_initial_chickens()->void:
 		chicken_satisfaction_time.append(20)
 		chicken_health.append(100)
 		chicken_type.append(randi_range(0,1))
-		chicken_color.append(000000000)
+		chicken_color.append(000000000 if randf() <0.5 else 100100100)
 		pass
 	pass
 
@@ -195,7 +195,7 @@ func show_chickens()->void:
 			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
 			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
 			
-			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,010100100,0))
+			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,chicken_color[i],0))
 			if Engine.get_frames_drawn()%8 == 0:
 				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
