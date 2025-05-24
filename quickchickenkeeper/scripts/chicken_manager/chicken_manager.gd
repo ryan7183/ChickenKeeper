@@ -69,6 +69,7 @@ func spawn_initial_chickens()->void:
 		chicken_satisfaction_time.append(20)
 		chicken_health.append(100)
 		chicken_type.append(randi_range(0,1))
+		chicken_color.append(000000000)
 		pass
 	pass
 
@@ -110,6 +111,7 @@ func _update_eggs()->void:
 		"chicken_satisfaction":0,
 		"chicken_health": 100,
 		"chicken_type":0,
+		"chicken_color":000000000,
 		})
 		pass
 	
@@ -193,7 +195,7 @@ func show_chickens()->void:
 			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
 			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
 			
-			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,1010100100,0))
+			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,010100100,0))
 			if Engine.get_frames_drawn()%8 == 0:
 				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
@@ -353,6 +355,7 @@ func _add_chicken(data:Dictionary)->void:
 	chicken_satisfaction_time.append(data["chicken_satisfaction"])
 	chicken_health.append(data["chicken_health"])
 	chicken_type.append(data["chicken_type"])
+	chicken_color.append(data["chicken_color"])
 	pass
 
 func _remove_chicken(i:int)->Dictionary:
@@ -368,6 +371,7 @@ func _remove_chicken(i:int)->Dictionary:
 		"chicken_satisfaction":chicken_satisfaction_time[i],
 		"chicken_health":chicken_health[i],
 		"chicken_type":chicken_type[i],
+		"chicken_color":chicken_color[i],
 	}
 	chicken_positions.remove_at(i)
 	chicken_scales.remove_at(i)
@@ -380,4 +384,5 @@ func _remove_chicken(i:int)->Dictionary:
 	chicken_satisfaction_time.remove_at(i)
 	chicken_health.remove_at(i)
 	chicken_type.remove_at(i)
+	chicken_color.remove_at(i)
 	return data
