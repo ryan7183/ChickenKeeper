@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_7mycd"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera", "ui_overlay")]
 texture_filter = 1
 script = ExtResource("1_h2yge")
 terrain_manager = NodePath("TerrainManager")
 chicken_manager = NodePath("ChickenManager")
 camera = NodePath("Camera")
+ui_overlay = NodePath("UICanvasLayer/Ui")
 
 [node name="TerrainManager" parent="." instance=ExtResource("2_lquwl")]
 

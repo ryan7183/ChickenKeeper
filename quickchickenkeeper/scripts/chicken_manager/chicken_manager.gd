@@ -227,15 +227,23 @@ func _input(event: InputEvent) -> void:
 
 func _on_draggable_chicken_drop(pos:Vector2,data:Dictionary)->void:
 	dragging_item = false
-	data["chicken_position"] = pos
-	_add_chicken(data)
+	if !Shop.item_over_sell_box:
+		data["chicken_position"] = pos
+		_add_chicken(data)
+	else:
+		Shop.sell_chicken()
+		pass
 	item_being_dropped.emit()
 	pass
 
 func _on_draggable_egg_drop(pos:Vector2,data:Dictionary)->void:
 	dragging_item = false
-	data["egg_position"] = pos
-	_add_egg_with_stats(data)
+	if !Shop.item_over_sell_box:
+		data["egg_position"] = pos
+		_add_egg_with_stats(data)
+	else:
+		Shop.sell_egg()
+	
 	item_being_dropped.emit()
 	pass
 

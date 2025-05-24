@@ -1,6 +1,7 @@
 extends Node
 
 signal item_purchased
+signal item_sold
 
 const water_cost = 10
 const dirt_cost = 10
@@ -10,7 +11,8 @@ const fence_cost = 20
 const chicken_sell_value:int = 25
 const egg_sell_value:int = 30
 
-var money:int = 1000
+var money:int = 5000
+var item_over_sell_box:bool = false
 
 func buy_water()->bool:
 	if money - water_cost >=0:
@@ -42,6 +44,8 @@ func buy_fence()->bool:
 
 func sell_egg()->void:
 	money += egg_sell_value
+	item_sold.emit()
 
 func sell_chicken()->void:
 	money+=chicken_sell_value
+	item_sold.emit()

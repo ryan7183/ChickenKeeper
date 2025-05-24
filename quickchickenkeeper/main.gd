@@ -3,6 +3,7 @@ extends Node2D
 @export var terrain_manager:TerrainManager
 @export var chicken_manager:ChickenManager
 @export var camera:Camera
+@export var ui_overlay:Control
 
 var world_size:Vector2 = Vector2(100,100)
 var tile_size:int = 16
@@ -87,11 +88,13 @@ func _on_ui_menu_button_pressed() -> void:
 
 func _on_chicken_manager_item_being_dragged() -> void:
 	terrain_manager.disable_tile_placement = true
+	ui_overlay.enable_sell_box()
 	pass # Replace with function body.
 
 
 func _on_chicken_manager_item_being_dropped() -> void:
 	terrain_manager.disable_tile_placement = false
+	ui_overlay.disable_sell_box()
 	pass # Replace with function body.
 
 
