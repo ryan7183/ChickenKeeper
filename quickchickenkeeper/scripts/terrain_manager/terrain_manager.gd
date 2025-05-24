@@ -24,7 +24,6 @@ var keep_placing_tiles:bool = false
 
 func _ready() -> void:
 	grass_grower = GrassGrower.new()
-	_create_fence_map()
 	pass
 
 func _process(delta: float) -> void:
@@ -134,6 +133,7 @@ func _place_tile()->void:
 
 func setup_terrain()->void:
 	make_sea()
+	_create_fence_map()
 	grass_grower.update_data(terrain_map,food_amount)
 	# Find list of water tiles
 	var water_list:Array[Vector2i] = []

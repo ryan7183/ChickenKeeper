@@ -19,6 +19,7 @@ func _ready() -> void:
 	_load_game()
 	terrain_manager.setup_terrain()
 	chicken_manager.terrain = terrain_manager.terrain_map
+	chicken_manager.fences = terrain_manager.fence_map
 	pass
 
 func _load_game()->void:
@@ -116,6 +117,7 @@ func _on_ui_enable_terrain_placement() -> void:
 
 func _on_terrain_manager_tile_placed() -> void:
 	chicken_manager.terrain = terrain_manager.terrain_map
+	chicken_manager.fences = terrain_manager.fence_map
 	pass # Replace with function body.
 
 

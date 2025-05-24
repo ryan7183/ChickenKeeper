@@ -45,6 +45,8 @@ action_out;
 index_out;
 */
 
+
+
 layout(push_constant) uniform Parameters {
     float delta_time;
     int terrain_width;

@@ -39,6 +39,7 @@ var chicken_action_performer:ChickenActionPerformer
 var egg_updater:EggUpdater
 
 var terrain:Array[Array] = []
+var fences:Array[Array] = []
 var dragging_item:bool =false
 
 func _ready() -> void:
@@ -140,7 +141,7 @@ func _determine_actions(delta:float)->void:
 	pass
 
 func _move_chickens(delta:float)->void:
-	chicken_mover.update_data(chicken_positions,chicken_target, terrain)
+	chicken_mover.update_data(chicken_positions,chicken_target, terrain,fences)
 	var results:Array[Vector2] = chicken_mover.move_chickens(delta)
 	chicken_positions = results
 

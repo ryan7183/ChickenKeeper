@@ -24,6 +24,11 @@ layout(set = 0, binding = 3, std430) restrict buffer TerrainInBuffer {
 }
 terrain_in;
 
+layout(set = 0, binding = 4, std430) restrict buffer FenceInBuffer {
+    bool data[];
+}
+fence_in;
+
 layout(push_constant) uniform Parameters {
     float delta_time;
     int terrain_width;
@@ -53,10 +58,13 @@ void main(){
     vec2 tile_pos = chicken_pos/16.0;
     int terrain_index = (int(tile_pos.x) * param.terrain_width) + int(tile_pos.y);
     int terrain_type = terrain_in.data[terrain_index]; 
-    if(terrain_type!=2 && tile_pos.x >0 && tile_pos.y>0 && tile_pos.x+1 <param.terrain_width && tile_pos.y+1 <param.terrain_width){
+    //int fence_index = (int(tile_pos.y) * param.terrain_width) + int(tile_pos.x);
+    bool fence = fence_in.data[terrain_index];
+    if(fence == false && terrain_type!=2 && tile_pos.x >0 && tile_pos.y>0 && tile_pos.x+1 <param.terrain_width && tile_pos.y+1 <param.terrain_width){
         pos_out.data[invocation].xy = chicken_pos.xy;
+    }else{
+        pos_out.data[invocation].xy = pos_in.data[invocation];
     }
-
     
 }
 

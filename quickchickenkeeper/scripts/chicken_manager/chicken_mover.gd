@@ -4,7 +4,10 @@ class_name ChickenMover extends Resource
 var positions_array:PackedVector2Array = []
 var targets_array:PackedVector2Array = []
 var terrain_array:PackedInt32Array = []
+var fence_array:PackedByteArray = []
+
 var position_output:Array[Vector2] = []
+
 var terrain_width:int = 1
 var shader:RID
 var rendering_device :RenderingDevice = RenderingServer.create_local_rendering_device()
@@ -12,14 +15,17 @@ var pos_in_buffer:RID
 var pos_out_buffer:RID
 var target_in_buffer:RID
 var terrain_in_buffer:RID
+var fence_in_buffer:RID
+
 var tile_size:int
 
 
-func update_data(positions:Array[Vector2], targets:Array[Vector2], terrain:Array[Array])->void:
+func update_data(positions:Array[Vector2], targets:Array[Vector2], terrain:Array[Array], fences:Array[Array])->void:
 	positions_array = PackedVector2Array(positions)
 	targets_array = PackedVector2Array(targets)
 	terrain_width = terrain.size()
 	terrain_array = _terrain_to_packed(terrain)
+	fence_array = _fences_to_packed(fences)
 	pass
 
 func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:
@@ -27,6 +33,13 @@ func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:
 	for arr:Array in terrain:
 		new_arr.append_array(arr)
 	return PackedInt32Array(new_arr)
+
+func _fences_to_packed(fences:Array[Array])->PackedByteArray:
+	var new_arr:PackedInt32Array= []
+	for arr:Array[int] in fences:
+		new_arr.append_array(PackedInt32Array(arr))
+	
+	return new_arr.to_byte_array()
 
 func move_chickens(delta:float)->Array[Vector2]:
 	if !shader.is_valid():
@@ -99,12 +112,21 @@ func _run_shader(delta:float)->void:
 	ter_in_uniform.binding = 3
 	ter_in_uniform.add_id(terrain_in_buffer)
 	
+	if fence_in_buffer.is_valid():
+		rendering_device.free_rid(fence_in_buffer)
+	fence_in_buffer = rendering_device.storage_buffer_create(fence_array.size(), fence_array)
+	var fence_in_uniform :RDUniform = RDUniform.new()
+	fence_in_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	fence_in_uniform.binding = 4
+	fence_in_uniform.add_id(fence_in_buffer)
+	
 	
 	var movement_uniform_set :RID= rendering_device.uniform_set_create([
 		pos_in_uniform, 
 		pos_out_uniform, 
 		tar_in_uniform,
-		ter_in_uniform
+		ter_in_uniform,
+		fence_in_uniform,
 		], shader, 0)
 	
 	# Create a compute pipeline

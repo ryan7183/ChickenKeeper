@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6p5rtj82urcp"]
+
+[ext_resource type="Script" uid="uid://cfdt26cljr6o6" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://gfeu08sh487y" path="res://scenes/terrain_manager/terrain_manager.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://n5gtido1mdxt" path="res://scenes/UI.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_7mycd"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera")]
+texture_filter = 1
+script = ExtResource("1_h2yge")
+terrain_manager = NodePath("TerrainManager")
+chicken_manager = NodePath("ChickenManager")
+camera = NodePath("Camera")
+
+[node name="TerrainManager" parent="." instance=ExtResource("2_lquwl")]
+
+[node name="ChickenManager" parent="." instance=ExtResource("4_lquwl")]
+
+[node name="Camera" parent="." instance=ExtResource("5_7mycd")]
+position = Vector2(963, 540)
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Ui" parent="UICanvasLayer" instance=ExtResource("4_1bvp3")]
+offset_left = -1.0
+offset_right = -1.0
+
+[connection signal="tile_placed" from="TerrainManager" to="." method="_on_terrain_manager_tile_placed"]
+[connection signal="food_amount_updated" from="ChickenManager" to="." method="_on_chicken_manager_food_amount_updated"]
+[connection signal="item_being_dragged" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dragged"]
+[connection signal="item_being_dropped" from="ChickenManager" to="." method="_on_chicken_manager_item_being_dropped"]
+[connection signal="request_food_amount" from="ChickenManager" to="." method="_on_chicken_manager_request_food_amount"]
+[connection signal="clear_terrain" from="UICanvasLayer/Ui" to="." method="_on_ui_clear_terrain"]
+[connection signal="disable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_disable_terrain_placement"]
+[connection signal="enable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_enable_terrain_placement"]
+[connection signal="menu_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_menu_button_pressed"]
+[connection signal="terrain_button_toggled" from="UICanvasLayer/Ui" to="." method="_on_ui_terrain_button_toggled"]
