@@ -193,13 +193,38 @@ func show_chickens()->void:
 			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
 			
 			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,0,0))
-			if Engine.get_frames_drawn()%3 == 0:
+			if Engine.get_frames_drawn()%8 == 0:
 				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
 	pass
 
 func _determine_next_chicken_animation_frame(chicken_index:int)->int:
-	return 0#(chicken_animation_frame[chicken_index]+1)%8
+	var frame:int = 0
+	var current_frame:int = chicken_animation_frame[chicken_index]
+	match chicken_current_action[chicken_index]:
+		Action.SIT:
+			frame = 8
+			pass
+		Action.EAT:
+			if current_frame == 0:
+				frame = 1
+			elif current_frame == 1:
+				frame = 2
+			else:
+				frame = 0
+			pass
+		Action.WANDER, Action.FIND_FOOD:
+			if current_frame == 3:
+				frame = 4
+			elif current_frame == 4:
+				frame = 5
+			elif current_frame == 6:
+				frame = 7
+			else:
+				frame = 3
+			pass
+			
+	return frame#(chicken_animation_frame[chicken_index]+1)%8
 
 func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
 	var frame_dir:Vector2 = Vector2(0,0)
@@ -210,9 +235,9 @@ func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
 	else:
 		frame_dir.x = 1
 	
-	if angle>45 and angle<135:
+	if angle>60 and angle<120:
 		frame_dir.y = 1
-	elif angle<-45 and angle>-135:
+	elif angle<-60 and angle>-120:
 		frame_dir.y = 2
 		pass
 	if !(angle>=180 and angle<=360):

@@ -60,8 +60,8 @@ float random (vec2 uv) {
 
 vec2 get_wander_target(vec2 pos, float seed){
     float delta = param.delta_time;
-    float posx = (random(vec2(delta + seed,0))-0.5)*10;
-    float posy = (random(vec2(0,delta+seed))-0.5)*10;
+    float posx = (random(vec2(delta + seed,0))-0.5)*100;
+    float posy = (random(vec2(0,delta+seed))-0.5)*100;
     vec2 move =  vec2(posx, posy);
     vec2 tar = min(max(pos + move, vec2(0,0)),vec2(1600,1600));
     return tar;
