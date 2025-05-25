@@ -54,8 +54,8 @@ func lay_eggs(chicken_positions:Array[Vector2], chicken_satisfaction_time:Array[
 				chicken_satisfaction_time[i]= 0
 				var egg_data:Dictionary = {
 					"egg_position": chicken_positions[i],
-					"egg_hatchling_color": chicken_color[i] if randf()<=0.5 else chicken_color[near_by_index],
-					"egg_hatchling_type": chicken_type[i] if randf()<=0.5 else chicken_type[near_by_index],
+					"egg_hatchling_color": mutate_color(chicken_color[i],chicken_color[near_by_index]),
+					"egg_hatchling_type": mutate_type(chicken_type[i] if randf()<=0.5 else chicken_type[near_by_index]),
 					"egg_time_till_hatch": 300,
 				}
 				laid_eggs.append(egg_data)
@@ -65,6 +65,37 @@ func lay_eggs(chicken_positions:Array[Vector2], chicken_satisfaction_time:Array[
 		"laid_eggs":laid_eggs,
 		"chicken_satisfaction_time":chicken_satisfaction_time,
 	}
+
+func mutate_color(par1_color:int, par2_color:int)->int:
+	var rg_chance:float = randf()
+	var red_component:int = par1_color%1000 if rg_chance<=0.5 else par2_color%1000
+	par1_color = par1_color/1000
+	par2_color = par2_color/1000
+	var green_component:int = par1_color%1000 if rg_chance<=0.5 else par2_color%1000
+	par1_color = par1_color/1000
+	par2_color = par2_color/1000
+	var blue_component:int = par1_color%1000 if randf()<=0.5 else par2_color%1000
+	var red_chance:float = randf()
+	var red_mutation:int = 1 if red_chance<(1.0/6.0) else -1 if red_chance<(2.0/6.0) else 0
+	var green_chance:float = randf()
+	var green_mutation:int = 1 if green_chance<(1.0/6.0) else -1 if green_chance<(2.0/6.0) else 0
+	var blue_chance:float = randf()
+	var blue_mutation:int = 1 if blue_chance<(1.0/6.0) else -1 if blue_chance<(2.0/6.0) else 0
+	
+	red_component = clamp(red_component+red_mutation,0,100)
+	blue_component = clamp(blue_component+blue_mutation,0,100)
+	green_component = clamp(green_component+green_mutation,0,100)
+	var final_color:int = red_component + green_component*1000 + blue_component *1000*1000
+	return final_color
+
+func mutate_type(type:int)->int:
+	var chance:float = randf()
+	if chance<0.1:
+		if type==0:
+			type=1
+		else:
+			type = 0
+	return type
 
 func near_by_chicken(pos:Vector2, chicken_positions:Array[Vector2])->int:
 	var near_by:int = -1
