@@ -3,14 +3,18 @@ class_name EggUpdater extends Node
 func update_eggs(chicken_positions:Array[Vector2],\
  chicken_satisfaction_time:Array[float],\
  egg_positions:Array[Vector2],\
- egg_time_till_hatch:Array[float])->Dictionary:
+ egg_time_till_hatch:Array[float],\
+ chicken_color:Array[int],\
+ chicken_type:Array[int],
+ egg_color:Array[int],\
+ egg_type:Array[int],)->Dictionary:
 	
-	var result:Dictionary = hatch_eggs(egg_positions, egg_time_till_hatch)
-	var new_chickens:Array[Vector2] = result["new_chickens"]
+	var result:Dictionary = hatch_eggs(egg_positions, egg_time_till_hatch, egg_color, egg_type)
+	var new_chickens:Array[Dictionary] = result["new_chickens"]
 	egg_positions = result["egg_positions"]
 	egg_time_till_hatch = result["egg_time_till_hatch"]
 	
-	result = lay_eggs(chicken_positions, chicken_satisfaction_time)
+	result = lay_eggs(chicken_positions, chicken_satisfaction_time, chicken_color, chicken_type)
 	chicken_satisfaction_time = result["chicken_satisfaction_time"]
 	return {
 		"new_chicken_positions":new_chickens,
@@ -20,11 +24,17 @@ func update_eggs(chicken_positions:Array[Vector2],\
 		"laid_eggs":result["laid_eggs"]
 	}
 
-func hatch_eggs(egg_positions:Array[Vector2],egg_time_till_hatch:Array[float])->Dictionary:
-	var new_chickens:Array[Vector2] = []
+func hatch_eggs(egg_positions:Array[Vector2],egg_time_till_hatch:Array[float], hatchling_color:Array[int], hatchling_type:Array[int])->Dictionary:
+	var new_chickens:Array[Dictionary] = []
 	for i:int in range(egg_positions.size()-1,-1,-1):
 		if egg_time_till_hatch[i]<=0:
-			new_chickens.append(egg_positions[i])
+			var chicken_data:Dictionary = {
+				"position":egg_positions[i],
+				"color":hatchling_color[i],
+				"type":hatchling_type[i],
+				"egg_time_till_hatch": 300,
+			}
+			new_chickens.append(chicken_data)
 			egg_time_till_hatch.remove_at(i)
 			egg_positions.remove_at(i)
 		else:
@@ -35,18 +45,24 @@ func hatch_eggs(egg_positions:Array[Vector2],egg_time_till_hatch:Array[float])->
 			"egg_positions":egg_positions,
 			"egg_time_till_hatch":egg_time_till_hatch}
 
-func lay_eggs(chicken_positions:Array[Vector2], chicken_satisfaction_time:Array[float])->Dictionary:
-	var layed_eggs:Array[Vector2] = []
+func lay_eggs(chicken_positions:Array[Vector2], chicken_satisfaction_time:Array[float], chicken_color:Array[int], chicken_type:Array[int])->Dictionary:
+	var laid_eggs:Array[Dictionary] = []
 	for i:int in range(chicken_satisfaction_time.size()):
 		if chicken_satisfaction_time[i]>=50:
 			var near_by_index:int = near_by_chicken(chicken_positions[i], chicken_positions)
 			if near_by_index != -1:
 				chicken_satisfaction_time[i]= 0
-				layed_eggs.append(chicken_positions[i])
+				var egg_data:Dictionary = {
+					"egg_position": chicken_positions[i],
+					"egg_hatchling_color": chicken_color[i] if randf()<=0.5 else chicken_color[near_by_index],
+					"egg_hatchling_type": chicken_type[i] if randf()<=0.5 else chicken_type[near_by_index],
+					"egg_time_till_hatch": 300,
+				}
+				laid_eggs.append(egg_data)
 		pass
 	
 	return {
-		"laid_eggs":layed_eggs,
+		"laid_eggs":laid_eggs,
 		"chicken_satisfaction_time":chicken_satisfaction_time,
 	}
 

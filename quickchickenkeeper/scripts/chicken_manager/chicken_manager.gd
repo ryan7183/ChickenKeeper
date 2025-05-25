@@ -25,10 +25,12 @@ var chicken_target:Array[Vector2] = []
 var chicken_fatigue:Array[float]= []
 var chicken_satisfaction_time:Array[float] = []
 var chicken_health:Array[float] = []
-var chicken_color:Array[int] = []
+var chicken_color:Array[int] = [] # A 9 digit integer where each 3 digits is a value
 
 var egg_positions:Array[Vector2] = []
 var egg_time_till_hatch:Array[float] = []
+var egg_hatchling_color:Array[int] = []
+var egg_hatchling_type:Array[ChickenType] = []
 
 const initial_num_chickens:int = 4
 var initial_island_size:int = 10
@@ -93,33 +95,34 @@ func _kill_unhealthy_chickens()->void:
 
 func _update_eggs()->void:
 	var result:Dictionary = egg_updater.update_eggs(chicken_positions,chicken_satisfaction_time,\
-	egg_positions,egg_time_till_hatch)
+	egg_positions,egg_time_till_hatch, chicken_color, chicken_type, egg_hatchling_color, egg_hatchling_type as Array[int])
 	
 	chicken_satisfaction_time = result["updated_satisfaction_time"]
-	var new_chickens:Array[Vector2] = result["new_chicken_positions"]
+	var new_chickens:Array[Dictionary] = result["new_chicken_positions"]
 	
-	for pos:Vector2 in new_chickens:
+	for data:Dictionary in new_chickens:
 		_add_chicken({
-		"chicken_position":pos,
+		"chicken_position":data["position"],
 		"chicken_scale":1.0,
 		"chicken_hunger_satiation":20,
 		"chicken_direction":0,
 		"chicken_animation_frame":0,
 		"chicken_current_action":Action.WANDER,
-		"chicken_target":pos,
+		"chicken_target":data["position"],
 		"chicken_fatigue":50,
 		"chicken_satisfaction":0,
 		"chicken_health": 100,
-		"chicken_type":0,
-		"chicken_color":000000000,
+		"chicken_type":data["type"],
+		"chicken_color":data["color"],
 		})
 		pass
 	
 	egg_positions = result["updated_egg_position_list"]
 	egg_time_till_hatch = result["updated_time_tile_hatch"]
-	var laid_eggs:Array[Vector2] = result["laid_eggs"] 
-	for pos:Vector2 in laid_eggs:
-		_add_egg(pos)
+	
+	var laid_eggs:Array[Dictionary] = result["laid_eggs"] 
+	for egg:Dictionary in laid_eggs:
+		_add_egg_with_stats(egg)
 		pass
 	
 	pass
@@ -127,6 +130,8 @@ func _update_eggs()->void:
 func _add_egg(pos:Vector2)->void:
 	egg_positions.append(pos)
 	egg_time_till_hatch.append(300)
+	egg_hatchling_color.append(000000000)
+	egg_hatchling_type.append(0)
 	pass
 
 func _request_data_to_perform_chicken_actions()->void:
@@ -245,9 +250,6 @@ func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
 		pass
 	return frame_dir
 
-func _get_animation_start_end(action:Action)->Vector2:
-	return Vector2(0,0)
-
 func show_eggs()->void:
 	egg_multi_mesh.multimesh.instance_count=egg_positions.size()
 	for i:int in range(egg_positions.size()):
@@ -331,16 +333,21 @@ func _remove_egg(i:int)->Dictionary:
 	var data:Dictionary = {
 		"egg_position":egg_positions[i],
 		"egg_time_till_hatch":egg_time_till_hatch[i],
+		"egg_hatchling_color":egg_hatchling_color[i],
+		"egg_hatchling_type":egg_hatchling_type[i],
 	}
 	
 	egg_positions.remove_at(i)
 	egg_time_till_hatch.remove_at(i)
-	
+	egg_hatchling_color.remove_at(i)
+	egg_hatchling_type.remove_at(i)
 	return data
 
 func _add_egg_with_stats(data:Dictionary)->void:
 	egg_positions.append(data["egg_position"])
 	egg_time_till_hatch.append(data["egg_time_till_hatch"])
+	egg_hatchling_color.append(data["egg_hatchling_color"])
+	egg_hatchling_type.append(data["egg_hatchling_type"])
 	pass
 
 func _add_chicken(data:Dictionary)->void:
