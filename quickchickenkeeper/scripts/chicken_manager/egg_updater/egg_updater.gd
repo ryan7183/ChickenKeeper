@@ -37,6 +37,8 @@ func hatch_eggs(egg_positions:Array[Vector2],egg_time_till_hatch:Array[float], h
 			new_chickens.append(chicken_data)
 			egg_time_till_hatch.remove_at(i)
 			egg_positions.remove_at(i)
+			hatchling_color.remove_at(i)
+			hatchling_type.remove_at(i)
 		else:
 			egg_time_till_hatch[i]-=1
 			pass
@@ -67,11 +69,35 @@ func lay_eggs(chicken_positions:Array[Vector2], chicken_satisfaction_time:Array[
 	}
 
 func mutate_color(par1_color:int, par2_color:int)->int:
-	var rg_chance:float = randf()
-	var red_component:int = par1_color%1000 if rg_chance<=0.5 else par2_color%1000
+	var mix_chance:float = randf()
+	var final_color:int = par1_color
+	if mix_chance<0.01:
+		final_color = mix_color(par1_color, par2_color) 
+	else:
+		final_color = par1_color if randf()<0.6 else par2_color
+		
+	var red_component:int = final_color%1000
+	final_color = final_color/1000
+	var green_component:int = final_color%1000
+	final_color = final_color/1000
+	var blue_component:int = final_color%1000
+	var red_chance:float = randf()
+	var red_mutation:int = 5 if red_chance<(1.0/6.0) else -5 if red_chance<(2.0/6.0) else 0
+	var green_chance:float = randf()
+	var green_mutation:int = 5 if green_chance<(1.0/6.0) else -5 if green_chance<(2.0/6.0) else 0
+	var blue_chance:float = randf()
+	var blue_mutation:int = 5 if blue_chance<(1.0/6.0) else -5 if blue_chance<(2.0/6.0) else 0
+	red_component = clamp(red_component+red_mutation,0,100)
+	blue_component = clamp(blue_component+blue_mutation,0,100)
+	green_component = clamp(green_component+green_mutation,0,100)
+	final_color = red_component + green_component*1000 + blue_component *1000*1000
+	return final_color
+
+func mix_color(par1_color:int,par2_color:int)->int:
+	var red_component:int = par1_color%1000 if randf()<=0.5 else par2_color%1000
 	par1_color = par1_color/1000
 	par2_color = par2_color/1000
-	var green_component:int = par1_color%1000 if rg_chance<=0.5 else par2_color%1000
+	var green_component:int = par1_color%1000 if randf()<=0.5 else par2_color%1000
 	par1_color = par1_color/1000
 	par2_color = par2_color/1000
 	var blue_component:int = par1_color%1000 if randf()<=0.5 else par2_color%1000

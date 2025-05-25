@@ -60,8 +60,8 @@ void fragment() {
 	vec4 white_chicken = texture(TEXTURE,white_uv);
 	vec4 final_color = vec4(0,0,0,1.0);
 	final_color.r = mix(black_chicken.r,white_chicken.r,color_amounts.r);
-	final_color.g = mix(black_chicken.g,white_chicken.g,color_amounts.r*color_amounts.g);
-	final_color.b = mix(black_chicken.b,white_chicken.b,color_amounts.r*color_amounts.g*color_amounts.b);
+	final_color.g = mix(black_chicken.g,white_chicken.g,color_amounts.g);
+	final_color.b = mix(black_chicken.b,white_chicken.b,color_amounts.b);
 	final_color.a = mix(black_chicken.a,white_chicken.a,0.0);
     COLOR = final_color;//texture(TEXTURE,uv);//texture(atlas, uv);
 	//COLOR.rgb = color_amounts.rgb;//extract_color_amount(color_number).b*100.0;

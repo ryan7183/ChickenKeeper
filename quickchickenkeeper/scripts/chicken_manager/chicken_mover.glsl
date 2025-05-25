@@ -46,6 +46,9 @@ void main(){
     vec2 target = target_in.data[invocation];
     vec2 direction = normalize(target.xy-chicken_pos.xy);
     direction_out.data[invocation] = atan(direction.y, direction.x);
+    if (distance(chicken_pos, target)< length(direction.xy * 100 *  param.delta_time)){
+        chicken_pos = target;
+    }
     chicken_pos = chicken_pos.xy + (direction.xy * 100 *  param.delta_time);
 
     int num = pos_in.data.length();
