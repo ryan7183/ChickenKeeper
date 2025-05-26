@@ -88,7 +88,7 @@ vec2 get_nearest_grass(vec2 pos){
     }
 
     if(!found){
-        nearest_grass = get_wander_target(pos, param.delta_time + gl_GlobalInvocationID.x);
+        nearest_grass = get_wander_target(pos,pos.y + pos.x + param.delta_time + gl_GlobalInvocationID.x);
     }
 
     return nearest_grass;
