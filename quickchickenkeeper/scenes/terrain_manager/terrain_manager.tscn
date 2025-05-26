@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://boytyf45gnwnc" path="res://scripts/terrain_manager/terrain_manager.gd" id="1_ykg7d"]
 [ext_resource type="Texture2D" uid="uid://cnnmridgrau5" path="res://assets/sprites/terrain/TerrainAdjusted.png" id="2_e8xvy"]
-[ext_resource type="Texture2D" uid="uid://bjcogltpwheam" path="res://assets/sprites/terrain/Adventure Awaits Asset Pack 1.0.png" id="3_ipv36"]
+[ext_resource type="Texture2D" uid="uid://c88umx8cgtkik" path="res://assets/sprites/terrain/fence/Fence.png" id="3_e8xvy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ipv36"]
 texture = ExtResource("2_e8xvy")
@@ -945,54 +945,80 @@ terrain_set_0/terrain_3/name = "Tree"
 terrain_set_0/terrain_3/color = Color(0.44931, 0.484604, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_ipv36")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ojq2v"]
-texture = ExtResource("3_ipv36")
-1:6/0 = 0
-1:6/0/terrain_set = 0
-1:6/0/terrain = 0
-1:6/0/terrains_peering_bit/right_side = 0
-1:6/0/terrains_peering_bit/bottom_side = 0
-2:6/0 = 0
-2:6/0/terrain_set = 0
-2:6/0/terrain = 0
-2:6/0/terrains_peering_bit/right_side = 0
-2:6/0/terrains_peering_bit/left_side = 0
-3:6/0 = 0
-3:6/0/terrain_set = 0
-3:6/0/terrain = 0
-3:6/0/terrains_peering_bit/bottom_side = 0
-3:6/0/terrains_peering_bit/left_side = 0
-1:7/0 = 0
-1:7/0/terrain_set = 0
-1:7/0/terrain = 0
-1:7/0/terrains_peering_bit/bottom_side = 0
-1:7/0/terrains_peering_bit/top_side = 0
-3:7/0 = 0
-3:7/0/terrain_set = 0
-3:7/0/terrain = 0
-3:7/0/terrains_peering_bit/bottom_side = 0
-3:7/0/terrains_peering_bit/top_side = 0
-1:8/0 = 0
-1:8/0/terrain_set = 0
-1:8/0/terrain = 0
-1:8/0/terrains_peering_bit/right_side = 0
-1:8/0/terrains_peering_bit/top_side = 0
-2:8/0 = 0
-2:8/0/terrain_set = 0
-2:8/0/terrain = 0
-2:8/0/terrains_peering_bit/right_side = 0
-2:8/0/terrains_peering_bit/left_side = 0
-3:8/0 = 0
-3:8/0/terrain_set = 0
-3:8/0/terrain = 0
-3:8/0/terrains_peering_bit/left_side = 0
-3:8/0/terrains_peering_bit/top_side = 0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tp0vb"]
+texture = ExtResource("3_e8xvy")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/right_side = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/left_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/terrains_peering_bit/right_side = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/terrains_peering_bit/left_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/terrains_peering_bit/right_side = 0
+0:3/0/terrains_peering_bit/left_side = 0
+0:3/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSet" id="TileSet_ihgyo"]
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Fence"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
-sources/0 = SubResource("TileSetAtlasSource_ojq2v")
+sources/0 = SubResource("TileSetAtlasSource_tp0vb")
 
 [node name="TerrainManager" type="Node2D" node_paths=PackedStringArray("terrain_tile_map", "fence_tile_map")]
 script = ExtResource("1_ykg7d")
