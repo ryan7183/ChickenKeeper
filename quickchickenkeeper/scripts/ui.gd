@@ -1,10 +1,11 @@
 extends Control
 
-@export var fence_button:Button
-@export var dirt_button:Button
-@export var water_button:Button
-@export var grass_button:Button
-@export var remove_fence_button:Button
+@export var fence_button:TextureButton
+@export var dirt_button:TextureButton
+@export var water_button:TextureButton
+@export var grass_button:TextureButton
+@export var remove_fence_button:TextureButton
+@export var bottom_button_group:Control
 @export var money_label:RichTextLabel
 @export var sell_item_drop_box:Control
 
@@ -17,6 +18,28 @@ signal enable_terrain_placement
 func _ready() -> void:
 	Shop.connect("item_purchased", _update_money_label)
 	Shop.connect("item_sold", _update_money_label)
+	resize_ui_for_device()
+
+func resize_ui_for_device()->void:
+	var os_name:String = OS.get_name()
+	var button_size:Vector2 = Vector2(64,64)
+	match os_name:
+		"Windows","macOS","Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			button_size = Vector2(64, 64)
+		"Android","iOS","Web":
+			button_size = Vector2(128, 128)
+			fence_button.texture_hover = null
+			dirt_button.texture_hover = null
+			water_button.texture_hover = null
+			grass_button.texture_hover = null
+			remove_fence_button.texture_hover = null
+	fence_button.custom_minimum_size = button_size
+	dirt_button.custom_minimum_size = button_size
+	water_button.custom_minimum_size = button_size
+	grass_button.custom_minimum_size = button_size
+	remove_fence_button.custom_minimum_size = button_size
+	bottom_button_group.custom_minimum_size.y= button_size.y
+	pass
 
 func _update_money_label()->void:
 	money_label.clear()
