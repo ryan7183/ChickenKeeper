@@ -4,6 +4,7 @@ extends Node2D
 @export var chicken_manager:ChickenManager
 @export var camera:Camera
 @export var ui_overlay:Control
+@export var chicken_noise_grid:ChickenNoiseGrid
 
 var world_size:Vector2 = Vector2(100,100)
 var tile_size:int = 16
@@ -21,6 +22,9 @@ func _ready() -> void:
 	terrain_manager.setup_terrain()
 	chicken_manager.terrain = terrain_manager.terrain_map
 	chicken_manager.fences = terrain_manager.fence_map
+	
+	chicken_noise_grid.grid_size = world_size * tile_size
+	chicken_noise_grid.setup()
 	pass
 
 func _load_game()->void:
@@ -131,4 +135,9 @@ func _on_chicken_manager_request_food_amount() -> void:
 
 func _on_chicken_manager_food_amount_updated(food: Array[Array]) -> void:
 	terrain_manager.update_food_amount(food)
+	pass # Replace with function body.
+
+
+func _on_chicken_manager_chicken_positions_changed(positions: PackedVector2Array) -> void:
+	chicken_noise_grid.set_chicken_positions(positions)
 	pass # Replace with function body.

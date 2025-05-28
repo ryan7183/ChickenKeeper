@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2swnjdovmumw"]
+
+[ext_resource type="Script" uid="uid://db4dcee3l08tm" path="res://scripts/chicken_audio_area/chicken_audio_area.gd" id="1_whibt"]
+[ext_resource type="AudioStream" uid="uid://duyila5y2uq2r" path="res://assets/audio/chicken_audio_area.tres" id="2_le2xg"]
+
+[node name="ChickenAudioArea" type="Node2D" node_paths=PackedStringArray("background_noise1", "background_noise2", "background_noise3", "background_noise4")]
+script = ExtResource("1_whibt")
+background_noise1 = NodePath("")
+background_noise2 = NodePath("")
+background_noise3 = NodePath("")
+background_noise4 = NodePath("")
+stream = ExtResource("2_le2xg")

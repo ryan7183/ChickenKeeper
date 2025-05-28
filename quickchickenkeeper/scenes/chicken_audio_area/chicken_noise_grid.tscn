@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://m8xoc2gy4m0g"]
+
+[ext_resource type="Script" uid="uid://cxbjpx5d2vu63" path="res://scripts/chicken_audio_area/chicken_noise_grid.gd" id="1_u6ot1"]
+
+[node name="ChickenNoiseGrid" type="Node2D" node_paths=PackedStringArray("audio_areas")]
+script = ExtResource("1_u6ot1")
+audio_areas = NodePath("AudioAreas")
+
+[node name="AudioAreas" type="Node2D" parent="."]

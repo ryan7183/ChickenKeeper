@@ -4,6 +4,7 @@ signal item_being_dragged
 signal item_being_dropped
 signal request_food_amount
 signal food_amount_updated(food:Array[Array])
+signal chicken_positions_changed(positions:PackedVector2Array)
 
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
@@ -82,6 +83,7 @@ func _process(delta: float) -> void:
 		_move_chickens(delta)
 		_request_data_to_perform_chicken_actions()
 		_kill_unhealthy_chickens()
+		chicken_positions_changed.emit(PackedVector2Array(chicken_positions))
 	show_chickens()
 	show_eggs()
 	pass

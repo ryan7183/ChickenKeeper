@@ -1,0 +1,35 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=15 format=3 uid="uid://duyila5y2uq2r"]
+
+[ext_resource type="AudioStream" uid="uid://dgpptu5w8di1y" path="res://assets/audio/43380__agfx__chicks-very-young.wav" id="1_1k133"]
+[ext_resource type="AudioStream" uid="uid://bkuw8y4mpvkcl" path="res://assets/audio/183487__ecfike__chickens.wav" id="2_cebo1"]
+[ext_resource type="AudioStream" uid="uid://bvoyrad14kl56" path="res://assets/audio/607245__d4xx__chicken.wav" id="3_pl2h7"]
+[ext_resource type="AudioStream" uid="uid://buvw241yqq872" path="res://assets/audio/668805__mbpl__chicken-clucking-1.wav" id="4_fxg26"]
+[ext_resource type="AudioStream" uid="uid://bajn7mm8gdsvj" path="res://assets/audio/749707__rfcaldas__chickens.wav" id="5_3rvpf"]
+[ext_resource type="AudioStream" uid="uid://blypmw7rm8wqn" path="res://assets/audio/805157__mrspivey__chickens.wav" id="6_37476"]
+[ext_resource type="AudioStream" uid="uid://brq4dgwryxcxx" path="res://assets/audio/232495__tom_woysky__polish-hen-cackling.wav" id="7_7ku3t"]
+[ext_resource type="AudioStream" uid="uid://qn3y87ptjrex" path="res://assets/audio/331292__saveriocaponi__chicken_sounds.mp3" id="8_q14uj"]
+[ext_resource type="AudioStream" uid="uid://ci083xjjgb45f" path="res://assets/audio/347040__caculo__rooster-singing-in-the-morning.wav" id="9_gd5gs"]
+[ext_resource type="AudioStream" uid="uid://cbtoyo0840c6n" path="res://assets/audio/233092__jarredgibb__chicken-buck-1-96khz.wav" id="10_y0tni"]
+[ext_resource type="AudioStream" uid="uid://dgbs6ber1wiku" path="res://assets/audio/233094__jarredgibb__chicken-footsteps-1-96khz.wav" id="11_qb3go"]
+[ext_resource type="AudioStream" uid="uid://b08ivwpsw825r" path="res://assets/audio/390434__felixblume__wind-through-trees-at-the-farm.wav" id="12_apqqi"]
+[ext_resource type="AudioStream" uid="uid://bnwkehrt3fmh8" path="res://assets/audio/413825__henlord__chicken-growl-guttural.wav" id="13_0ug4i"]
+[ext_resource type="AudioStream" uid="uid://f8hu7slag6nk" path="res://assets/audio/448132__derjuli__rooster.wav" id="14_wv0qo"]
+
+[resource]
+random_pitch = 2.0
+random_volume_offset_db = 2.0
+streams_count = 14
+stream_0/stream = ExtResource("1_1k133")
+stream_1/stream = ExtResource("2_cebo1")
+stream_2/stream = ExtResource("7_7ku3t")
+stream_3/stream = ExtResource("8_q14uj")
+stream_4/stream = ExtResource("9_gd5gs")
+stream_5/stream = ExtResource("10_y0tni")
+stream_6/stream = ExtResource("11_qb3go")
+stream_7/stream = ExtResource("12_apqqi")
+stream_8/stream = ExtResource("13_0ug4i")
+stream_9/stream = ExtResource("14_wv0qo")
+stream_10/stream = ExtResource("3_pl2h7")
+stream_11/stream = ExtResource("4_fxg26")
+stream_12/stream = ExtResource("5_3rvpf")
+stream_13/stream = ExtResource("6_37476")
