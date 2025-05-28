@@ -193,20 +193,29 @@ func apply_save_data(data:Dictionary)->void:
 	pass
 
 func show_chickens()->void:
-	chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
+	if chicken_multi_mesh.multimesh.instance_count != chicken_positions.size():
+		chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
 	for i:int in range(chicken_positions.size()):
 		if chicken_current_action[i] != ChickenManager.Action.SIT:
 			var dir:Vector2 = _determin_chicken_direction_frame(i)
 			
-			var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
-			chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
-			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
+			#var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
+			#chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
+			_set_chicken_multimesh_instance_transform(dir,i)
 			
+			
+			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
 			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,chicken_color[i],0))
 			if Engine.get_frames_drawn()%8 == 0:
 				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
 		pass
 	pass
+
+func _set_chicken_multimesh_instance_transform(dir:Vector2, i:int)->void:
+	var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
+	chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
+	pass
+
 
 func _determine_next_chicken_animation_frame(chicken_index:int)->int:
 	var frame:int = 0

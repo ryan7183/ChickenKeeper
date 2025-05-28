@@ -56,7 +56,7 @@ func decide_chicken_action(delta:float)->Dictionary:
 func _retrieve_shader_data()->void:
 	if target_out_buffer.is_valid():
 		var tar_output :PackedByteArray=  rendering_device.buffer_get_data(target_out_buffer)
-		var arr :Array[Vector2]= _byte_array_to_vec2_array(tar_output)
+		var arr :Array[Vector2]= HelperFunctions.byte_array_to_vec2_array(tar_output,packed_chicken_positions.size())#_byte_array_to_vec2_array(tar_output)
 		target_output = arr
 		
 	if chicken_current_action_out_buffer.is_valid():
@@ -69,19 +69,6 @@ func _retrieve_shader_data()->void:
 	#	var arr :Array[float]= Array(Array(index_out.to_float32_array()),TYPE_FLOAT,"",null)# There must be a better way than doing it twice
 	#	pass
 	pass
-
-func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
-	var decoded :Array = bytes.to_float32_array()
-	var arr: Array[Vector2] = []
-	arr.resize(packed_chicken_positions.size())
-	var index:int = 0
-	for i:int in range(1,decoded.size(),2):
-		#arr.append(Vector2(decoded[i-1],decoded[i]))
-		arr[index] = Vector2(decoded[i-1],decoded[i])
-		index+=1
-		pass
-	
-	return arr
 
 func _run_shader(delta:float)->void:
 	

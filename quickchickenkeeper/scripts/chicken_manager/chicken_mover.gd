@@ -58,7 +58,7 @@ func move_chickens(delta:float)->Dictionary:
 func _retrieve_shader_data()->void:
 	if pos_out_buffer.is_valid():
 		var pos_output :PackedByteArray=  rendering_device.buffer_get_data(pos_out_buffer)
-		var arr :Array[Vector2]= _byte_array_to_vec2_array(pos_output)
+		var arr :Array[Vector2]= HelperFunctions.byte_array_to_vec2_array(pos_output,positions_array.size())
 		position_output = arr
 	if direction_buffer.is_valid():
 		var direction_out :PackedByteArray=  rendering_device.buffer_get_data(direction_buffer)
@@ -67,18 +67,6 @@ func _retrieve_shader_data()->void:
 		
 	pass
 
-func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
-	var decoded :Array = bytes.to_float32_array()
-	var arr: Array[Vector2] = []
-	arr.resize(positions_array.size())
-	var index:int = 0
-	for i:int in range(1,decoded.size(),2):
-		#arr.append(Vector2(decoded[i-1],decoded[i]))
-		arr[index] = Vector2(decoded[i-1] as float,decoded[i] as float)
-		index+=1
-		pass
-	
-	return arr
 
 func _run_shader(delta:float)->void:
 	

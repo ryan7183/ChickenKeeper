@@ -78,7 +78,7 @@ func _retrieve_shader_data()->void:
 	if food_in_buffer.is_valid():
 		var food_out :PackedByteArray=  rendering_device.buffer_get_data(food_in_buffer)
 		var arr :PackedFloat32Array= food_out.to_float32_array()
-		food_output = one_d_to_two_d_square_array(Array(arr),terrain_width)
+		food_output = HelperFunctions.one_d_to_two_d_square_array(Array(arr),terrain_width)
 	if hunger_out_buffer.is_valid():
 		var hunger_out :PackedByteArray=  rendering_device.buffer_get_data(hunger_out_buffer)
 		var arr :PackedFloat32Array= hunger_out.to_float32_array()
@@ -96,27 +96,6 @@ func _retrieve_shader_data()->void:
 		var arr :PackedFloat32Array= health_out.to_float32_array()
 		health_output = Array(Array(arr),TYPE_FLOAT,"",null)
 	pass
-
-func one_d_to_two_d_square_array(arr:Array, width:int)->Array[Array]:
-	var new_arr:Array[Array] = []
-	new_arr.resize(width)
-	for x:int in range(width):
-		var col:Array = []
-		col.resize(width)
-		for y:int in range(width):
-			col[y] = arr[(x*width)+y]
-			pass
-		new_arr[x] = col
-	return new_arr
-
-func _byte_array_to_vec2_array(bytes:PackedByteArray)->Array[Vector2]:
-	var decoded :Array = bytes.to_float32_array()
-	var arr: Array[Vector2] = []
-	for i:int in range(1,decoded.size(),2):
-		arr.append(Vector2(decoded[i-1],decoded[i]))
-		pass
-	
-	return arr
 
 func _run_shader()->void:
 	
