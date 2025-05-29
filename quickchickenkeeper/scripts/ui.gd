@@ -1,4 +1,4 @@
-extends Control
+class_name UIOverlay extends Control
 
 @export var fence_button:TextureButton
 @export var dirt_button:TextureButton
@@ -206,4 +206,32 @@ func _on_settings_menu_mouse_entered() -> void:
 func _on_settings_menu_mouse_exited() -> void:
 	mouse_over_settings = false
 	mouse_is_over_settings.emit(false)
+	pass # Replace with function body.
+
+func get_save_data()->Dictionary:
+	return {
+		"master_volume":master_volume.value,
+		"chicken_volume":chicken_volume.value,
+		"ui_volume":ui_volume.value,
+		"background_music_volume":background_music_volume.value
+	}
+
+func apply_save_data(data:Dictionary)->void:
+	master_volume.value = data["master_volume"]
+	chicken_volume.value = data["chicken_volume"]
+	ui_volume.value = data["ui_volume"]
+	background_music_volume.value = data["background_music_volume"]
+	pass
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
+	pass # Replace with function body.
+
+
+func _on_save_and_quit_button_pressed() -> void:
+	save_button_pressed.emit()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
 	pass # Replace with function body.

@@ -61,7 +61,9 @@ func _load_game()->void:
 				"camera":
 					camera.apply_save_data(save_data[key] as Dictionary)
 				"shop":
-					Shop.apply_save_data(save_data["shop"])
+					Shop.apply_save_data(save_data[key])
+				"settings":
+					ui_overlay.apply_save_data(save_data[key]as Dictionary)
 	if !success:
 		_generate_new_game()
 	pass
@@ -74,6 +76,7 @@ func _save_game()->void:
 		"chicken_manager":chicken_manager.get_save_data(),
 		"camera":camera.get_save_data(),
 		"shop":Shop.get_save_data(),
+		"settings":ui_overlay.get_save_data(),
 	}
 	var json_string:String = JSON.stringify(data)
 	save_file.store_line(json_string)

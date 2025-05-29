@@ -206,7 +206,6 @@ texture_hover = ExtResource("7_24e4x")
 stretch_mode = 5
 
 [node name="SettingsMenu" type="Control" parent="."]
-visible = false
 custom_minimum_size = Vector2(500, 250)
 layout_mode = 1
 anchors_preset = 8
@@ -214,6 +213,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 165.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -245,6 +248,28 @@ theme_override_constants/margin_bottom = 5
 [node name="SaveButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "Save Game"
+
+[node name="MarginContainer7" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SaveAndQuitButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer7"]
+layout_mode = 2
+text = "Save And Quit Game"
+
+[node name="MarginContainer6" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="QuitButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+text = "Quit Game"
 
 [node name="LoadButton" type="Button" parent="SettingsMenu/VBoxContainer"]
 visible = false
@@ -371,6 +396,8 @@ bus = &"UI_Effects"
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer7/SaveAndQuitButton" to="." method="_on_save_and_quit_button_pressed"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
