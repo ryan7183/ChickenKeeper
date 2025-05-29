@@ -215,9 +215,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -125.0
+offset_top = -163.5
 offset_right = 250.0
-offset_bottom = 165.0
+offset_bottom = 163.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -271,6 +271,17 @@ theme_override_constants/margin_bottom = 5
 [node name="QuitButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer6"]
 layout_mode = 2
 text = "Quit Game"
+
+[node name="MarginContainer8" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CreditsButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer8"]
+layout_mode = 2
+text = "Credits"
 
 [node name="LoadButton" type="Button" parent="SettingsMenu/VBoxContainer"]
 visible = false
@@ -405,6 +416,8 @@ bus = &"UI_Effects"
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer8/CreditsButton" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer8/CreditsButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]

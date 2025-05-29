@@ -56,7 +56,7 @@ func _create_fence_map()->void:
 	pass
 
 func make_sea()->void:
-	var excess:int = 100
+	var excess:int = 10
 	for x:int in range(-excess,world_size.x+excess):
 		for y:int in range(-excess,world_size.y+excess):
 			terrain_tile_map.set_cell(Vector2i(x,y),0,Vector2i(1,4))
