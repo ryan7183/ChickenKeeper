@@ -207,9 +207,12 @@ func generate_initial_island()->void:
 	pass
 
 func get_save_data()->Dictionary:
+
 	return {
 		"terrain_map" : terrain_map,
 		"fence_map":fence_map,
+		"food_amount":food_amount,
+		
 	}
 
 func apply_save_data(data:Dictionary)->void:
@@ -225,4 +228,12 @@ func apply_save_data(data:Dictionary)->void:
 	for array:Array in data["fence_map"]:
 		fence_map.append(array)
 		pass
+		
+	food_amount = []
+	food_amount.resize(data["food_amount"].size()as int)
+	for array:Array in data["food_amount"]:
+		food_amount.append(array)
+		pass
+		
+	grass_grower.update_data(terrain_map, food_amount)
 	pass

@@ -6,9 +6,9 @@ extends Node2D
 @export var ui_overlay:Control
 @export var chicken_noise_grid:ChickenNoiseGrid
 
-var world_size:Vector2 = Vector2(100,100)
-var tile_size:int = 16
-var initial_island_size:int = 10
+const world_size:Vector2 = Vector2(100,100)
+const tile_size:int = 16
+const initial_island_size:int = 10
 
 func _ready() -> void:
 	
@@ -28,6 +28,7 @@ func _ready() -> void:
 	pass
 
 func _load_game()->void:
+	var success:bool = true
 	if not FileAccess.file_exists("user://savegame.save"):
 		_generate_new_game()
 		return # Error! We don't have a save to load.
@@ -44,6 +45,7 @@ func _load_game()->void:
 		var parse_result:Error = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			success=false
 			continue
 
 		# Get the data from the JSON object.
@@ -58,6 +60,8 @@ func _load_game()->void:
 					chicken_manager.apply_save_data(save_data[key] as Dictionary)
 				"camera":
 					camera.apply_save_data(save_data[key] as Dictionary)
+	if !success:
+		_generate_new_game()
 	pass
 
 func _save_game()->void:
@@ -75,7 +79,6 @@ func _save_game()->void:
 
 func get_save_data()->Dictionary:
 	return {
-		
 	}
 
 func _generate_new_game()->void:

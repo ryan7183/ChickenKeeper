@@ -44,11 +44,13 @@ func bound_camera_to_area()->void:
 
 func get_save_data()->Dictionary:
 	return {
-		"position":position
+		"position":position,
+		"zoom":zoom
 	}
 
 func apply_save_data(data:Dictionary)->void:
 	position = str_to_var("Vector2" +data["position"] as String)
+	zoom = str_to_var("Vector2" +data["zoom"] as String)
 	pass
 
 func _input(event: InputEvent) -> void:

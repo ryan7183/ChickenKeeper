@@ -32,8 +32,8 @@ func update_data(positions:Array[Vector2], targets:Array[Vector2], terrain:Array
 
 func _terrain_to_packed(terrain:Array[Array])->PackedInt32Array:
 	var new_arr:Array[int]=[]
-	for arr:Array in terrain:
-		new_arr.append_array(arr)
+	for arr:Array[int] in terrain:
+		new_arr.append_array(arr as Array[int])
 	return PackedInt32Array(new_arr)
 
 func _fences_to_packed(fences:Array[Array])->PackedByteArray:

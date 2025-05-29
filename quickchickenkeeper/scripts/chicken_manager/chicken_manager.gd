@@ -66,7 +66,7 @@ func spawn_initial_chickens()->void:
 		randf_range(center.y-half_island_size,center.y+half_island_size)))
 		chicken_scales.append(1.0)
 		chicken_hunger_satiation.append(100)
-		chicken_direction.append(0)
+		chicken_direction.append(1.0)
 		chicken_animation_frame.append(0)
 		chicken_current_action.append(Action.WANDER)
 		chicken_target.append(chicken_positions[i])
@@ -110,7 +110,7 @@ func _update_eggs()->void:
 		"chicken_position":data["position"],
 		"chicken_scale":1.0,
 		"chicken_hunger_satiation":20,
-		"chicken_direction":0,
+		"chicken_direction":1,
 		"chicken_animation_frame":0,
 		"chicken_current_action":Action.WANDER,
 		"chicken_target":data["position"],
@@ -160,7 +160,7 @@ func _determine_actions(delta:float)->void:
 func _move_chickens(delta:float)->void:
 	chicken_mover.update_data(chicken_positions,chicken_target, terrain,fences)
 	var results:Dictionary = chicken_mover.move_chickens(delta)
-	chicken_direction = results["direction"]
+	#chicken_direction = results["direction"]
 	chicken_positions = results["position"]
 
 func perform_chicken_actions(food_amount:Array[Array])->void:
@@ -181,6 +181,21 @@ func get_save_data()->Dictionary:
 		"chicken_positions": chicken_positions,
 		"chicken_scales": chicken_scales,
 		"egg_positions":egg_positions,
+		"chicken_hunger_satiation":chicken_hunger_satiation,
+		"chicken_direction":chicken_direction,
+		"chicken_animation_frame":chicken_animation_frame,
+		"chicken_type":chicken_type,
+		"chicken_current_action":chicken_current_action,
+		"chicken_target":chicken_target,
+		"chicken_fatigue":chicken_fatigue,
+		"chicken_satisfaction_time":chicken_satisfaction_time,
+		"chicken_health":chicken_health,
+		"chicken_color":chicken_color,
+		"egg_time_till_hatch":egg_time_till_hatch,
+		"egg_hatchling_color":egg_hatchling_color,
+		"egg_hatchling_type":egg_hatchling_type,
+		"terrain":terrain,
+		"fences":fences,
 	}
 
 func apply_save_data(data:Dictionary)->void:
@@ -190,9 +205,33 @@ func apply_save_data(data:Dictionary)->void:
 		
 		chicken_scales.append(chicken_scale)
 		chicken_positions.append(vector)
+		
+		chicken_target.append(str_to_var("Vector2" + (data["chicken_target"][i]) as String))
 		pass
 	
-	egg_positions.assign(data["egg_positions"] as Array)
+	#egg_positions.assign(data["egg_positions"])
+	for i:int in data["egg_positions"].size():
+		var vector:Vector2 = str_to_var("Vector2" + (data["egg_positions"][i]) as String)
+		egg_positions.append(vector)
+	chicken_hunger_satiation.assign(data["chicken_hunger_satiation"] as Array[float])
+	chicken_direction.assign(data["chicken_direction"] as Array[float])
+	chicken_animation_frame.assign(data["chicken_animation_frame"] as Array[int])
+	chicken_type.assign(data["chicken_type"] as Array[int])
+	chicken_current_action.assign(data["chicken_current_action"] as Array[int])
+	chicken_fatigue.assign(data["chicken_fatigue"] as Array[float])
+	chicken_satisfaction_time.assign(data["chicken_satisfaction_time"] as Array[float])
+	chicken_health.assign(data["chicken_health"] as Array[float])
+	chicken_color.assign(data["chicken_color"] as Array[int])
+	egg_time_till_hatch.assign(data["egg_time_till_hatch"] as Array[float])
+	egg_hatchling_color.assign(data["egg_hatchling_color"] as Array[int])
+	egg_hatchling_type.assign(data["egg_hatchling_type"] as Array[int])
+	terrain.assign(data["terrain"] as Array[int])
+	fences.assign(data["fences"] as Array[bool])
+	
+	#chicken_mover.update_data(chicken_positions,chicken_target, terrain,fences)
+	#chicken_action_chooser.update_data(chicken_positions ,chicken_hunger_satiation,\
+	#chicken_fatigue,chicken_target,terrain)
+	
 	pass
 
 func show_chickens()->void:
