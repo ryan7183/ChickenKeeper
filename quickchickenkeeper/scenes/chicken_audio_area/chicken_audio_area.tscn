@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b2swnjdovmumw"]
 
 [ext_resource type="Script" uid="uid://db4dcee3l08tm" path="res://scripts/chicken_audio_area/chicken_audio_area.gd" id="1_whibt"]
-[ext_resource type="AudioStream" uid="uid://duyila5y2uq2r" path="res://assets/audio/chicken_audio_area.tres" id="2_le2xg"]
+[ext_resource type="AudioStream" uid="uid://duyila5y2uq2r" path="res://assets/audio/chicken_sounds/chicken_audio_area.tres" id="2_le2xg"]
 [ext_resource type="Texture2D" uid="uid://btiswsiaru2si" path="res://icon.svg" id="3_ndej5"]
 
 [node name="ChickenAudioArea" type="Node2D"]

@@ -33,7 +33,7 @@ var egg_time_till_hatch:Array[float] = []
 var egg_hatchling_color:Array[int] = []
 var egg_hatchling_type:Array[ChickenType] = []
 
-const initial_num_chickens:int = 4
+const initial_num_chickens:int = 10000
 var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
 const egg_sprite_size:int = 32

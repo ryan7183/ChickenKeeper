@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6p5rtj82urcp"]
+[gd_scene load_steps=12 format=3 uid="uid://c6p5rtj82urcp"]
 
 [ext_resource type="Script" uid="uid://cfdt26cljr6o6" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://gfeu08sh487y" path="res://scenes/terrain_manager/terrain_manager.tscn" id="2_lquwl"]
@@ -6,6 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://m8xoc2gy4m0g" path="res://scenes/chicken_audio_area/chicken_noise_grid.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://b4xiicj41kbch" path="res://assets/audio/background_music/768967__mellotrix9898__doodle.wav" id="6_4c57u"]
+[ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="7_efxa6"]
+[ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="8_dg77c"]
+[ext_resource type="AudioStream" uid="uid://bha35ftc5v1km" path="res://assets/audio/background_music/apple_cider.ogg" id="9_ycdy4"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7mycd"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("6_4c57u")
+stream_1 = ExtResource("7_efxa6")
+stream_2 = ExtResource("8_dg77c")
+stream_3 = ExtResource("9_ycdy4")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera", "ui_overlay", "chicken_noise_grid")]
 texture_filter = 1
@@ -24,6 +36,13 @@ chicken_noise_grid = NodePath("ChickenNoiseGrid")
 
 [node name="Camera" parent="." instance=ExtResource("5_7mycd")]
 position = Vector2(963, 540)
+
+[node name="BackGroundMusicAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera"]
+position = Vector2(-963, -540)
+stream = SubResource("AudioStreamPlaylist_7mycd")
+volume_db = -10.0
+autoplay = true
+bus = &"BackgroundMusic"
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
