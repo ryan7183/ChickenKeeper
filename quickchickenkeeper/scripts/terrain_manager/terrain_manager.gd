@@ -3,6 +3,11 @@ class_name TerrainManager extends Node2D
 @export var terrain_tile_map: TileMapLayer
 @export var fence_tile_map: TileMapLayer
 
+@export var grass_place_audio:AudioStreamPlayer2D
+@export var dirt_place_audio:AudioStreamPlayer2D
+@export var water_place_audio:AudioStreamPlayer2D
+@export var fence_place_audio:AudioStreamPlayer2D
+
 signal tile_placed
 
 enum TerrainType {GRASS, DIRT, WATER, FENCE, REMOVE_FENCE, NOTHING}
@@ -92,6 +97,7 @@ func update_tile_map(changed:Array[Array])->void:
 		terrain_tile_map.set_cells_terrain_connect(dirt_list,0,0)
 	if tile_changed:
 		tile_placed.emit()
+		
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -112,26 +118,36 @@ func _place_tile()->void:
 					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,1)
 					food_amount[tile_pos.x][tile_pos.y] = 50
+					if !grass_place_audio.playing:
+						grass_place_audio.play()
 			TerrainType.DIRT:
 				if Shop.buy_dirt() if\
 				 (terrain_map[tile_pos.x][tile_pos.y] != TerrainType.GRASS && terrain_map[tile_pos.x][tile_pos.y] != TerrainType.DIRT)\
 				else true :
 					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0)
+					if !dirt_place_audio.playing:
+						dirt_place_audio.play()
 			TerrainType.WATER:
 				if Shop.buy_water() if terrain_map[tile_pos.x][tile_pos.y] != TerrainType.WATER else true:
 					terrain_map[tile_pos.x][tile_pos.y] = placement_mode
 					terrain_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,2)
 					fence_map[tile_pos.x][tile_pos.y] = false
 					fence_tile_map.erase_cell(Vector2i(tile_pos.x,tile_pos.y))
+					if !water_place_audio.playing:
+						water_place_audio.play()
 			TerrainType.FENCE:
 				if terrain_map[tile_pos.x][tile_pos.y] != TerrainType.WATER and Shop.buy_fence() if fence_map[tile_pos.x][tile_pos.y] ==false else true:
 					fence_map[tile_pos.x][tile_pos.y] = true
 					fence_tile_map.set_cells_terrain_connect([Vector2i(tile_pos.x,tile_pos.y)],0,0,false)
+					if !fence_place_audio.playing:
+						fence_place_audio.play()
 				pass
 			TerrainType.REMOVE_FENCE:
 				fence_map[tile_pos.x][tile_pos.y] = false
 				fence_tile_map.erase_cell(Vector2i(tile_pos.x,tile_pos.y))
+				if !fence_place_audio.playing:
+					fence_place_audio.play()
 				pass
 		tile_placed.emit()
 		grass_grower.update_data(terrain_map, food_amount)
