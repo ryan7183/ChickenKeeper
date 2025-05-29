@@ -8,6 +8,7 @@ extends Control
 @export var bottom_button_group:Control
 @export var money_label:RichTextLabel
 @export var sell_item_drop_box:Control
+@export var button_toggle_sound_effect:AudioStreamPlayer2D
 
 signal menu_button_pressed
 signal terrain_button_toggled(terrain:TerrainManager.TerrainType)
@@ -47,11 +48,13 @@ func _update_money_label()->void:
 	pass
 
 func _on_menu_button_pressed() -> void:
+	button_toggle_sound_effect.play()
 	menu_button_pressed.emit()
 	pass # Replace with function body.
 
 
 func _on_fence_button_toggled(toggled_on: bool) -> void:
+	button_toggle_sound_effect.play()
 	if toggled_on:
 		water_button.button_pressed = false
 		dirt_button.button_pressed = false
@@ -64,6 +67,7 @@ func _on_fence_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_dirt_button_toggled(toggled_on: bool) -> void:
+	button_toggle_sound_effect.play()
 	if toggled_on:
 		water_button.button_pressed = false
 		fence_button.button_pressed = false
@@ -76,6 +80,7 @@ func _on_dirt_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_water_button_toggled(toggled_on: bool) -> void:
+	button_toggle_sound_effect.play()
 	if toggled_on:
 		fence_button.button_pressed = false
 		dirt_button.button_pressed = false
@@ -96,6 +101,7 @@ func _on_enable_tile_placement()->void:
 
 
 func _on_grass_button_toggled(toggled_on: bool) -> void:
+	button_toggle_sound_effect.play()
 	if toggled_on:
 		fence_button.button_pressed = false
 		dirt_button.button_pressed = false
@@ -108,6 +114,7 @@ func _on_grass_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_remove_fence_button_toggled(toggled_on: bool) -> void:
+	button_toggle_sound_effect.play()
 	if toggled_on:
 		water_button.button_pressed = false
 		dirt_button.button_pressed = false
