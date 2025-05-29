@@ -19,3 +19,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("PickUpChicken"):
 		dropped.emit(position)
 		queue_free()
+
+func set_chicken_image(chicken_type:int, chicken_color:int)->void:
+	material.set("shader_parameter/v_frame_index",Vector2(chicken_type*8,0))
+	material.set("shader_parameter/color_info",chicken_color)
+	
+	pass

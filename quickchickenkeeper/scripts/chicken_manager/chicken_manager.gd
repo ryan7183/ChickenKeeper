@@ -278,6 +278,7 @@ func _input(event: InputEvent) -> void:
 		var chicken_data:Dictionary = _remove_chicken_if_mouse_over(mouse_pos)
 		if chicken_data.has("chicken_position"):
 			var draggable_instance:DraggableChicken = draggable_chicken_scene.instantiate()
+			draggable_instance.set_chicken_image(chicken_data["chicken_type"],chicken_data["chicken_color"])
 			draggable_instance.scale = Vector2(2.0,2.0)
 			draggable_instance.tile_size = tile_size
 			draggable_instance.world_size = world_size

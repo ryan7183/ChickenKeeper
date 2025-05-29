@@ -1,14 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc3rjk280ddya"]
+[gd_scene load_steps=7 format=3 uid="uid://dc3rjk280ddya"]
 
 [ext_resource type="Script" uid="uid://c3f21obiwbs8o" path="res://scripts/chicken_manager/draggable_chicken.gd" id="1_fd66t"]
+[ext_resource type="Shader" uid="uid://drdchstqjf43c" path="res://scripts/chicken_manager/draggable_chicken.gdshader" id="1_tok1v"]
 [ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="2_fd66t"]
 [ext_resource type="AudioStream" uid="uid://yr7nx2t5414f" path="res://assets/audio/ui_effects/Audio/select_006.ogg" id="3_fd66t"]
+[ext_resource type="Texture2D" uid="uid://culqlm5ccbba" path="res://assets/sprites/egg/egg.png" id="3_y27jo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y27jo"]
+shader = ExtResource("1_tok1v")
+shader_parameter/chicken_texture = ExtResource("2_fd66t")
+shader_parameter/atlas_grid_size = Vector2(384, 144)
+shader_parameter/tile_texture_size = Vector2(24, 24)
+shader_parameter/v_frame_index = Vector2(0, 0)
+shader_parameter/color_info = 0.0
 
 [node name="DraggableChicken" type="Sprite2D"]
 z_index = 1
-texture = ExtResource("2_fd66t")
-region_enabled = true
-region_rect = Rect2(0, 0, 24, 24)
+texture_filter = 3
+material = SubResource("ShaderMaterial_y27jo")
+texture = ExtResource("3_y27jo")
 region_filter_clip_enabled = true
 script = ExtResource("1_fd66t")
 
