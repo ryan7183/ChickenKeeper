@@ -60,6 +60,8 @@ func _load_game()->void:
 					chicken_manager.apply_save_data(save_data[key] as Dictionary)
 				"camera":
 					camera.apply_save_data(save_data[key] as Dictionary)
+				"shop":
+					Shop.apply_save_data(save_data["shop"])
 	if !success:
 		_generate_new_game()
 	pass
@@ -71,6 +73,7 @@ func _save_game()->void:
 		"terrain_manager":terrain_manager.get_save_data(),
 		"chicken_manager":chicken_manager.get_save_data(),
 		"camera":camera.get_save_data(),
+		"shop":Shop.get_save_data(),
 	}
 	var json_string:String = JSON.stringify(data)
 	save_file.store_line(json_string)

@@ -17,8 +17,9 @@ signal disable_terrain_placement
 signal enable_terrain_placement
 
 func _ready() -> void:
-	Shop.connect("item_purchased", _update_money_label)
-	Shop.connect("item_sold", _update_money_label)
+	#Shop.connect("item_purchased", _update_money_label)
+	#Shop.connect("item_sold", _update_money_label)
+	Shop.connect("money_changed", _update_money_label)
 	resize_ui_for_device()
 	_update_money_label()
 
