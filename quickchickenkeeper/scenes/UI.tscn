@@ -206,6 +206,7 @@ texture_hover = ExtResource("7_24e4x")
 stretch_mode = 5
 
 [node name="SettingsMenu" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(500, 250)
 layout_mode = 1
 anchors_preset = 8
@@ -369,8 +370,10 @@ step = 0.05
 stream = ExtResource("12_7paak")
 bus = &"UI_Effects"
 
+[connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_disable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_enable_tile_placement"]
+[connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/PopupUI/SellItemDropBox" to="." method="_on_sell_item_drop_box_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/PopupUI/SellItemDropBox" to="." method="_on_sell_item_drop_box_mouse_exited"]
@@ -396,7 +399,11 @@ bus = &"UI_Effects"
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer7/SaveAndQuitButton" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer7/SaveAndQuitButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer7/SaveAndQuitButton" to="." method="_on_save_and_quit_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer6/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]

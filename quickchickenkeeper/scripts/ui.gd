@@ -193,6 +193,7 @@ func _on_background_music_volume_slider_value_changed(value: float) -> void:
 
 
 func _on_save_button_pressed() -> void:
+	button_toggle_sound_effect.play()
 	save_button_pressed.emit()
 	pass # Replace with function body.
 
@@ -225,13 +226,30 @@ func apply_save_data(data:Dictionary)->void:
 
 
 func _on_quit_button_pressed() -> void:
+	button_toggle_sound_effect.play()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
+	pass # Replace with function body.
+
+func _input(event: InputEvent) -> void:
+	if settings_menu.visible == true and event is InputEventMouseButton  and event.pressed and !mouse_over_settings:
+		button_toggle_sound_effect.play()
+		settings_menu.visible = false
+		pass
+
+func _on_save_and_quit_button_pressed() -> void:
+	button_toggle_sound_effect.play()
+	save_button_pressed.emit()
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
 	pass # Replace with function body.
 
 
-func _on_save_and_quit_button_pressed() -> void:
-	save_button_pressed.emit()
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	get_tree().quit()
+func _on_menu_button_mouse_entered() -> void:
+	mouse_over_settings = true
+	pass # Replace with function body.
+
+
+func _on_menu_button_mouse_exited() -> void:
+	mouse_over_settings = false
 	pass # Replace with function body.
