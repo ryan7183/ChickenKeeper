@@ -189,6 +189,7 @@ stretch_mode = 5
 
 [node name="ButtonToggleAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_7paak")
+bus = &"UI_Effects"
 
 [connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_disable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_enable_tile_placement"]

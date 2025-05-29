@@ -9,6 +9,8 @@ signal chicken_positions_changed(positions:PackedVector2Array)
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
 
+@export var sold_item_audio_player:AudioStreamPlayer2D
+
 enum Action {EAT, DRINK, WANDER, SIT, FIND_FOOD, FIND_WATER}
 enum ChickenType {COMB, NO_COMB}
 
@@ -77,13 +79,14 @@ func spawn_initial_chickens()->void:
 	pass
 
 func _process(delta: float) -> void:
-	if (Engine.get_process_frames()+1) % 2 == 0 and chicken_positions.size()>0:
+	if (Engine.get_process_frames()+1) % 2 == 0: 
 		_update_eggs()
-		_determine_actions(delta)
-		_move_chickens(delta)
-		_request_data_to_perform_chicken_actions()
-		_kill_unhealthy_chickens()
-		chicken_positions_changed.emit(PackedVector2Array(chicken_positions))
+		if chicken_positions.size()>0:
+			_determine_actions(delta)
+			_move_chickens(delta)
+			_request_data_to_perform_chicken_actions()
+			_kill_unhealthy_chickens()
+			chicken_positions_changed.emit(PackedVector2Array(chicken_positions))
 	show_chickens()
 	show_eggs()
 	pass
@@ -306,6 +309,7 @@ func _on_draggable_chicken_drop(pos:Vector2,data:Dictionary)->void:
 		_add_chicken(data)
 	else:
 		Shop.sell_chicken()
+		sold_item_audio_player.play()
 		pass
 	item_being_dropped.emit()
 	pass
@@ -317,6 +321,7 @@ func _on_draggable_egg_drop(pos:Vector2,data:Dictionary)->void:
 		_add_egg_with_stats(data)
 	else:
 		Shop.sell_egg()
+		sold_item_audio_player.play()
 	
 	item_being_dropped.emit()
 	pass

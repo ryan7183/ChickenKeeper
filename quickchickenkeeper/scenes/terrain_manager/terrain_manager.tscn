@@ -2837,12 +2837,16 @@ tile_set = SubResource("TileSet_ihgyo")
 
 [node name="GrassAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_qoww6")
+bus = &"UI_Effects"
 
 [node name="DirtAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ojq2v")
+bus = &"UI_Effects"
 
 [node name="WaterAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_ihgyo")
+bus = &"UI_Effects"
 
 [node name="FenceAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ojq2v")
+bus = &"UI_Effects"
