@@ -6,6 +6,8 @@ var chicken_audio_area_preload:PackedScene = preload("res://scenes/chicken_audio
 
 var grid_size:Vector2 =Vector2(1600, 1600)
 var num_audio_players_per_row:int  = 10
+var _new_chicken_positions:PackedVector2Array = []
+var new_chicken_positions_mutex:Mutex = Mutex.new()
 var _current_chicken_positions:PackedVector2Array = []
 var areas:Array[ChickenAudioArea] = []
 
@@ -62,6 +64,10 @@ func _contunually_count_chickens()->void:
 
 func _calculate_num_players_in_areas()->void:
 	_current_chicken_positions_mutex.lock()
+	
+	new_chicken_positions_mutex.lock()
+	_current_chicken_positions = _new_chicken_positions.duplicate()
+	new_chicken_positions_mutex.unlock()
 	
 	var counts:Array[int] = []
 	counts.resize(areas.size())
@@ -124,9 +130,9 @@ func setup()->void:
 	pass
 
 func set_chicken_positions(positions:PackedVector2Array)->void:
-	if _current_chicken_positions_mutex.try_lock():
-		_current_chicken_positions = positions
-		_current_chicken_positions_mutex.unlock()
+	if new_chicken_positions_mutex.try_lock():
+		_new_chicken_positions = positions
+		new_chicken_positions_mutex.unlock()
 		start_count.post()
 	pass
 
