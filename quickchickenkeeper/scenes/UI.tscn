@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dgf7v1qdeqw0i" path="res://assets/sprites/buttons/WaterButtonPressed.png" id="9_7paak"]
 [ext_resource type="AudioStream" uid="uid://dtkfgm73cwjm" path="res://assets/audio/ui_effects/Audio/click_001.ogg" id="12_7paak"]
 
-[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button", "grass_button", "remove_fence_button", "bottom_button_group", "money_label", "sell_item_drop_box", "sell_item_drop_box_color", "button_toggle_sound_effect")]
+[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button", "grass_button", "remove_fence_button", "bottom_button_group", "money_label", "sell_item_drop_box", "sell_item_drop_box_color", "button_toggle_sound_effect", "settings_menu", "master_volume", "chicken_volume", "ui_volume", "background_music_volume")]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
 anchors_preset = 15
@@ -35,6 +35,11 @@ money_label = NodePath("VBoxContainer/TopBar/VBoxContainer/ColorRect/MarginConta
 sell_item_drop_box = NodePath("VBoxContainer/PopupUI/SellItemDropBox")
 sell_item_drop_box_color = NodePath("VBoxContainer/PopupUI/SellItemDropBox/ColorRect")
 button_toggle_sound_effect = NodePath("ButtonToggleAudioStreamPlayer2D")
+settings_menu = NodePath("SettingsMenu")
+master_volume = NodePath("SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider")
+chicken_volume = NodePath("SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider/ChickenVolumeSlider")
+ui_volume = NodePath("SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider/UIVolumeSlider")
+background_music_volume = NodePath("SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider/BackgroundMusicVolumeSlider")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -200,6 +205,141 @@ texture_pressed = ExtResource("7_24e4x")
 texture_hover = ExtResource("7_24e4x")
 stretch_mode = 5
 
+[node name="SettingsMenu" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.234, 0.234, 0.234, 0.602)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SaveButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Save Game"
+
+[node name="LoadButton" type="Button" parent="SettingsMenu/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Load Game"
+
+[node name="MarginContainer2" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MasterVolumeSlider" type="HBoxContainer" parent="SettingsMenu/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master Volume: "
+
+[node name="MasterVolumeSlider" type="HSlider" parent="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+max_value = 1.0
+step = 0.05
+
+[node name="MarginContainer3" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ChickenVolumeSlider" type="HBoxContainer" parent="SettingsMenu/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Chicken Volume: "
+
+[node name="ChickenVolumeSlider" type="HSlider" parent="SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+max_value = 1.0
+step = 0.05
+
+[node name="MarginContainer4" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="UIVolumeSlider" type="HBoxContainer" parent="SettingsMenu/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UI Volume: "
+
+[node name="UIVolumeSlider" type="HSlider" parent="SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+max_value = 1.0
+step = 0.05
+
+[node name="MarginContainer5" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="BackgroundMusicVolumeSlider" type="HBoxContainer" parent="SettingsMenu/VBoxContainer/MarginContainer5"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Background Music Volume: "
+
+[node name="BackgroundMusicVolumeSlider" type="HSlider" parent="SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+max_value = 1.0
+step = 0.05
+
 [node name="ButtonToggleAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_7paak")
 bus = &"UI_Effects"
@@ -224,3 +364,22 @@ bus = &"UI_Effects"
 [connection signal="mouse_entered" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_disable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_enable_tile_placement"]
 [connection signal="toggled" from="VBoxContainer/PopupUI/ButtomButtons/HBoxContainer/GrassButton" to="." method="_on_grass_button_toggled"]
+[connection signal="mouse_entered" from="SettingsMenu" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="mouse_entered" from="SettingsMenu/ColorRect" to="." method="_on_color_rect_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/ColorRect" to="." method="_on_color_rect_mouse_exited"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider/ChickenVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider/ChickenVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer3/ChickenVolumeSlider/ChickenVolumeSlider" to="." method="_on_chicken_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider/UIVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider/UIVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer4/UIVolumeSlider/UIVolumeSlider" to="." method="_on_ui_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider/BackgroundMusicVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider/BackgroundMusicVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer5/BackgroundMusicVolumeSlider/BackgroundMusicVolumeSlider" to="." method="_on_background_music_volume_slider_value_changed"]

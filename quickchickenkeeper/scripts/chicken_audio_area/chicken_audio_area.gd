@@ -27,7 +27,7 @@ func _add_player()->void:
 		var player:AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 		player.stream = stream
 		player.max_distance = max_distance
-		player.volume_db = -20
+		player.bus = "ChickenSounds"
 		player.connect("finished", _on_background_sound_finished.bind(player))
 		add_child(player)
 		player.play()

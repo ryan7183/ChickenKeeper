@@ -49,6 +49,7 @@ var egg_updater:EggUpdater
 var terrain:Array[Array] = []
 var fences:Array[Array] = []
 var dragging_item:bool =false
+var disable_dragging_items:bool = false
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
@@ -312,7 +313,7 @@ func show_eggs()->void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("PickUpChicken") and !dragging_item: 
+	if event.is_action_pressed("PickUpChicken") and !dragging_item and !disable_dragging_items: 
 		var mouse_pos:Vector2 = get_global_mouse_position()
 		var chicken_data:Dictionary = _remove_chicken_if_mouse_over(mouse_pos)
 		if chicken_data.has("chicken_position"):
@@ -326,7 +327,7 @@ func _input(event: InputEvent) -> void:
 			item_being_dragged.emit()
 			pass
 	
-	if event.is_action_pressed("PickUpEgg") and !dragging_item: 
+	if event.is_action_pressed("PickUpEgg") and !dragging_item and !disable_dragging_items: 
 		var mouse_pos:Vector2 = get_global_mouse_position()
 		var egg_data:Dictionary = _remove_egg_if_mouse_over(mouse_pos)
 		if egg_data.has("egg_position"):

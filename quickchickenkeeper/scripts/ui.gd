@@ -11,11 +11,21 @@ extends Control
 @export var sell_item_drop_box_color:ColorRect
 @export var button_toggle_sound_effect:AudioStreamPlayer2D
 
+@export var settings_menu:Control
+@export var master_volume: HSlider
+@export var chicken_volume: HSlider
+@export var ui_volume: HSlider
+@export var background_music_volume: HSlider
+
 signal menu_button_pressed
+signal save_button_pressed
 signal terrain_button_toggled(terrain:TerrainManager.TerrainType)
 signal clear_terrain
 signal disable_terrain_placement
 signal enable_terrain_placement
+signal mouse_is_over_settings(over:bool)
+
+var mouse_over_settings:bool = false
 
 func _ready() -> void:
 	#Shop.connect("item_purchased", _update_money_label)
@@ -23,6 +33,7 @@ func _ready() -> void:
 	Shop.connect("money_changed", _update_money_label)
 	resize_ui_for_device()
 	_update_money_label()
+	_set_volume_sliders_current_value()
 
 func resize_ui_for_device()->void:
 	var os_name:String = OS.get_name()
@@ -53,6 +64,7 @@ func _update_money_label()->void:
 func _on_menu_button_pressed() -> void:
 	button_toggle_sound_effect.play()
 	menu_button_pressed.emit()
+	settings_menu.visible = !settings_menu.visible
 	pass # Replace with function body.
 
 
@@ -147,4 +159,51 @@ func _on_sell_item_drop_box_mouse_entered() -> void:
 func _on_sell_item_drop_box_mouse_exited() -> void:
 	Shop.item_over_sell_box = false
 	sell_item_drop_box_color.modulate = Color.DARK_BLUE
+	pass # Replace with function body.
+
+
+func _set_volume_sliders_current_value()->void:
+	master_volume.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	chicken_volume.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("ChickenSounds")))
+	background_music_volume.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("BackgroundMusic")))
+	ui_volume.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("UI_Effects")))
+	pass
+
+
+
+
+func _on_master_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
+	pass # Replace with function body.
+
+
+func _on_chicken_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("ChickenSounds"), linear_to_db(value))
+	pass # Replace with function body.
+
+
+func _on_ui_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("UI_Effects"), linear_to_db(value))
+	pass # Replace with function body.
+
+
+func _on_background_music_volume_slider_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("BackgroundMusic"), linear_to_db(value))
+	pass # Replace with function body.
+
+
+func _on_save_button_pressed() -> void:
+	save_button_pressed.emit()
+	pass # Replace with function body.
+
+
+func _on_settings_menu_mouse_entered() -> void:
+	mouse_over_settings = true
+	mouse_is_over_settings.emit(true)
+	pass # Replace with function body.
+
+
+func _on_settings_menu_mouse_exited() -> void:
+	mouse_over_settings = false
+	mouse_is_over_settings.emit(false)
 	pass # Replace with function body.

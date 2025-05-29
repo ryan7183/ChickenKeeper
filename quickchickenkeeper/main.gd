@@ -92,7 +92,7 @@ func _generate_new_game()->void:
 
 
 func _on_ui_menu_button_pressed() -> void:
-	_save_game()
+	
 	pass # Replace with function body.
 
 
@@ -146,4 +146,14 @@ func _on_chicken_manager_food_amount_updated(food: Array[Array]) -> void:
 
 func _on_chicken_manager_chicken_positions_changed(positions: PackedVector2Array) -> void:
 	chicken_noise_grid.set_chicken_positions(positions)
+	pass # Replace with function body.
+
+
+func _on_ui_save_button_pressed() -> void:
+	_save_game()
+	pass # Replace with function body.
+
+
+func _on_ui_mouse_is_over_settings(over: bool) -> void:
+	chicken_manager.disable_dragging_items = over
 	pass # Replace with function body.

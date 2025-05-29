@@ -40,7 +40,7 @@ position = Vector2(963, 540)
 [node name="BackGroundMusicAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera"]
 position = Vector2(-963, -540)
 stream = SubResource("AudioStreamPlaylist_7mycd")
-volume_db = -10.0
+volume_db = -15.0
 autoplay = true
 bus = &"BackgroundMusic"
 
@@ -60,4 +60,6 @@ offset_right = -1.0
 [connection signal="disable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_disable_terrain_placement"]
 [connection signal="enable_terrain_placement" from="UICanvasLayer/Ui" to="." method="_on_ui_enable_terrain_placement"]
 [connection signal="menu_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_menu_button_pressed"]
+[connection signal="mouse_is_over_settings" from="UICanvasLayer/Ui" to="." method="_on_ui_mouse_is_over_settings"]
+[connection signal="save_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_save_button_pressed"]
 [connection signal="terrain_button_toggled" from="UICanvasLayer/Ui" to="." method="_on_ui_terrain_button_toggled"]

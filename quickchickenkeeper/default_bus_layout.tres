@@ -1,8 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://cqpapfqagbkjh"]
-
-[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
-resource_name = "Reverb"
-room_size = 1.0
+[gd_resource type="AudioBusLayout" format=3 uid="uid://cqpapfqagbkjh"]
 
 [resource]
 bus/1/name = &"ChickenSounds"
@@ -11,8 +7,6 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
-bus/1/effect/0/effect = SubResource("AudioEffectReverb_j3pel")
-bus/1/effect/0/enabled = true
 bus/2/name = &"BackgroundMusic"
 bus/2/solo = false
 bus/2/mute = false
