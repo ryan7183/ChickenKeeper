@@ -16,7 +16,6 @@ shader_parameter/color_info = 0.0
 
 [node name="DraggableChicken" type="Sprite2D"]
 z_index = 1
-texture_filter = 3
 material = SubResource("ShaderMaterial_y27jo")
 texture = ExtResource("3_y27jo")
 region_filter_clip_enabled = true

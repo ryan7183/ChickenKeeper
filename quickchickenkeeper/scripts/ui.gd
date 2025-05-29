@@ -20,6 +20,7 @@ func _ready() -> void:
 	Shop.connect("item_purchased", _update_money_label)
 	Shop.connect("item_sold", _update_money_label)
 	resize_ui_for_device()
+	_update_money_label()
 
 func resize_ui_for_device()->void:
 	var os_name:String = OS.get_name()
