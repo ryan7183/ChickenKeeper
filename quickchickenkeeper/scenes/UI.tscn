@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://n5gtido1mdxt"]
+[gd_scene load_steps=14 format=3 uid="uid://n5gtido1mdxt"]
 
 [ext_resource type="Script" uid="uid://bks5rkbg5bmgn" path="res://scripts/ui.gd" id="1_dj8aq"]
+[ext_resource type="Texture2D" uid="uid://c2sb8e7pkms1j" path="res://assets/sprites/coin/coin 2.png" id="2_5sqrc"]
 [ext_resource type="Texture2D" uid="uid://btoa2i0q4iv7p" path="res://assets/sprites/buttons/FenceButton.png" id="2_ro3t7"]
 [ext_resource type="Texture2D" uid="uid://2c0lssq4o3f" path="res://assets/sprites/buttons/FenceButtonPressed.png" id="3_5en4g"]
 [ext_resource type="Texture2D" uid="uid://rhog575em1gt" path="res://assets/sprites/buttons/RemoveFenceButton.png" id="4_75u2n"]
@@ -13,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dgf7v1qdeqw0i" path="res://assets/sprites/buttons/WaterButtonPressed.png" id="9_7paak"]
 [ext_resource type="AudioStream" uid="uid://dtkfgm73cwjm" path="res://assets/audio/ui_effects/Audio/click_001.ogg" id="12_7paak"]
 
-[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button", "grass_button", "remove_fence_button", "bottom_button_group", "money_label", "sell_item_drop_box", "button_toggle_sound_effect")]
+[node name="Ui" type="Control" node_paths=PackedStringArray("fence_button", "dirt_button", "water_button", "grass_button", "remove_fence_button", "bottom_button_group", "money_label", "sell_item_drop_box", "sell_item_drop_box_color", "button_toggle_sound_effect")]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
 anchors_preset = 15
@@ -32,6 +33,7 @@ remove_fence_button = NodePath("VBoxContainer/PopupUI/ButtomButtons/HBoxContaine
 bottom_button_group = NodePath("VBoxContainer/PopupUI/ButtomButtons")
 money_label = NodePath("VBoxContainer/TopBar/VBoxContainer/ColorRect/MarginContainer/MoneyRichTextLabel")
 sell_item_drop_box = NodePath("VBoxContainer/PopupUI/SellItemDropBox")
+sell_item_drop_box_color = NodePath("VBoxContainer/PopupUI/SellItemDropBox/ColorRect")
 button_toggle_sound_effect = NodePath("ButtonToggleAudioStreamPlayer2D")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -104,7 +106,18 @@ offset_top = -200.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PopupUI/SellItemDropBox"]
+self_modulate = Color(1, 1, 1, 0.337)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5sqrc")
+
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/PopupUI/SellItemDropBox"]
+modulate = Color(0, 0, 0.545, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,7 +125,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-color = Color(0.25098, 0.25098, 0.67451, 0.137255)
+color = Color(0.66362, 0.704979, 0.963427, 0.137255)
 
 [node name="ButtomButtons" type="Control" parent="VBoxContainer/PopupUI"]
 custom_minimum_size = Vector2(0, 128)

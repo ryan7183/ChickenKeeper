@@ -8,6 +8,7 @@ extends Control
 @export var bottom_button_group:Control
 @export var money_label:RichTextLabel
 @export var sell_item_drop_box:Control
+@export var sell_item_drop_box_color:ColorRect
 @export var button_toggle_sound_effect:AudioStreamPlayer2D
 
 signal menu_button_pressed
@@ -129,6 +130,7 @@ func _on_remove_fence_button_toggled(toggled_on: bool) -> void:
 
 func enable_sell_box()->void:
 	sell_item_drop_box.visible = true
+	
 	pass
 
 func disable_sell_box()->void:
@@ -138,9 +140,11 @@ func disable_sell_box()->void:
 
 func _on_sell_item_drop_box_mouse_entered() -> void:
 	Shop.item_over_sell_box = true
+	sell_item_drop_box_color.modulate = Color.ALICE_BLUE
 	pass # Replace with function body.
 
 
 func _on_sell_item_drop_box_mouse_exited() -> void:
 	Shop.item_over_sell_box = false
+	sell_item_drop_box_color.modulate = Color.DARK_BLUE
 	pass # Replace with function body.
