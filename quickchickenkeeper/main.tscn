@@ -30,18 +30,22 @@ chicken_noise_grid = NodePath("ChickenNoiseGrid")
 
 [node name="TerrainManager" parent="." instance=ExtResource("2_lquwl")]
 process_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="ChickenManager" parent="." instance=ExtResource("4_lquwl")]
 process_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="ChickenNoiseGrid" parent="." instance=ExtResource("4_7mycd")]
 process_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Camera" parent="." instance=ExtResource("5_7mycd")]
 process_mode = 1
 position = Vector2(963, 540)
 scale = Vector2(1, 1.02022)
 position_smoothing_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="BackGroundMusicAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera"]
 position = Vector2(-963, -540)
@@ -54,6 +58,7 @@ bus = &"BackgroundMusic"
 process_mode = 1
 
 [node name="Ui" parent="UICanvasLayer" instance=ExtResource("4_1bvp3")]
+metadata/_edit_lock_ = true
 
 [connection signal="tile_placed" from="TerrainManager" to="." method="_on_terrain_manager_tile_placed"]
 [connection signal="chicken_positions_changed" from="ChickenManager" to="." method="_on_chicken_manager_chicken_positions_changed"]
