@@ -1,29 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://bs4lebgk1r1lv"]
+[gd_scene load_steps=16 format=3 uid="uid://bs4lebgk1r1lv"]
 
 [ext_resource type="Script" uid="uid://c30sy07hsj74a" path="res://scripts/chicken_manager/chicken_manager.gd" id="1_jwdd3"]
 [ext_resource type="Shader" uid="uid://duwja8bfj822q" path="res://scripts/chicken_manager/chicken_mesh.gdshader" id="2_5hx5s"]
 [ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="2_u4uib"]
 [ext_resource type="Texture2D" uid="uid://culqlm5ccbba" path="res://assets/sprites/egg/egg.png" id="3_mjmo4"]
+[ext_resource type="Texture2D" uid="uid://c03k0m6hkwe5w" path="res://assets/sprites/skull/skull.png" id="5_0dlpm"]
 [ext_resource type="AudioStream" uid="uid://dcb51k45w7fyt" path="res://assets/audio/terrain_placement/coinsplash.ogg" id="5_h20h7"]
+[ext_resource type="Shader" uid="uid://b6e57m08qxjjj" path="res://scripts/chicken_manager/skull_float.gdshader" id="5_y54cc"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_mjmo4"]
+[sub_resource type="QuadMesh" id="QuadMesh_y54cc"]
 size = Vector2(32, -32)
 
 [sub_resource type="MultiMesh" id="MultiMesh_mjmo4"]
-mesh = SubResource("QuadMesh_mjmo4")
+mesh = SubResource("QuadMesh_y54cc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h20h7"]
 shader = ExtResource("2_5hx5s")
 shader_parameter/atlas_grid_size = Vector2(384, 144)
 shader_parameter/tile_texture_size = Vector2(24, 24)
 
+[sub_resource type="QuadMesh" id="QuadMesh_mjmo4"]
+size = Vector2(32, -32)
+
 [sub_resource type="MultiMesh" id="MultiMesh_5hx5s"]
 mesh = SubResource("QuadMesh_mjmo4")
 
-[node name="ChickenManager" type="Node2D" node_paths=PackedStringArray("chicken_multi_mesh", "egg_multi_mesh", "sold_item_audio_player")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_idk0i"]
+shader = ExtResource("5_y54cc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0dlpm"]
+size = Vector2(18, -16)
+
+[sub_resource type="MultiMesh" id="MultiMesh_y54cc"]
+mesh = SubResource("QuadMesh_0dlpm")
+
+[node name="ChickenManager" type="Node2D" node_paths=PackedStringArray("chicken_multi_mesh", "egg_multi_mesh", "skull_multi_mesh", "sold_item_audio_player")]
 script = ExtResource("1_jwdd3")
 chicken_multi_mesh = NodePath("ChickenMultiMeshInstance2D")
 egg_multi_mesh = NodePath("EggMultiMeshInstance2D")
+skull_multi_mesh = NodePath("SkullMultiMeshInstance2D")
 sold_item_audio_player = NodePath("SoldItemAudio")
 
 [node name="EggMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
@@ -35,6 +50,11 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_h20h7")
 multimesh = SubResource("MultiMesh_5hx5s")
 texture = ExtResource("2_u4uib")
+
+[node name="SkullMultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+material = SubResource("ShaderMaterial_idk0i")
+multimesh = SubResource("MultiMesh_y54cc")
+texture = ExtResource("5_0dlpm")
 
 [node name="SoldItemAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_h20h7")

@@ -8,6 +8,7 @@ signal chicken_positions_changed(positions:PackedVector2Array)
 
 @export var chicken_multi_mesh:MultiMeshInstance2D
 @export var egg_multi_mesh:MultiMeshInstance2D
+@export var skull_multi_mesh:MultiMeshInstance2D
 
 @export var sold_item_audio_player:AudioStreamPlayer2D
 
@@ -53,6 +54,7 @@ var disable_dragging_items:bool = false
 
 func _ready() -> void:
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
+	skull_multi_mesh.multimesh.set_use_custom_data(true)
 	chicken_mover = ChickenMover.new()
 	chicken_action_chooser = ChickenActionChooser.new()
 	chicken_action_performer = ChickenActionPerformer.new()
@@ -238,8 +240,10 @@ func apply_save_data(data:Dictionary)->void:
 func show_chickens()->void:
 	if chicken_multi_mesh.multimesh.instance_count != chicken_positions.size():
 		chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
-	#var skull_array:Array[Vector2] = []
+	var skull_array:Array[Vector2] = []
 	for i:int in range(chicken_positions.size()):
+		if chicken_health[i]<=15:
+			skull_array.append(chicken_positions[i])
 		#if chicken_current_action[i] != ChickenManager.Action.SIT:
 		var dir:Vector2 = _determin_chicken_direction_frame(i)
 				
@@ -252,6 +256,20 @@ func show_chickens()->void:
 		chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,chicken_color[i],0))
 		if Engine.get_frames_drawn()%8 == 0 || chicken_animation_frame[i] == Action.SIT:
 			chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
+			pass
+	show_skulls(skull_array)
+	pass
+
+func show_skulls(skulls:Array[Vector2])->void:
+	skull_multi_mesh.multimesh.instance_count=skulls.size()
+	if skulls.size()>0:
+		var i:int = 0
+		for skull:Vector2 in skulls:
+			skull = skull+Vector2(0,-20)
+			var pos:Transform2D = Transform2D(0.0,Vector2(.8,.8),0.0,skull)
+			skull_multi_mesh.multimesh.set_instance_custom_data(i,Color( i,0,0))
+			skull_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
+			i+=1
 			pass
 	pass
 
