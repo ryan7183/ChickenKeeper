@@ -30,20 +30,18 @@ chicken_noise_grid = NodePath("ChickenNoiseGrid")
 
 [node name="TerrainManager" parent="." instance=ExtResource("2_lquwl")]
 process_mode = 1
-scale = Vector2(1, 1.02022)
 
 [node name="ChickenManager" parent="." instance=ExtResource("4_lquwl")]
 process_mode = 1
-scale = Vector2(1, 1.02022)
 
 [node name="ChickenNoiseGrid" parent="." instance=ExtResource("4_7mycd")]
 process_mode = 1
-scale = Vector2(1, 1.02022)
 
 [node name="Camera" parent="." instance=ExtResource("5_7mycd")]
 process_mode = 1
 position = Vector2(963, 540)
 scale = Vector2(1, 1.02022)
+position_smoothing_enabled = true
 
 [node name="BackGroundMusicAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera"]
 position = Vector2(-963, -540)

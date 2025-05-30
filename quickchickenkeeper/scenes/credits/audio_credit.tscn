@@ -29,6 +29,7 @@ asset_title = "Title	"
 author = "Author"
 url = "URL"
 license = "License"
+license_url = "http://creativecommons.org/publicdomain/zero/1.0/legalcode"
 asset_title_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/AssetTitle")
 author_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/Author")
 url_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/URL")
@@ -73,6 +74,7 @@ autowrap_mode = 0
 [node name="URL" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
 text = "URL
 "
 fit_content = true
@@ -81,6 +83,7 @@ autowrap_mode = 0
 [node name="License" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
 text = "License"
 fit_content = true
 autowrap_mode = 0
@@ -94,4 +97,6 @@ stretch_mode = 3
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
+[connection signal="meta_clicked" from="PanelContainer/HBoxContainer/VBoxContainer/URL" to="." method="_on_url_meta_clicked"]
+[connection signal="meta_clicked" from="PanelContainer/HBoxContainer/VBoxContainer/License" to="." method="_on_url_meta_clicked"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]
