@@ -90,7 +90,7 @@ void main(){
         satifaction = max(satifaction-0.25,0);
         
     }
-    if(hunger<50 || fatigue<50){
+    if((hunger<50 && fatigue<50) || hunger < 10 || fatigue<10){
         health_out.data[invocation] = health_in.data[invocation] - 0.02;
     }
     satisfaction_out.data[invocation] = satifaction;
