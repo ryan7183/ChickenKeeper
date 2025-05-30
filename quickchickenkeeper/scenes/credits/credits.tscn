@@ -1,17 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwcqkunpn7eao"]
+[gd_scene load_steps=36 format=3 uid="uid://bwcqkunpn7eao"]
 
 [ext_resource type="Texture2D" uid="uid://bn5mlkk626x8m" path="res://assets/sprites/buttons/GrassButton.png" id="1_dr3ri"]
+[ext_resource type="Script" uid="uid://ck67tay3i3etv" path="res://scripts/credits/credits.gd" id="1_q5p4u"]
+[ext_resource type="PackedScene" uid="uid://cvb25yby5y2f2" path="res://scenes/credits/role_credit.tscn" id="2_8ggla"]
+[ext_resource type="PackedScene" uid="uid://bdj7swj6fgfb" path="res://scenes/credits/audio_credit.tscn" id="2_8n0nl"]
+[ext_resource type="AudioStream" uid="uid://b4xiicj41kbch" path="res://assets/audio/background_music/768967__mellotrix9898__doodle.wav" id="3_c8xcy"]
+[ext_resource type="PackedScene" uid="uid://cerjvisn1rge1" path="res://scenes/credits/image_credit.tscn" id="3_huu5m"]
+[ext_resource type="Texture2D" uid="uid://c2sb8e7pkms1j" path="res://assets/sprites/coin/coin 2.png" id="4_8ggla"]
+[ext_resource type="Texture2D" uid="uid://b5gom8em25y0b" path="res://assets/sprites/terrain/adventure_awaits_asset_pack_1.0/Adventure Awaits Asset Pack 1.0.png" id="4_icb2l"]
+[ext_resource type="Texture2D" uid="uid://bxh1did3rxkce" path="res://assets/sprites/chicken/chicken/chickenx2.png" id="5_t15ab"]
+[ext_resource type="AudioStream" uid="uid://k0ryjp4dat2t" path="res://assets/audio/terrain_placement/bubbles-single1.wav" id="6_icb2l"]
+[ext_resource type="Texture2D" uid="uid://c5i0psoyv50qa" path="res://assets/sprites/chicken/chicken/chickenx2_white.png" id="6_lwbe5"]
+[ext_resource type="AudioStream" uid="uid://dcb51k45w7fyt" path="res://assets/audio/terrain_placement/coinsplash.ogg" id="7_17l06"]
+[ext_resource type="Texture2D" uid="uid://d3xlja0r365jm" path="res://assets/sprites/terrain/TilesetGrass/overworld_tileset_grass.png" id="7_mxqwe"]
+[ext_resource type="Texture2D" uid="uid://culqlm5ccbba" path="res://assets/sprites/egg/egg.png" id="9_o5atr"]
+[ext_resource type="AudioStream" uid="uid://bha35ftc5v1km" path="res://assets/audio/background_music/apple_cider.ogg" id="13_6gsh7"]
+[ext_resource type="AudioStream" uid="uid://yr7nx2t5414f" path="res://assets/audio/ui_effects/Audio/select_006.ogg" id="14_spr88"]
+[ext_resource type="AudioStream" uid="uid://dtkfgm73cwjm" path="res://assets/audio/ui_effects/Audio/click_001.ogg" id="15_5jxok"]
+[ext_resource type="AudioStream" uid="uid://4s12vmxmjp0s" path="res://assets/audio/terrain_placement/shovel.ogg" id="16_nejev"]
+[ext_resource type="AudioStream" uid="uid://cu7g3cnepungh" path="res://assets/audio/chicken_sounds/208021__cocoricosound__cock-a-doodle-doo.wav" id="17_tmer2"]
+[ext_resource type="AudioStream" uid="uid://cbtoyo0840c6n" path="res://assets/audio/chicken_sounds/233092__jarredgibb__chicken-buck-1-96khz.wav" id="18_owxra"]
+[ext_resource type="AudioStream" uid="uid://dgbs6ber1wiku" path="res://assets/audio/chicken_sounds/233094__jarredgibb__chicken-footsteps-1-96khz.wav" id="19_mvw7w"]
+[ext_resource type="AudioStream" uid="uid://qn3y87ptjrex" path="res://assets/audio/chicken_sounds/331292__saveriocaponi__chicken_sounds.mp3" id="20_2bcnp"]
+[ext_resource type="AudioStream" uid="uid://buvw241yqq872" path="res://assets/audio/chicken_sounds/668805__mbpl__chicken-clucking-1.wav" id="21_cjn1n"]
+[ext_resource type="AudioStream" uid="uid://bajn7mm8gdsvj" path="res://assets/audio/chicken_sounds/749707__rfcaldas__chickens.wav" id="22_2uow7"]
+[ext_resource type="AudioStream" uid="uid://brq4dgwryxcxx" path="res://assets/audio/chicken_sounds/232495__tom_woysky__polish-hen-cackling.wav" id="23_u8a6u"]
+[ext_resource type="AudioStream" uid="uid://f8hu7slag6nk" path="res://assets/audio/chicken_sounds/448132__derjuli__rooster.wav" id="24_bmbp8"]
+[ext_resource type="AudioStream" uid="uid://dgpptu5w8di1y" path="res://assets/audio/chicken_sounds/43380__agfx__chicks-very-young.wav" id="25_kbq0c"]
+[ext_resource type="AudioStream" uid="uid://ci083xjjgb45f" path="res://assets/audio/chicken_sounds/347040__caculo__rooster-singing-in-the-morning.wav" id="26_yxabx"]
+[ext_resource type="AudioStream" uid="uid://bvoyrad14kl56" path="res://assets/audio/chicken_sounds/607245__d4xx__chicken.wav" id="27_antsg"]
+[ext_resource type="AudioStream" uid="uid://b08ivwpsw825r" path="res://assets/audio/chicken_sounds/390434__felixblume__wind-through-trees-at-the-farm.wav" id="28_oey34"]
+[ext_resource type="AudioStream" uid="uid://bnwkehrt3fmh8" path="res://assets/audio/chicken_sounds/413825__henlord__chicken-growl-guttural.wav" id="29_cl0rg"]
+[ext_resource type="AudioStream" uid="uid://bkuw8y4mpvkcl" path="res://assets/audio/chicken_sounds/183487__ecfike__chickens.wav" id="30_f22vk"]
+[ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="31_hfxy3"]
+[ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="32_vjx0n"]
+[ext_resource type="AudioStream" uid="uid://pphmpbpxvvtw" path="res://assets/audio/terrain_placement/396016__morganpurkis__rustling-grass-4.wav" id="34_jv7af"]
 
 [node name="Credits" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_q5p4u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32549, 0.470588, 0.435294, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-self_modulate = Color(0.707967, 0.707967, 0.707967, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,3 +79,305 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="RoleCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8ggla")]
+layout_mode = 2
+credit_text = "Game Creator: Ryan Seguin"
+
+[node name="ImageCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("4_8ggla")
+asset_title = "Gold Coin/Token"
+author = "BizmasterStudios"
+url = "https://opengameart.org/content/gold-cointoken"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="ImageCredit2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("5_t15ab")
+asset_title = "Chicken Sprites"
+author = "Shepardskin"
+url = "https://opengameart.org/content/chicken-sprites"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="ImageCredit3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("6_lwbe5")
+asset_title = "Chick"
+author = "AntumDeluge"
+url = "https://opengameart.org/content/chick"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="ImageCredit4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("7_mxqwe")
+asset_title = "Overworld - Grass Biome"
+author = "Beast"
+url = "https://opengameart.org/content/overworld-grass-biome"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="ImageCredit5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("4_icb2l")
+asset_title = "Adventure Awaits Asset Pack 1.0"
+author = "IshtartPixels"
+url = "https://opengameart.org/content/adventure-awaits-asset-pack-10"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="ImageCredit6" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("9_o5atr")
+asset_title = "Egg Item Sprite"
+author = "GoopyBus"
+url = "https://opengameart.org/content/egg-item-sprite"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("6_icb2l")
+asset_title = "Bubble Sound Effects"
+author = "Brian MacIntosh"
+url = "https://opengameart.org/content/bubble-sound-effects"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("7_17l06")
+asset_title = "Coin Splash"
+author = "LordTomorrow"
+url = "https://opengameart.org/content/coin-splash"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("13_6gsh7")
+asset_title = "Apple Cider"
+author = "Zane Little Music"
+url = "https://opengameart.org/content/apple-cider"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("14_spr88")
+asset_title = "Interface Sounds"
+author = "www.kenney.nl"
+url = "https://opengameart.org/content/interface-sounds"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("15_5jxok")
+asset_title = "Interface Sounds"
+author = "www.kenney.nl"
+url = "https://opengameart.org/content/interface-sounds"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit6" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("16_nejev")
+asset_title = "Shovel Sound"
+author = "themightyglider"
+url = "https://opengameart.org/content/shovel-sound"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit7" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("17_tmer2")
+asset_title = "Cock-a-doodle-doo"
+author = "cocoricosound"
+url = "https://freesound.org/people/cocoricosound/sounds/208021/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit8" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("18_owxra")
+asset_title = "Chicken - Buck 1 - 96kHz.wav"
+author = "JarredGibb"
+url = "https://freesound.org/s/233097/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit9" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("19_mvw7w")
+asset_title = "Chicken - Footsteps 1 - 96kHz.wav"
+author = "JarredGibb"
+url = "https://freesound.org/s/233094/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit10" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("20_2bcnp")
+asset_title = "Chicken_sounds.mp3"
+author = "saveriocaponi "
+url = "https://freesound.org/s/331292/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit11" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("21_cjn1n")
+asset_title = "Chicken clucking 1"
+author = "MBPL"
+url = "https://freesound.org/s/668805/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit12" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("22_2uow7")
+asset_title = "Chickens"
+author = "RFCaldas"
+url = "https://freesound.org/s/749707/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit13" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("23_u8a6u")
+asset_title = "Polish hen cackling.wav"
+author = "tom_woysky"
+url = "https://freesound.org/s/232495/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit14" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("24_bmbp8")
+asset_title = "Rooster"
+author = "derjuli"
+url = "https://freesound.org/s/448132/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit15" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("25_kbq0c")
+asset_title = "Chicks very young.wav "
+author = "AGFX"
+url = "https://freesound.org/s/43380/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit16" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("26_yxabx")
+asset_title = "rooster singing in the morning"
+author = "caculo"
+url = "https://freesound.org/s/347040/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit17" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("27_antsg")
+asset_title = "Chicken"
+author = "D4XX"
+url = "https://freesound.org/s/607245/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit18" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("28_oey34")
+asset_title = "Wind through trees at the farm "
+author = "felix.blume "
+url = "https://freesound.org/s/390434/ "
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit19" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("29_cl0rg")
+asset_title = "Chicken Growl "
+author = "Henlord"
+url = "https://freesound.org/people/Henlord/sounds/413825/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit20" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("30_f22vk")
+asset_title = "Chickens.wav"
+author = "ecfike"
+url = "https://freesound.org/people/ecfike/sounds/183487/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit21" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("31_hfxy3")
+asset_title = "Warm Hug "
+author = "mellotrix9898"
+url = "https://freesound.org/people/mellotrix9898/sounds/771838/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit22" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("32_vjx0n")
+asset_title = "Joy Park"
+author = "mellotrix9898"
+url = "https://freesound.org/s/772679/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit23" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("3_c8xcy")
+asset_title = "DOODLE"
+author = "mellotrix9898"
+url = "https://freesound.org/s/768967/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="AudioCredit24" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+audio_file = ExtResource("34_jv7af")
+asset_title = "Rustling Grass 4.wav"
+author = "morganpurkis"
+url = "https://freesound.org/s/396016/"
+license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(0.99671, 0.991285)
+theme_override_font_sizes/font_size = 50
+text = "Back"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

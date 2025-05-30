@@ -10,6 +10,8 @@ const world_size:Vector2 = Vector2(100,100)
 const tile_size:int = 16
 const initial_island_size:int = 10
 
+var credits_packed_scene:PackedScene = preload("res://scenes/credits/credits.tscn")
+
 func _ready() -> void:
 	
 	terrain_manager.world_size = world_size
@@ -160,3 +162,16 @@ func _on_ui_save_button_pressed() -> void:
 func _on_ui_mouse_is_over_settings(over: bool) -> void:
 	chicken_manager.disable_dragging_items = over
 	pass # Replace with function body.
+
+
+func _on_ui_credits_button_pressed() -> void:
+	var credits_scene:Control =  credits_packed_scene.instantiate()
+	ui_overlay.add_child(credits_scene)
+	credits_scene.connect("back_button_pressed",_close_credits.bind(credits_scene))
+	get_tree().paused = true
+	pass # Replace with function body.
+
+func _close_credits(credit_scene:Control)->void:
+	credit_scene.queue_free()
+	get_tree().paused = false
+	pass

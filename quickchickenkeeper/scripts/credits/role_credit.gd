@@ -1,4 +1,5 @@
-extends Control
+@tool
+class_name RoleCredit extends Control
 
 @export_multiline var credit_text:String
 @export var credit_label:Label

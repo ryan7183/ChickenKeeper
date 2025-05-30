@@ -8,14 +8,14 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.776471, 0.768627, 0.415686, 1)
+bg_color = Color(0.300968, 0.367816, 0.544888, 0.745098)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="AudioCredit" type="Control" node_paths=PackedStringArray("audio_stream_player", "credit_label")]
-custom_minimum_size = Vector2(300, 250)
+[node name="AudioCredit" type="Control" node_paths=PackedStringArray("asset_title_text", "author_text", "url_text", "license_text", "audio_stream_player")]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,8 +25,15 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 script = ExtResource("1_eub3e")
+asset_title = "Title	"
+author = "Author"
+url = "URL"
+license = "License"
+asset_title_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/AssetTitle")
+author_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/Author")
+url_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/URL")
+license_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/License")
 audio_stream_player = NodePath("AudioStreamPlayer2D")
-credit_label = NodePath("PanelContainer/HBoxContainer/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -35,10 +42,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -214.5
-offset_top = -116.5
-offset_right = 214.5
-offset_bottom = 116.5
+offset_left = -209.5
+offset_top = -111.5
+offset_right = 209.5
+offset_bottom = 111.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eub3e")
@@ -46,13 +53,37 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_eub3e")
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "Creator Name
-Asset Name
-Asset Link"
+
+[node name="AssetTitle" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Asset Title"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Author" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Author"
+fit_content = true
+autowrap_mode = 0
+
+[node name="URL" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "URL
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="License" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "License"
+fit_content = true
+autowrap_mode = 0
 
 [node name="TextureButton" type="TextureButton" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2

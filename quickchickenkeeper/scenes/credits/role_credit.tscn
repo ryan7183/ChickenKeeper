@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvb25yby5y2f2"]
+[gd_scene load_steps=4 format=3 uid="uid://cvb25yby5y2f2"]
 
 [ext_resource type="Script" uid="uid://6i7dtyv3kbql" path="res://scripts/credits/role_credit.gd" id="1_kalox"]
 
@@ -7,14 +7,19 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.776471, 0.768627, 0.415686, 1)
+bg_color = Color(0.300968, 0.367816, 0.544888, 0.745098)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="LabelSettings" id="LabelSettings_eub3e"]
+font_size = 50
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="RoleCredit" type="Control" node_paths=PackedStringArray("credit_label")]
-custom_minimum_size = Vector2(300, 250)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +29,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_kalox")
+credit_text = "Creator Name
+Asset Name
+Asset Link"
 credit_label = NodePath("PanelContainer/HBoxContainer/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -52,4 +60,6 @@ theme_override_font_sizes/font_size = 50
 text = "Creator Name
 Asset Name
 Asset Link"
+label_settings = SubResource("LabelSettings_eub3e")
 horizontal_alignment = 1
+vertical_alignment = 1

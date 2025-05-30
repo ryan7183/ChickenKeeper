@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cerjvisn1rge1"]
+[gd_scene load_steps=4 format=3 uid="uid://cerjvisn1rge1"]
 
 [ext_resource type="Texture2D" uid="uid://btiswsiaru2si" path="res://icon.svg" id="1_2jyls"]
 [ext_resource type="Script" uid="uid://wafpfgxpt1s4" path="res://scripts/credits/image_credit.gd" id="1_53ww4"]
@@ -8,17 +8,14 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.776471, 0.768627, 0.415686, 1)
+bg_color = Color(0.300968, 0.367816, 0.544888, 0.745098)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="LabelSettings" id="LabelSettings_53ww4"]
-font_size = 50
-
-[node name="ImageCredit" type="Control" node_paths=PackedStringArray("credit_label", "image_container")]
-custom_minimum_size = Vector2(300, 250)
+[node name="ImageCredit" type="Control" node_paths=PackedStringArray("asset_title_text", "author_text", "url_text", "license_text", "image_container")]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +25,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_53ww4")
-credit_label = NodePath("PanelContainer/HBoxContainer/Label")
+asset_title_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/AssetTitle")
+author_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/Author")
+url_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/URL")
+license_text = NodePath("PanelContainer/HBoxContainer/VBoxContainer/License")
 image_container = NodePath("PanelContainer/HBoxContainer/TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -49,17 +49,41 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_53ww4")
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "Creator Name
-Asset Name
-Asset Link"
-label_settings = SubResource("LabelSettings_53ww4")
+
+[node name="AssetTitle" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Asset Title"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Author" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Author"
+fit_content = true
+autowrap_mode = 0
+
+[node name="URL" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "URL
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="License" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "License"
+fit_content = true
+autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_2jyls")
-stretch_mode = 4
+expand_mode = 2
+stretch_mode = 5

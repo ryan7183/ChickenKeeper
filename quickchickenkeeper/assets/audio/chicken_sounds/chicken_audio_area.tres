@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=15 format=3 uid="uid://duyila5y2uq2r"]
+[gd_resource type="AudioStreamRandomizer" load_steps=16 format=3 uid="uid://duyila5y2uq2r"]
 
 [ext_resource type="AudioStream" uid="uid://dgpptu5w8di1y" path="res://assets/audio/chicken_sounds/43380__agfx__chicks-very-young.wav" id="1_1k133"]
 [ext_resource type="AudioStream" uid="uid://bkuw8y4mpvkcl" path="res://assets/audio/chicken_sounds/183487__ecfike__chickens.wav" id="2_cebo1"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://buvw241yqq872" path="res://assets/audio/chicken_sounds/668805__mbpl__chicken-clucking-1.wav" id="4_fxg26"]
 [ext_resource type="AudioStream" uid="uid://bajn7mm8gdsvj" path="res://assets/audio/chicken_sounds/749707__rfcaldas__chickens.wav" id="5_3rvpf"]
 [ext_resource type="AudioStream" uid="uid://blypmw7rm8wqn" path="res://assets/audio/chicken_sounds/805157__mrspivey__chickens.wav" id="6_37476"]
+[ext_resource type="AudioStream" uid="uid://cu7g3cnepungh" path="res://assets/audio/chicken_sounds/208021__cocoricosound__cock-a-doodle-doo.wav" id="7_0anl0"]
 [ext_resource type="AudioStream" uid="uid://brq4dgwryxcxx" path="res://assets/audio/chicken_sounds/232495__tom_woysky__polish-hen-cackling.wav" id="7_7ku3t"]
 [ext_resource type="AudioStream" uid="uid://qn3y87ptjrex" path="res://assets/audio/chicken_sounds/331292__saveriocaponi__chicken_sounds.mp3" id="8_q14uj"]
 [ext_resource type="AudioStream" uid="uid://ci083xjjgb45f" path="res://assets/audio/chicken_sounds/347040__caculo__rooster-singing-in-the-morning.wav" id="9_gd5gs"]
@@ -18,7 +19,7 @@
 [resource]
 random_pitch = 2.0
 random_volume_offset_db = 2.0
-streams_count = 14
+streams_count = 15
 stream_0/stream = ExtResource("1_1k133")
 stream_1/stream = ExtResource("2_cebo1")
 stream_2/stream = ExtResource("7_7ku3t")
@@ -33,3 +34,4 @@ stream_10/stream = ExtResource("3_pl2h7")
 stream_11/stream = ExtResource("4_fxg26")
 stream_12/stream = ExtResource("5_3rvpf")
 stream_13/stream = ExtResource("6_37476")
+stream_14/stream = ExtResource("7_0anl0")
