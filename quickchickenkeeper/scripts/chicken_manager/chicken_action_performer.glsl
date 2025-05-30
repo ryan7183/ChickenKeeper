@@ -105,7 +105,7 @@ void main(){
         case 2://Wander
             break;
         case 3://Sit
-            fatigue_out.data[invocation] = min(fatigue+1.0,100);
+            fatigue_out.data[invocation] = min(fatigue*1.1,100);
             break;
         case 4://Find Food
             break;

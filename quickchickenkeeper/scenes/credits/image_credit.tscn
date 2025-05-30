@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://cerjvisn1rge1"]
+[gd_scene load_steps=3 format=3 uid="uid://cerjvisn1rge1"]
 
-[ext_resource type="Texture2D" uid="uid://btiswsiaru2si" path="res://icon.svg" id="1_2jyls"]
 [ext_resource type="Script" uid="uid://wafpfgxpt1s4" path="res://scripts/credits/image_credit.gd" id="1_53ww4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53ww4"]
@@ -57,14 +56,12 @@ layout_mode = 2
 [node name="AssetTitle" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "Asset Title"
 fit_content = true
 autowrap_mode = 0
 
 [node name="Author" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "Author"
 fit_content = true
 autowrap_mode = 0
 
@@ -72,8 +69,7 @@ autowrap_mode = 0
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "URL
-"
+text = "[url={\"url\": \"\"}][/url]"
 fit_content = true
 autowrap_mode = 0
 
@@ -81,14 +77,13 @@ autowrap_mode = 0
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "License"
+text = "[url={\"url\": \"http://creativecommons.org/publicdomain/zero/1.0/legalcode\"}]CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )[/url]"
 fit_content = true
 autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_2jyls")
 expand_mode = 2
 stretch_mode = 5
 

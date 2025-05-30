@@ -238,20 +238,21 @@ func apply_save_data(data:Dictionary)->void:
 func show_chickens()->void:
 	if chicken_multi_mesh.multimesh.instance_count != chicken_positions.size():
 		chicken_multi_mesh.multimesh.instance_count=chicken_positions.size()
+	#var skull_array:Array[Vector2] = []
 	for i:int in range(chicken_positions.size()):
-		if chicken_current_action[i] != ChickenManager.Action.SIT:
-			var dir:Vector2 = _determin_chicken_direction_frame(i)
-			
-			#var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
-			#chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
-			_set_chicken_multimesh_instance_transform(dir,i)
-			
-			
-			var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
-			chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,chicken_color[i],0))
-			if Engine.get_frames_drawn()%8 == 0:
-				chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
-		pass
+		#if chicken_current_action[i] != ChickenManager.Action.SIT:
+		var dir:Vector2 = _determin_chicken_direction_frame(i)
+				
+				#var pos:Transform2D = Transform2D(0.0,Vector2(dir.x*chicken_scales[i],chicken_scales[i]),0.0,chicken_positions[i])
+				#chicken_multi_mesh.multimesh.set_instance_transform_2d(i, pos)
+		_set_chicken_multimesh_instance_transform(dir,i)
+				
+				
+		var animation_x_index: int = chicken_animation_frame[i] + (chicken_type[i]*8)
+		chicken_multi_mesh.multimesh.set_instance_custom_data(i,Color( animation_x_index, dir.y,chicken_color[i],0))
+		if Engine.get_frames_drawn()%8 == 0 || chicken_animation_frame[i] == Action.SIT:
+			chicken_animation_frame[i] = _determine_next_chicken_animation_frame(i)
+			pass
 	pass
 
 func _set_chicken_multimesh_instance_transform(dir:Vector2, i:int)->void:
@@ -265,7 +266,7 @@ func _determine_next_chicken_animation_frame(chicken_index:int)->int:
 	var current_frame:int = chicken_animation_frame[chicken_index]
 	match chicken_current_action[chicken_index]:
 		Action.SIT:
-			frame = 8
+			frame = 7
 			pass
 		Action.EAT:
 			if current_frame == 0:
@@ -280,8 +281,8 @@ func _determine_next_chicken_animation_frame(chicken_index:int)->int:
 				frame = 4
 			elif current_frame == 4:
 				frame = 5
-			elif current_frame == 6:
-				frame = 7
+			elif current_frame == 5:
+				frame = 6
 			else:
 				frame = 3
 			pass
@@ -289,6 +290,8 @@ func _determine_next_chicken_animation_frame(chicken_index:int)->int:
 	return frame#(chicken_animation_frame[chicken_index]+1)%8
 
 func _determin_chicken_direction_frame(chicken_index:int)->Vector2:
+	if chicken_current_action[chicken_index] == ChickenManager.Action.SIT:
+		return Vector2(-1,chicken_multi_mesh.multimesh.get_instance_custom_data(chicken_index).g)
 	var frame_dir:Vector2 = Vector2(0,0)
 	var angle:float = rad_to_deg(chicken_positions[chicken_index].angle_to_point(chicken_target[chicken_index]))
 	

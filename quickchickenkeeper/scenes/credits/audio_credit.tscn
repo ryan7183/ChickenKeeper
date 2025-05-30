@@ -60,7 +60,7 @@ layout_mode = 2
 [node name="AssetTitle" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
-text = "Asset Title"
+text = "Title	"
 fit_content = true
 autowrap_mode = 0
 
@@ -75,8 +75,7 @@ autowrap_mode = 0
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "URL
-"
+text = "[url={\"url\": \"URL\"}]URL[/url]"
 fit_content = true
 autowrap_mode = 0
 
@@ -84,7 +83,7 @@ autowrap_mode = 0
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "License"
+text = "[url={\"url\": \"http://creativecommons.org/publicdomain/zero/1.0/legalcode\"}]License[/url]"
 fit_content = true
 autowrap_mode = 0
 

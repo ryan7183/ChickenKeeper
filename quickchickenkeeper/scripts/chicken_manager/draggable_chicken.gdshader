@@ -28,7 +28,7 @@ void fragment() {
     vec2 uv = UV * tile_size + tile_size * v_frame_index;
 	vec2 white_uv = uv;
 	white_uv.y += tile_size.y*3.0;
-	
+
 	int color_number = int(color_info);
 	vec3 color_amounts = extract_color_amount(color_number);
 	vec4 black_chicken = texture(chicken_texture,uv);
