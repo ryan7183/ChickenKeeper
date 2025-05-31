@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7fefvusmngpc"]
+
+[ext_resource type="Script" uid="uid://c1vu7as1n6nuo" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://c6p5rtj82urcp" path="res://scenes/gameplay.tscn" id="2_sugp2"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("gameplay")]
+script = ExtResource("1_0wfyh")
+gameplay = NodePath("Gameplay")
+
+[node name="Gameplay" parent="." instance=ExtResource("2_sugp2")]
+
+[connection signal="new_game" from="Gameplay" to="." method="_on_gameplay_new_game"]

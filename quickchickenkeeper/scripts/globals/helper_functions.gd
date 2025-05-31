@@ -20,6 +20,7 @@ func one_d_to_two_d_square_array(arr:Array, width:int)->Array[Array]:
 		var col:Array = []
 		col.resize(width)
 		for y:int in range(width):
+			var index:int = (x*width)+y
 			col[y] = arr[(x*width)+y]
 			pass
 		new_arr[x] = col

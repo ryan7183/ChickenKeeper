@@ -215,9 +215,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -163.5
+offset_top = -163.0
 offset_right = 250.0
-offset_bottom = 163.5
+offset_bottom = 211.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -282,6 +282,17 @@ theme_override_constants/margin_bottom = 5
 [node name="CreditsButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer8"]
 layout_mode = 2
 text = "Credits"
+
+[node name="MarginContainer9" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StartNewGame" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer9"]
+layout_mode = 2
+text = "Start New Game"
 
 [node name="LoadButton" type="Button" parent="SettingsMenu/VBoxContainer"]
 visible = false
@@ -381,8 +392,8 @@ step = 0.05
 stream = ExtResource("12_7paak")
 bus = &"UI_Effects"
 
-[connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_disable_tile_placement"]
+[connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_enable_tile_placement"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
@@ -419,6 +430,9 @@ bus = &"UI_Effects"
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer8/CreditsButton" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer8/CreditsButton" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer8/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer9/StartNewGame" to="." method="_on_settings_menu_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer9/StartNewGame" to="." method="_on_settings_menu_mouse_exited"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer9/StartNewGame" to="." method="_on_start_new_game_pressed"]
 [connection signal="mouse_entered" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_settings_menu_mouse_exited"]
 [connection signal="value_changed" from="SettingsMenu/VBoxContainer/MarginContainer2/MasterVolumeSlider/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]

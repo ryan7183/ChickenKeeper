@@ -1,46 +1,46 @@
 [gd_scene load_steps=12 format=3 uid="uid://c6p5rtj82urcp"]
 
-[ext_resource type="Script" uid="uid://cfdt26cljr6o6" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://gfeu08sh487y" path="res://scenes/terrain_manager/terrain_manager.tscn" id="2_lquwl"]
-[ext_resource type="PackedScene" uid="uid://n5gtido1mdxt" path="res://scenes/UI.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://m8xoc2gy4m0g" path="res://scenes/chicken_audio_area/chicken_noise_grid.tscn" id="4_7mycd"]
-[ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="4_lquwl"]
-[ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_7mycd"]
-[ext_resource type="AudioStream" uid="uid://b4xiicj41kbch" path="res://assets/audio/background_music/768967__mellotrix9898__doodle.wav" id="6_4c57u"]
-[ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="7_efxa6"]
-[ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="8_dg77c"]
-[ext_resource type="AudioStream" uid="uid://bha35ftc5v1km" path="res://assets/audio/background_music/apple_cider.ogg" id="9_ycdy4"]
+[ext_resource type="Script" uid="uid://cfdt26cljr6o6" path="res://scripts/gameplay.gd" id="1_hbo4f"]
+[ext_resource type="PackedScene" uid="uid://gfeu08sh487y" path="res://scenes/terrain_manager/terrain_manager.tscn" id="2_ctvyo"]
+[ext_resource type="PackedScene" uid="uid://bs4lebgk1r1lv" path="res://scenes/chicken_manager/chicken_manager.tscn" id="3_qixtg"]
+[ext_resource type="PackedScene" uid="uid://m8xoc2gy4m0g" path="res://scenes/chicken_audio_area/chicken_noise_grid.tscn" id="4_nt65e"]
+[ext_resource type="PackedScene" uid="uid://cspqi6smt0i8b" path="res://scenes/camera/camera.tscn" id="5_bhmdk"]
+[ext_resource type="AudioStream" uid="uid://b4xiicj41kbch" path="res://assets/audio/background_music/768967__mellotrix9898__doodle.wav" id="6_s5y6v"]
+[ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="7_407ns"]
+[ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="8_w3w6i"]
+[ext_resource type="AudioStream" uid="uid://bha35ftc5v1km" path="res://assets/audio/background_music/apple_cider.ogg" id="9_pv71h"]
+[ext_resource type="PackedScene" uid="uid://n5gtido1mdxt" path="res://scenes/UI.tscn" id="10_m6b5a"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7mycd"]
 shuffle = true
 stream_count = 4
-stream_0 = ExtResource("6_4c57u")
-stream_1 = ExtResource("7_efxa6")
-stream_2 = ExtResource("8_dg77c")
-stream_3 = ExtResource("9_ycdy4")
+stream_0 = ExtResource("6_s5y6v")
+stream_1 = ExtResource("7_407ns")
+stream_2 = ExtResource("8_w3w6i")
+stream_3 = ExtResource("9_pv71h")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera", "ui_overlay", "chicken_noise_grid")]
+[node name="Gameplay" type="Node2D" node_paths=PackedStringArray("terrain_manager", "chicken_manager", "camera", "ui_overlay", "chicken_noise_grid")]
 texture_filter = 1
-script = ExtResource("1_h2yge")
+script = ExtResource("1_hbo4f")
 terrain_manager = NodePath("TerrainManager")
 chicken_manager = NodePath("ChickenManager")
 camera = NodePath("Camera")
 ui_overlay = NodePath("UICanvasLayer/Ui")
 chicken_noise_grid = NodePath("ChickenNoiseGrid")
 
-[node name="TerrainManager" parent="." instance=ExtResource("2_lquwl")]
+[node name="TerrainManager" parent="." instance=ExtResource("2_ctvyo")]
 process_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="ChickenManager" parent="." instance=ExtResource("4_lquwl")]
+[node name="ChickenManager" parent="." instance=ExtResource("3_qixtg")]
 process_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="ChickenNoiseGrid" parent="." instance=ExtResource("4_7mycd")]
+[node name="ChickenNoiseGrid" parent="." instance=ExtResource("4_nt65e")]
 process_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Camera" parent="." instance=ExtResource("5_7mycd")]
+[node name="Camera" parent="." instance=ExtResource("5_bhmdk")]
 process_mode = 1
 position = Vector2(963, 540)
 scale = Vector2(1, 1.02022)
@@ -57,7 +57,7 @@ bus = &"BackgroundMusic"
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 1
 
-[node name="Ui" parent="UICanvasLayer" instance=ExtResource("4_1bvp3")]
+[node name="Ui" parent="UICanvasLayer" instance=ExtResource("10_m6b5a")]
 metadata/_edit_lock_ = true
 
 [connection signal="tile_placed" from="TerrainManager" to="." method="_on_terrain_manager_tile_placed"]
@@ -73,4 +73,5 @@ metadata/_edit_lock_ = true
 [connection signal="menu_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_menu_button_pressed"]
 [connection signal="mouse_is_over_settings" from="UICanvasLayer/Ui" to="." method="_on_ui_mouse_is_over_settings"]
 [connection signal="save_button_pressed" from="UICanvasLayer/Ui" to="." method="_on_ui_save_button_pressed"]
+[connection signal="start_new_game" from="UICanvasLayer/Ui" to="." method="_on_ui_start_new_game"]
 [connection signal="terrain_button_toggled" from="UICanvasLayer/Ui" to="." method="_on_ui_terrain_button_toggled"]

@@ -25,6 +25,7 @@ signal disable_terrain_placement
 signal enable_terrain_placement
 signal mouse_is_over_settings(over:bool)
 signal credits_button_pressed
+signal start_new_game
 
 var mouse_over_settings:bool = false
 
@@ -258,4 +259,9 @@ func _on_menu_button_mouse_exited() -> void:
 
 func _on_credits_button_pressed() -> void:
 	credits_button_pressed.emit()
+	pass # Replace with function body.
+
+
+func _on_start_new_game_pressed() -> void:
+	start_new_game.emit()
 	pass # Replace with function body.

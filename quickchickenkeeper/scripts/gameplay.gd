@@ -1,5 +1,7 @@
 extends Node2D
 
+signal new_game
+
 @export var terrain_manager:TerrainManager
 @export var chicken_manager:ChickenManager
 @export var camera:Camera
@@ -31,12 +33,12 @@ func _ready() -> void:
 
 func _load_game()->void:
 	var success:bool = true
-	if not FileAccess.file_exists("user://savegame.save"):
+	if not FileAccess.file_exists("user://chickenkeeper.save"):
 		_generate_new_game()
 		return # Error! We don't have a save to load.
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
-	var save_file:FileAccess = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var save_file:FileAccess = FileAccess.open("user://chickenkeeper.save", FileAccess.READ)
 	while save_file.get_position() < save_file.get_length():
 		var json_string:String = save_file.get_line()
 
@@ -71,7 +73,7 @@ func _load_game()->void:
 	pass
 
 func _save_game()->void:
-	var save_file:FileAccess = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	var save_file:FileAccess = FileAccess.open("user://chickenkeeper.save", FileAccess.WRITE)
 	var data:Dictionary = {
 		"main": get_save_data(),
 		"terrain_manager":terrain_manager.get_save_data(),
@@ -175,3 +177,9 @@ func _close_credits(credit_scene:Control)->void:
 	credit_scene.queue_free()
 	get_tree().paused = false
 	pass
+
+func _on_ui_start_new_game() -> void:
+	
+	new_game.emit()
+	#_in_game_generate_new_game()
+	pass # Replace with function body.

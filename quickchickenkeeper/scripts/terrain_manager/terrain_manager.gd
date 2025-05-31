@@ -17,7 +17,7 @@ const initial_island_size:int = 10
 var disable_tile_placement:bool = false
 var placement_mode:TerrainType = TerrainType.NOTHING
 
-var world_size:Vector2 = Vector2(2000,2000)
+var world_size:Vector2 = Vector2(100,100)
 var terrain_map:Array[Array] = []
 var food_amount:Array[Array] = []
 var fence_map:Array[Array] = []

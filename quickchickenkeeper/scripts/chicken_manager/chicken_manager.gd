@@ -41,7 +41,7 @@ var initial_island_size:int = 10
 const chicken_sprite_size:int = 24
 const egg_sprite_size:int = 32
 var tile_size:int = 16
-var world_size:Vector2 = Vector2(2000,2000)
+var world_size:Vector2 = Vector2(100,100)
 var chicken_mover:ChickenMover
 var chicken_action_chooser: ChickenActionChooser
 var chicken_action_performer:ChickenActionPerformer
@@ -53,7 +53,9 @@ var dragging_item:bool =false
 var disable_dragging_items:bool = false
 
 func _ready() -> void:
+	chicken_multi_mesh.multimesh.instance_count = 0
 	chicken_multi_mesh.multimesh.set_use_custom_data(true)
+	skull_multi_mesh.multimesh.instance_count = 0
 	skull_multi_mesh.multimesh.set_use_custom_data(true)
 	chicken_mover = ChickenMover.new()
 	chicken_action_chooser = ChickenActionChooser.new()
