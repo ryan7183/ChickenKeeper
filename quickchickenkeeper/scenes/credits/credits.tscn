@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bwcqkunpn7eao"]
+[gd_scene load_steps=42 format=3 uid="uid://bwcqkunpn7eao"]
 
 [ext_resource type="Texture2D" uid="uid://bn5mlkk626x8m" path="res://assets/sprites/buttons/GrassButton.png" id="1_dr3ri"]
 [ext_resource type="Script" uid="uid://ck67tay3i3etv" path="res://scripts/credits/credits.gd" id="1_q5p4u"]
@@ -35,6 +35,43 @@
 [ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="31_hfxy3"]
 [ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="32_vjx0n"]
 [ext_resource type="AudioStream" uid="uid://pphmpbpxvvtw" path="res://assets/audio/terrain_placement/396016__morganpurkis__rustling-grass-4.wav" id="34_jv7af"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydnl1"]
+bg_color = Color(0.843184, 0.843184, 0.843184, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xe5lb"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wunwj"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5p4u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 15
+border_width_right = 15
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ra3eg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_ydnl1"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_ydnl1")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_xe5lb")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_wunwj")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_q5p4u")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_ra3eg")
 
 [node name="Credits" type="Control"]
 process_mode = 3
@@ -74,6 +111,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_ydnl1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -367,6 +405,7 @@ url = "https://freesound.org/s/396016/"
 license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
 
 [node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 8.0
