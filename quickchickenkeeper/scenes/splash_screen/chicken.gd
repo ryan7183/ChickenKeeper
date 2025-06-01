@@ -6,7 +6,7 @@ var current_frame:int = 0
 
 
 func _process(delta: float) -> void:
-	if position.x < 100:
+	if position.x < -100:
 		queue_free()
 	
 	position.x += -500*delta
