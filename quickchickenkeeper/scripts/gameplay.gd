@@ -14,6 +14,17 @@ const initial_island_size:int = 10
 
 var credits_packed_scene:PackedScene = preload("res://scenes/credits/credits.tscn")
 
+const auto_save_frequency:float = 300
+var time_since_last_auto_save:float = 300
+
+func _process(delta: float) -> void:
+	time_since_last_auto_save -= delta
+	if time_since_last_auto_save <=0:
+		_save_game()
+		time_since_last_auto_save = auto_save_frequency
+		pass
+	pass
+
 func _ready() -> void:
 	
 	terrain_manager.world_size = world_size
