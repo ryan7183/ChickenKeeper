@@ -10,11 +10,13 @@ config_version=5
 
 [application]
 
-config/name="QuickChickenKeeper"
+config/name="ChickenKeeper"
+config/description="Keep chickens."
 run/main_scene="uid://c7fefvusmngpc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
-config/icon="res://icon.svg"
+config/icon="uid://bs0aouldvr5gu"
+config/windows_native_icon="res://assets/icon/icon256x256.ico"
 
 [audio]
 
