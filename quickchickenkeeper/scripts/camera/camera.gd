@@ -6,7 +6,7 @@ enum ZoomState {OUT, IN, NOTHING}
 
 @export var mouse_pan_speed: float = 0.1
 @export var key_pan_speed: float = 20.0
-@export var camera_zoom_speed:float = 0.05
+@export var camera_zoom_speed:float = 0.1
 @export var touch_pan_threshold:float = 5000
 @export var touch_pan_speed:float = 2
 
