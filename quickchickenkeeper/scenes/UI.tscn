@@ -208,6 +208,7 @@ texture_hover = ExtResource("7_24e4x")
 stretch_mode = 5
 
 [node name="SettingsMenu" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(500, 250)
 layout_mode = 1
 anchors_preset = 8
