@@ -490,3 +490,20 @@ File(s):
     * 396016__morganpurkis__rustling-grass-4.wav
 
 ----------------------------------------
+
+Title:
+    Pixel art explosive skull
+
+Author:
+    tbbk   
+
+URL:
+    https://opengameart.org/content/pixel-art-explosive-skull
+	
+License(s):
+    * CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )
+
+File(s):
+    * pixel_exploding_skull.png
+
+----------------------------------------

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bwcqkunpn7eao"]
+[gd_scene load_steps=43 format=3 uid="uid://bwcqkunpn7eao"]
 
 [ext_resource type="Texture2D" uid="uid://bn5mlkk626x8m" path="res://assets/sprites/buttons/GrassButton.png" id="1_dr3ri"]
 [ext_resource type="Script" uid="uid://ck67tay3i3etv" path="res://scripts/credits/credits.gd" id="1_q5p4u"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dcb51k45w7fyt" path="res://assets/audio/terrain_placement/coinsplash.ogg" id="7_17l06"]
 [ext_resource type="Texture2D" uid="uid://d3xlja0r365jm" path="res://assets/sprites/terrain/TilesetGrass/overworld_tileset_grass.png" id="7_mxqwe"]
 [ext_resource type="Texture2D" uid="uid://culqlm5ccbba" path="res://assets/sprites/egg/egg.png" id="9_o5atr"]
+[ext_resource type="Texture2D" uid="uid://c03k0m6hkwe5w" path="res://assets/sprites/skull/skull.png" id="11_ra3eg"]
 [ext_resource type="AudioStream" uid="uid://bha35ftc5v1km" path="res://assets/audio/background_music/apple_cider.ogg" id="13_6gsh7"]
 [ext_resource type="AudioStream" uid="uid://yr7nx2t5414f" path="res://assets/audio/ui_effects/Audio/select_006.ogg" id="14_spr88"]
 [ext_resource type="AudioStream" uid="uid://dtkfgm73cwjm" path="res://assets/audio/ui_effects/Audio/click_001.ogg" id="15_5jxok"]
@@ -163,6 +164,13 @@ image = ExtResource("9_o5atr")
 asset_title = "Egg Item Sprite"
 author = "GoopyBus"
 url = "https://opengameart.org/content/egg-item-sprite"
+
+[node name="ImageCredit7" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
+layout_mode = 2
+image = ExtResource("11_ra3eg")
+asset_title = "Pixel art explosive skull"
+author = "tbbk"
+url = "https://opengameart.org/content/pixel-art-explosive-skull"
 
 [node name="AudioCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8n0nl")]
 layout_mode = 2
