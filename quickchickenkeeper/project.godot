@@ -16,7 +16,7 @@ run/main_scene="uid://c7fefvusmngpc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
 config/icon="uid://bs0aouldvr5gu"
-config/windows_native_icon="res://assets/icon/icon256x256.ico"
+config/windows_native_icon="res://assets/icon/windows/icon256x256.ico"
 
 [audio]
 
