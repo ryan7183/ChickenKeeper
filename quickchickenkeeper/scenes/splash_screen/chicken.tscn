@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2xw8pbb3j3ky"]
+
+[ext_resource type="Texture2D" uid="uid://djftoepo5oh26" path="res://assets/sprites/chicken/Edited/combined.png" id="1_66fs3"]
+[ext_resource type="Script" uid="uid://dgxr0kfs0ap3h" path="res://scenes/splash_screen/chicken.gd" id="2_0ydj6"]
+
+[node name="Chicken" type="Sprite2D"]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_66fs3")
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 24)
+region_filter_clip_enabled = true
+script = ExtResource("2_0ydj6")

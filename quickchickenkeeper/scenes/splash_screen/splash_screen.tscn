@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlt35smn5tclx"]
+
+[ext_resource type="Texture2D" uid="uid://btiswsiaru2si" path="res://icon.svg" id="1_56y5s"]
+[ext_resource type="Script" uid="uid://ydby8potjc8h" path="res://scenes/splash_screen/splash_screen.gd" id="1_fn17j"]
+[ext_resource type="Script" uid="uid://bwy8jlevuet6j" path="res://scenes/splash_screen/chickens.gd" id="2_wuvn5"]
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fn17j")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4, 0.576471, 0.266667, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_56y5s")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -178.0
+offset_top = -69.0
+offset_right = 178.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 50
+text = "Made In Godot"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Chickens" type="Node2D" parent="."]
+script = ExtResource("2_wuvn5")
