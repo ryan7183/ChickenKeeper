@@ -28,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("1_kalox")
 credit_text = "Creator Name
 Asset Name
@@ -47,6 +48,7 @@ offset_right = 214.5
 offset_bottom = 116.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_m8qfs")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
@@ -56,6 +58,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+mouse_filter = 1
 theme_override_font_sizes/font_size = 50
 text = "Creator Name
 Asset Name

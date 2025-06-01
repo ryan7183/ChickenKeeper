@@ -23,6 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("1_53ww4")
 license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
 license_url = "http://creativecommons.org/publicdomain/zero/1.0/legalcode"
@@ -45,6 +46,7 @@ offset_right = 214.5
 offset_bottom = 116.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_53ww4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
@@ -55,18 +57,21 @@ layout_mode = 2
 
 [node name="AssetTitle" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 40
 fit_content = true
 autowrap_mode = 0
 
 [node name="Author" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 40
 fit_content = true
 autowrap_mode = 0
 
 [node name="URL" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[url={\"url\": \"\"}][/url]"
@@ -75,6 +80,7 @@ autowrap_mode = 0
 
 [node name="License" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[url={\"url\": \"http://creativecommons.org/publicdomain/zero/1.0/legalcode\"}]CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )[/url]"

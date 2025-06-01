@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bwcqkunpn7eao"]
+[gd_scene load_steps=44 format=3 uid="uid://bwcqkunpn7eao"]
 
 [ext_resource type="Texture2D" uid="uid://bn5mlkk626x8m" path="res://assets/sprites/buttons/GrassButton.png" id="1_dr3ri"]
 [ext_resource type="Script" uid="uid://ck67tay3i3etv" path="res://scripts/credits/credits.gd" id="1_q5p4u"]
@@ -36,6 +36,7 @@
 [ext_resource type="AudioStream" uid="uid://dvgxo2fsbwr" path="res://assets/audio/background_music/771838__mellotrix9898__warm-hug.mp3" id="31_hfxy3"]
 [ext_resource type="AudioStream" uid="uid://bm1n0fqwurjxk" path="res://assets/audio/background_music/772679__mellotrix9898__joy-park.mp3" id="32_vjx0n"]
 [ext_resource type="AudioStream" uid="uid://pphmpbpxvvtw" path="res://assets/audio/terrain_placement/396016__morganpurkis__rustling-grass-4.wav" id="34_jv7af"]
+[ext_resource type="Texture2D" uid="uid://bcqal5gyid5lq" path="res://assets/engine/logo_vertical_monochrome_light.svg" id="37_ydnl1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydnl1"]
 bg_color = Color(0.843184, 0.843184, 0.843184, 1)
@@ -106,6 +107,7 @@ texture = ExtResource("1_dr3ri")
 stretch_mode = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -412,6 +414,72 @@ author = "morganpurkis"
 url = "https://freesound.org/s/396016/"
 license = "CC0 ( http://creativecommons.org/publicdomain/zero/1.0/legalcode )"
 
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/VBoxContainer/Control"]
+custom_minimum_size = Vector2(1300, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+color = Color(0.283474, 0.364489, 0.477701, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Control/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/Control/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Control/ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/normal_font_size = 30
+text = "This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2014-present Godot Engine contributors.
+Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE."
+
+[node name="TextureRect" type="TextureButton" parent="ScrollContainer/VBoxContainer/Control/ColorRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("37_ydnl1")
+stretch_mode = 3
+
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(250, 150)
 layout_mode = 1
@@ -421,4 +489,5 @@ scale = Vector2(0.99671, 0.991285)
 theme_override_font_sizes/font_size = 50
 text = "Back"
 
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Control/ColorRect/MarginContainer/HBoxContainer/TextureRect" to="." method="_on_texture_rect_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
