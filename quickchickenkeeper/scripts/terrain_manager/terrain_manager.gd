@@ -230,10 +230,20 @@ func apply_save_data(data:Dictionary)->void:
 		pass
 		
 	food_amount = []
+	var temp:int = data["food_amount"].size()
 	food_amount.resize(data["food_amount"].size()as int)
 	for array:Array in data["food_amount"]:
 		food_amount.append(array)
 		pass
-		
+	#for some reason this fixes a bug where the array is the wrong size when passed into another function
+	food_amount = HelperFunctions.one_d_to_two_d_square_array(_food_to_packed(food_amount),100) 
 	grass_grower.update_data(terrain_map, food_amount)
 	pass
+
+
+
+func _food_to_packed(food:Array[Array])->PackedFloat32Array:
+	var new_arr:Array[float]=[]
+	for arr:Array in food:
+		new_arr.append_array(arr)
+	return PackedFloat32Array(new_arr)
