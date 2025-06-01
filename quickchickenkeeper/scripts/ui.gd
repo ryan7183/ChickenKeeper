@@ -1,5 +1,7 @@
 class_name UIOverlay extends Control
 
+
+@export var menu_button:Button
 @export var fence_button:TextureButton
 @export var dirt_button:TextureButton
 @export var water_button:TextureButton
@@ -40,11 +42,14 @@ func _ready() -> void:
 func resize_ui_for_device()->void:
 	var os_name:String = OS.get_name()
 	var button_size:Vector2 = Vector2(64,64)
+	var menu_button_size:Vector2 = Vector2(150,80)
 	match os_name:
 		"Windows","macOS","Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
 			button_size = Vector2(64, 64)
+			menu_button_size = Vector2(150,80)
 		"Android","iOS","Web":
 			button_size = Vector2(128, 128)
+			menu_button_size = Vector2(250,150)
 			fence_button.texture_hover = null
 			dirt_button.texture_hover = null
 			water_button.texture_hover = null
@@ -56,6 +61,7 @@ func resize_ui_for_device()->void:
 	grass_button.custom_minimum_size = button_size
 	remove_fence_button.custom_minimum_size = button_size
 	bottom_button_group.custom_minimum_size.y= button_size.y
+	menu_button.custom_minimum_size = menu_button_size
 	pass
 
 func _update_money_label()->void:
