@@ -1,2 +1,6 @@
 /quickchickenkeeper/recordings
 *.keystore
+quickchickenkeeper/exports/android/ChickenKeeper.aab
+quickchickenkeeper/exports/windows/ChickenKeeper.pck
+*.pck
+*.aab
