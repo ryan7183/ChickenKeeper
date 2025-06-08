@@ -26,7 +26,7 @@ var tile_size:int = 16
 
 var grass_grower:GrassGrower
 var keep_placing_tiles:bool = false
-
+var ignore_setup_fence_map:bool = false
 func _ready() -> void:
 	grass_grower = GrassGrower.new()
 	pass
@@ -43,17 +43,18 @@ func _process(delta: float) -> void:
 	pass
 
 func _create_fence_map()->void:
-	fence_map= []
-	fence_map.resize(world_size.x)
-	for x:int in range(world_size.x):
-		var col:Array[bool] = []
-		col.resize(world_size.y)
-		for y:int in range(world_size.y):
-			col[y] = false
+	if !ignore_setup_fence_map:
+		fence_map= []
+		fence_map.resize(world_size.x)
+		for x:int in range(world_size.x):
+			var col:Array[bool] = []
+			col.resize(world_size.y)
+			for y:int in range(world_size.y):
+				col[y] = false
+				pass
+			fence_map[x] = col
 			pass
-		fence_map[x] = col
 		pass
-	pass
 
 func make_sea()->void:
 	var excess:int = 10
@@ -207,13 +208,13 @@ func generate_initial_island()->void:
 	pass
 
 func get_save_data()->Dictionary:
-
-	return {
+	var data:Dictionary =  {
 		"terrain_map" : terrain_map,
 		"fence_map":fence_map,
 		"food_amount":food_amount,
 		
 	}
+	return data
 
 func apply_save_data(data:Dictionary)->void:
 	terrain_map = []#data["terrain_map"] as Array[Array]
@@ -223,12 +224,24 @@ func apply_save_data(data:Dictionary)->void:
 			col.append(value)
 		terrain_map.append(col)
 		
-	fence_map = []#data["fence_map"] as  Array
-	fence_map.resize(data["fence_map"].size() as int)
-	for array:Array in data["fence_map"]:
-		fence_map.append(array)
-		pass
-		
+	var temp_fence_map:Array= (data["fence_map"]).duplicate(true)#[]#data["fence_map"] as  Array
+	#temp_fence_map.resize(data["fence_map"].size() as int)
+	#for array:Array[bool] in data["fence_map"] as Array[Array]:
+	#	temp_fence_map.append(array)
+	#	pass
+	fence_map.clear()
+	fence_map.resize(temp_fence_map.size())
+	for x:int in temp_fence_map.size():
+		fence_map[x].resize(temp_fence_map[x].size())
+		for y:int in temp_fence_map[x].size():
+			var value:bool = temp_fence_map[x][y]
+			fence_map[x][y] = value
+			if value == true:
+				fence_tile_map.set_cells_terrain_connect([Vector2i(x,y)],0,0,false)
+			pass
+	ignore_setup_fence_map = true
+	#fence_map.assign(temp_fence_map)
+	#fence_map = HelperFunctions.one_d_to_two_d_square_array(_fence_to_packed(fence_map).duplicate(),100)
 	food_amount = []
 	var temp:int = data["food_amount"].size()
 	food_amount.resize(data["food_amount"].size()as int)
@@ -240,6 +253,12 @@ func apply_save_data(data:Dictionary)->void:
 	grass_grower.update_data(terrain_map, food_amount)
 	pass
 
+func _fence_to_packed(fence:Array[Array])->PackedInt32Array:
+	var new_arr:Array[bool]=[]
+	for arr:Array in fence:
+		new_arr.append_array(arr)
+	return PackedInt32Array(new_arr)
+	pass
 
 
 func _food_to_packed(food:Array[Array])->PackedFloat32Array:
