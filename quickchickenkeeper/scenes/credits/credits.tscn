@@ -123,7 +123,9 @@ size_flags_vertical = 3
 
 [node name="RoleCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_8ggla")]
 layout_mode = 2
-credit_text = "Game Creator: Ryan Seguin"
+credit_text = "Game Creator:
+ Ryan Seguin"
+link_url = "www.ryanseguin.ca"
 
 [node name="ImageCredit" parent="ScrollContainer/VBoxContainer" instance=ExtResource("3_huu5m")]
 layout_mode = 2
