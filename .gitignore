@@ -5,3 +5,5 @@ quickchickenkeeper/exports/windows/ChickenKeeper.pck
 *.pck
 *.aab
 *.apk
+*.aab
+/quickchickenkeeper/exports

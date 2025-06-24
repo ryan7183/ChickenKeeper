@@ -405,10 +405,10 @@ step = 0.05
 stream = ExtResource("12_7paak")
 bus = &"UI_Effects"
 
-[connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_disable_tile_placement"]
-[connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_enable_tile_placement"]
+[connection signal="mouse_exited" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/TopBar/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/PopupUI/SellItemDropBox" to="." method="_on_sell_item_drop_box_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/PopupUI/SellItemDropBox" to="." method="_on_sell_item_drop_box_mouse_exited"]

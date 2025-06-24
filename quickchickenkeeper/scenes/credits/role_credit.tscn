@@ -29,7 +29,6 @@ credit_text = "Creator Name
 Asset Name
 Asset Link"
 credit_label = NodePath("PanelContainer/HBoxContainer/Label")
-link_url = null
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -56,9 +55,9 @@ size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "Creator Name
+text = "[url={\"url\": \"\"}]Creator Name
 Asset Name
-Asset Link"
+Asset Link[/url]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
