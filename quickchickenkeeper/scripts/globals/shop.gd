@@ -67,3 +67,9 @@ func sell_chicken()->void:
 	money+=chicken_sell_value
 	item_sold.emit()
 	money_changed.emit()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("AddMoney") and HelperFunctions.is_debug():
+		money+= 1000
+		money_changed.emit()
+		pass

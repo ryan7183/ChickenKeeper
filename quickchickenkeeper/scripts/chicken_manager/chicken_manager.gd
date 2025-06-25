@@ -349,6 +349,9 @@ func _input(event: InputEvent) -> void:
 			add_child(draggable_instance)
 			item_being_dragged.emit()
 			pass
+	if event.is_action_pressed("SpawnChickens") and HelperFunctions.is_debug():
+		spawn_initial_chickens()
+		pass
 	
 	if event.is_action_pressed("PickUpEgg") and !dragging_item and !disable_dragging_items: 
 		var mouse_pos:Vector2 = get_global_mouse_position()

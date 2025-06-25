@@ -1,5 +1,8 @@
 extends Node
 
+func is_debug()->bool:
+	return false
+
 func byte_array_to_vec2_array(bytes:PackedByteArray, size:int)->Array[Vector2]:
 	var decoded :Array = bytes.to_float32_array()
 	var arr: Array[Vector2] = []
